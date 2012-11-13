@@ -1,0 +1,5567 @@
+	.version 1.4
+	.target sm_10, map_f64_to_f32
+	// compiled with /Developer/NVIDIA/CUDA-5.0/bin/../open64/lib//be
+	// nvopencc 4.1 built on 2012-08-03
+
+	//-----------------------------------------------------------
+	// Compiling test-kernel-words.cpp3.i (/var/folders/9h/slbgkx016d1c2ts8m96v1x0r0000gn/T/ccBI#.w476Jo)
+	//-----------------------------------------------------------
+
+	//-----------------------------------------------------------
+	// Options:
+	//-----------------------------------------------------------
+	//  Target:ptx, ISA:sm_10, Endian:little, Pointer Size:32
+	//  -O3	(Optimization level)
+	//  -g0	(Debug level)
+	//  -m2	(Report advisories)
+	//-----------------------------------------------------------
+
+	.file	1	"<command-line>"
+	.file	2	"test-kernel-words.cudafe2.gpu"
+	.file	3	"test-kernel-words.cu"
+	.file	4	"/usr/llvm-gcc-4.2/bin/../lib/gcc/i686-apple-darwin11/4.2.1/include/stddef.h"
+	.file	5	"/Developer/NVIDIA/CUDA-5.0/bin/../include/crt/device_runtime.h"
+	.file	6	"/Developer/NVIDIA/CUDA-5.0/bin/../include/host_defines.h"
+	.file	7	"/Developer/NVIDIA/CUDA-5.0/bin/../include/builtin_types.h"
+	.file	8	"/Developer/NVIDIA/CUDA-5.0/bin/../include/device_types.h"
+	.file	9	"/Developer/NVIDIA/CUDA-5.0/bin/../include/driver_types.h"
+	.file	10	"/Developer/NVIDIA/CUDA-5.0/bin/../include/surface_types.h"
+	.file	11	"/Developer/NVIDIA/CUDA-5.0/bin/../include/texture_types.h"
+	.file	12	"/Developer/NVIDIA/CUDA-5.0/bin/../include/vector_types.h"
+	.file	13	"/Developer/NVIDIA/CUDA-5.0/bin/../include/device_launch_parameters.h"
+	.file	14	"/Developer/NVIDIA/CUDA-5.0/bin/../include/crt/storage_class.h"
+	.file	15	"/Developer/NVIDIA/CUDA-5.0/bin/../include/common_functions.h"
+	.file	16	"/Developer/NVIDIA/CUDA-5.0/bin/../include/math_functions.h"
+	.file	17	"/Developer/NVIDIA/CUDA-5.0/bin/../include/math_constants.h"
+	.file	18	"/Developer/NVIDIA/CUDA-5.0/bin/../include/device_functions.h"
+	.file	19	"/Developer/NVIDIA/CUDA-5.0/bin/../include/sm_11_atomic_functions.h"
+	.file	20	"/Developer/NVIDIA/CUDA-5.0/bin/../include/sm_12_atomic_functions.h"
+	.file	21	"/Developer/NVIDIA/CUDA-5.0/bin/../include/sm_13_double_functions.h"
+	.file	22	"/Developer/NVIDIA/CUDA-5.0/bin/../include/sm_20_atomic_functions.h"
+	.file	23	"/Developer/NVIDIA/CUDA-5.0/bin/../include/sm_35_atomic_functions.h"
+	.file	24	"/Developer/NVIDIA/CUDA-5.0/bin/../include/sm_20_intrinsics.h"
+	.file	25	"/Developer/NVIDIA/CUDA-5.0/bin/../include/sm_30_intrinsics.h"
+	.file	26	"/Developer/NVIDIA/CUDA-5.0/bin/../include/sm_35_intrinsics.h"
+	.file	27	"/Developer/NVIDIA/CUDA-5.0/bin/../include/surface_functions.h"
+	.file	28	"/Developer/NVIDIA/CUDA-5.0/bin/../include/texture_fetch_functions.h"
+	.file	29	"/Developer/NVIDIA/CUDA-5.0/bin/../include/texture_indirect_functions.h"
+	.file	30	"/Developer/NVIDIA/CUDA-5.0/bin/../include/surface_indirect_functions.h"
+	.file	31	"/Developer/NVIDIA/CUDA-5.0/bin/../include/math_functions_dbl_ptx1.h"
+
+
+	.entry _Z10testKernelPhPc (
+		.param .u32 __cudaparm__Z10testKernelPhPc_hash_to_break,
+		.param .u32 __cudaparm__Z10testKernelPhPc_hash_word)
+	{
+	.reg .u16 %rh<143>;
+	.reg .u32 %r<3981>;
+	.reg .pred %p<74>;
+	.shared .align 1 .b8 __cuda___cuda_local_var_38687_40_non_const_pad8[64];
+	.local .align 4 .b8 __cuda___cuda_local_var_38708_15_non_const_state_4072[88];
+	.local .align 4 .b8 __cuda___cuda_local_var_38410_14_non_const_xbuf_140160[64];
+	.local .align 1 .b8 __cuda___cuda_local_var_38693_8_non_const_word_320[4];
+	.local .align 1 .b8 __cuda___cuda_local_var_38728_20_non_const_data_1284[8];
+	.loc	3	428	0
+$LDWbegin__Z10testKernelPhPc:
+	.loc	3	433	0
+	ld.param.u32 	%r1, [__cudaparm__Z10testKernelPhPc_hash_to_break];
+	ld.global.u8 	%rh1, [%r1+0];
+	mov.u16 	%rh2, %rh1;
+	ld.global.u8 	%rh3, [%r1+1];
+	mov.u16 	%rh4, %rh3;
+	ld.global.u8 	%rh5, [%r1+2];
+	mov.u16 	%rh6, %rh5;
+	ld.global.u8 	%rh7, [%r1+3];
+	mov.u16 	%rh8, %rh7;
+	ld.global.u8 	%rh9, [%r1+4];
+	mov.u16 	%rh10, %rh9;
+	ld.global.u8 	%rh11, [%r1+5];
+	mov.u16 	%rh12, %rh11;
+	ld.global.u8 	%rh13, [%r1+6];
+	mov.u16 	%rh14, %rh13;
+	ld.global.u8 	%rh15, [%r1+7];
+	mov.u16 	%rh16, %rh15;
+	ld.global.u8 	%rh17, [%r1+8];
+	mov.u16 	%rh18, %rh17;
+	ld.global.u8 	%rh19, [%r1+9];
+	mov.u16 	%rh20, %rh19;
+	ld.global.u8 	%rh21, [%r1+10];
+	mov.u16 	%rh22, %rh21;
+	ld.global.u8 	%rh23, [%r1+11];
+	mov.u16 	%rh24, %rh23;
+	ld.global.u8 	%rh25, [%r1+12];
+	mov.u16 	%rh26, %rh25;
+	ld.global.u8 	%rh27, [%r1+13];
+	mov.u16 	%rh28, %rh27;
+	ld.global.u8 	%rh29, [%r1+14];
+	mov.u16 	%rh30, %rh29;
+	ld.global.u8 	%rh31, [%r1+15];
+	mov.u16 	%rh32, %rh31;
+	.loc	3	444	0
+	mov.u16 	%rh33, 128;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+0], %rh33;
+	.loc	3	446	0
+	mov.u16 	%rh34, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+1], %rh34;
+	mov.u16 	%rh35, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+2], %rh35;
+	mov.u16 	%rh36, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+3], %rh36;
+	mov.u16 	%rh37, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+4], %rh37;
+	mov.u16 	%rh38, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+5], %rh38;
+	mov.u16 	%rh39, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+6], %rh39;
+	mov.u16 	%rh40, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+7], %rh40;
+	mov.u16 	%rh41, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+8], %rh41;
+	mov.u16 	%rh42, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+9], %rh42;
+	mov.u16 	%rh43, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+10], %rh43;
+	mov.u16 	%rh44, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+11], %rh44;
+	mov.u16 	%rh45, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+12], %rh45;
+	mov.u16 	%rh46, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+13], %rh46;
+	mov.u16 	%rh47, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+14], %rh47;
+	mov.u16 	%rh48, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+15], %rh48;
+	mov.u16 	%rh49, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+16], %rh49;
+	mov.u16 	%rh50, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+17], %rh50;
+	mov.u16 	%rh51, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+18], %rh51;
+	mov.u16 	%rh52, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+19], %rh52;
+	mov.u16 	%rh53, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+20], %rh53;
+	mov.u16 	%rh54, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+21], %rh54;
+	mov.u16 	%rh55, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+22], %rh55;
+	mov.u16 	%rh56, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+23], %rh56;
+	mov.u16 	%rh57, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+24], %rh57;
+	mov.u16 	%rh58, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+25], %rh58;
+	mov.u16 	%rh59, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+26], %rh59;
+	mov.u16 	%rh60, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+27], %rh60;
+	mov.u16 	%rh61, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+28], %rh61;
+	mov.u16 	%rh62, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+29], %rh62;
+	mov.u16 	%rh63, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+30], %rh63;
+	mov.u16 	%rh64, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+31], %rh64;
+	mov.u16 	%rh65, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+32], %rh65;
+	mov.u16 	%rh66, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+33], %rh66;
+	mov.u16 	%rh67, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+34], %rh67;
+	mov.u16 	%rh68, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+35], %rh68;
+	mov.u16 	%rh69, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+36], %rh69;
+	mov.u16 	%rh70, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+37], %rh70;
+	mov.u16 	%rh71, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+38], %rh71;
+	mov.u16 	%rh72, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+39], %rh72;
+	mov.u16 	%rh73, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+40], %rh73;
+	mov.u16 	%rh74, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+41], %rh74;
+	mov.u16 	%rh75, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+42], %rh75;
+	mov.u16 	%rh76, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+43], %rh76;
+	mov.u16 	%rh77, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+44], %rh77;
+	mov.u16 	%rh78, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+45], %rh78;
+	mov.u16 	%rh79, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+46], %rh79;
+	mov.u16 	%rh80, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+47], %rh80;
+	mov.u16 	%rh81, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+48], %rh81;
+	mov.u16 	%rh82, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+49], %rh82;
+	mov.u16 	%rh83, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+50], %rh83;
+	mov.u16 	%rh84, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+51], %rh84;
+	mov.u16 	%rh85, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+52], %rh85;
+	mov.u16 	%rh86, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+53], %rh86;
+	mov.u16 	%rh87, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+54], %rh87;
+	mov.u16 	%rh88, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+55], %rh88;
+	mov.u16 	%rh89, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+56], %rh89;
+	mov.u16 	%rh90, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+57], %rh90;
+	mov.u16 	%rh91, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+58], %rh91;
+	mov.u16 	%rh92, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+59], %rh92;
+	mov.u16 	%rh93, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+60], %rh93;
+	mov.u16 	%rh94, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+61], %rh94;
+	mov.u16 	%rh95, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+62], %rh95;
+	mov.u16 	%rh96, 0;
+	st.shared.u8 	[__cuda___cuda_local_var_38687_40_non_const_pad8+63], %rh96;
+	.loc	3	450	0
+	mov.u16 	%rh97, %tid.x;
+	add.s16 	%rh98, %rh97, 32;
+	st.local.s8 	[__cuda___cuda_local_var_38693_8_non_const_word_320+0], %rh98;
+	.loc	3	451	0
+	mov.s16 	%rh99, 32;
+	st.local.s8 	[__cuda___cuda_local_var_38693_8_non_const_word_320+1], %rh99;
+	.loc	3	452	0
+	mov.s16 	%rh100, 32;
+	st.local.s8 	[__cuda___cuda_local_var_38693_8_non_const_word_320+2], %rh100;
+	.loc	3	453	0
+	mov.s16 	%rh101, 32;
+	st.local.s8 	[__cuda___cuda_local_var_38693_8_non_const_word_320+3], %rh101;
+	.loc	3	462	0
+	mov.s16 	%rh102, 0;
+	mov.s16 	%rh103, %rh102;
+	mov.u32 	%r2, 0;
+	mov.u32 	%r3, 0;
+	mov.s32 	%r4, 0;
+	setp.ne.s32 	%p1, %r3, %r4;
+	mov.s32 	%r5, 32;
+	mov.u32 	%r6, __cuda___cuda_local_var_38708_15_non_const_state_4072;
+	mov.u32 	%r7, __cuda___cuda_local_var_38687_40_non_const_pad8;
+	mov.u32 	%r8, __cuda___cuda_local_var_38728_20_non_const_data_1284;
+	mov.u32 	%r9, __cuda___cuda_local_var_38693_8_non_const_word_320;
+$Lt_0_37890:
+ //<loop> Loop body line 462, nesting depth: 1, iterations: 10
+	.loc	3	469	0
+	st.local.s8 	[__cuda___cuda_local_var_38693_8_non_const_word_320+1], %r5;
+	mov.s32 	%r10, 32;
+$Lt_0_38658:
+ //<loop> Loop body line 469, nesting depth: 2, iterations: 10
+	.loc	3	471	0
+	st.local.s8 	[__cuda___cuda_local_var_38693_8_non_const_word_320+2], %r10;
+	mov.s32 	%r11, 32;
+$Lt_0_39426:
+ //<loop> Loop body line 471, nesting depth: 3, iterations: 10
+	.loc	3	473	0
+	st.local.s8 	[__cuda___cuda_local_var_38693_8_non_const_word_320+3], %r11;
+	.loc	3	475	0
+	mov.u32 	%r12, 0;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+4], %r12;
+	mov.u32 	%r13, 0;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+0], %r13;
+	.loc	3	476	0
+	mov.u32 	%r14, 1732584193;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+8], %r14;
+	.loc	3	477	0
+	mov.u32 	%r15, -271733879;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+12], %r15;
+	.loc	3	478	0
+	mov.u32 	%r16, -1732584194;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+16], %r16;
+	.loc	3	479	0
+	mov.u32 	%r17, 271733878;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+20], %r17;
+	.loc	3	277	0
+	mov.u32 	%r18, 0;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+4], %r18;
+	.loc	3	278	0
+	mov.u32 	%r19, 32;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+0], %r19;
+	.loc	3	277	0
+	mov.u32 	%r20, 0;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+4], %r20;
+	@!%p1 bra 	$Lt_0_39938;
+	add.s32 	%r21, %r3, 4;
+	mov.s32 	%r22, 64;
+	sub.s32 	%r23, %r22, %r3;
+	mov.s32 	%r24, 64;
+	setp.gt.s32 	%p2, %r21, %r24;
+	mov.s32 	%r25, 4;
+	selp.s32 	%r26, %r23, %r25, %p2;
+	mov.u32 	%r27, 0;
+	setp.le.s32 	%p3, %r26, %r27;
+	@%p3 bra 	$Lt_0_40194;
+	mov.s32 	%r28, %r26;
+	mov.u32 	%r29, __cuda___cuda_local_var_38693_8_non_const_word_320;
+	add.u32 	%r30, %r3, %r6;
+	mov.s32 	%r31, %r30;
+	add.s32 	%r32, %r26, %r9;
+	mov.s32 	%r33, %r28;
+$Lt_0_40706:
+ //<loop> Loop body line 277, nesting depth: 4, estimated iterations: unknown
+	ld.local.u8 	%rh104, [%r29+0];
+	st.local.u8 	[%r31+24], %rh104;
+	add.s32 	%r31, %r31, 1;
+	add.s32 	%r29, %r29, 1;
+	setp.ne.s32 	%p4, %r29, %r32;
+	@%p4 bra 	$Lt_0_40706;
+$Lt_0_40194:
+	add.s32 	%r34, %r26, %r3;
+	mov.u32 	%r35, 63;
+	setp.le.s32 	%p5, %r34, %r35;
+	@%p5 bra 	$Lt_0_46850;
+	.loc	3	291	0
+	add.u32 	%r36, %r26, %r9;
+	.loc	3	292	0
+	mov.s32 	%r37, 4;
+	sub.s32 	%r38, %r37, %r26;
+	.loc	3	108	0
+	ld.local.u32 	%r14, [__cuda___cuda_local_var_38708_15_non_const_state_4072+8];
+	mov.s32 	%r39, %r14;
+	ld.local.u32 	%r15, [__cuda___cuda_local_var_38708_15_non_const_state_4072+12];
+	mov.s32 	%r40, %r15;
+	ld.local.u32 	%r16, [__cuda___cuda_local_var_38708_15_non_const_state_4072+16];
+	mov.s32 	%r41, %r16;
+	ld.local.u32 	%r17, [__cuda___cuda_local_var_38708_15_non_const_state_4072+20];
+	mov.s32 	%r42, %r17;
+	mov.s32 	%r43, 1;
+	mov.u32 	%r44, 1;
+	mov.u32 	%r45, 0;
+	setp.eq.u32 	%p6, %r44, %r45;
+	@%p6 bra 	$Lt_0_41474;
+	add.u32 	%r46, %r6, 24;
+	and.b32 	%r47, %r46, 3;
+	mov.u32 	%r48, 0;
+	setp.ne.s32 	%p7, %r47, %r48;
+	@%p7 bra 	$Lt_0_41986;
+	.loc	3	130	0
+	mov.s32 	%r49, %r46;
+	mov.s32 	%r50, %r49;
+	bra.uni 	$Lt_0_41218;
+$Lt_0_41986:
+	.loc	3	133	0
+	mov.s32 	%r51, %r46;
+	mov.u32 	%r52, __cuda___cuda_local_var_38410_14_non_const_xbuf_140160;
+	mov.s32 	%r53, 64;
+$Lt_0_42754:
+ //<loop> Loop body line 133, nesting depth: 4, iterations: 64
+	ld.local.u8 	%rh105, [%r51+0];
+	st.local.u8 	[%r52+0], %rh105;
+	add.u32 	%r51, %r51, 1;
+	add.u32 	%r52, %r52, 1;
+	sub.s32 	%r53, %r53, 1;
+	mov.u32 	%r54, 0;
+	setp.ne.s32 	%p8, %r53, %r54;
+	@%p8 bra 	$Lt_0_42754;
+	.loc	3	134	0
+	mov.u32 	%r49, __cuda___cuda_local_var_38410_14_non_const_xbuf_140160;
+	mov.s32 	%r50, %r49;
+	ld.local.u32 	%r17, [__cuda___cuda_local_var_38708_15_non_const_state_4072+20];
+	ld.local.u32 	%r16, [__cuda___cuda_local_var_38708_15_non_const_state_4072+16];
+	ld.local.u32 	%r15, [__cuda___cuda_local_var_38708_15_non_const_state_4072+12];
+	ld.local.u32 	%r14, [__cuda___cuda_local_var_38708_15_non_const_state_4072+8];
+	bra.uni 	$Lt_0_41218;
+$Lt_0_41474:
+	mov.s32 	%r49, %r50;
+$Lt_0_41218:
+	.loc	3	149	0
+	ld.global.u32 	%r55, [%r49+0];
+	and.b32 	%r56, %r40, %r41;
+	not.b32 	%r57, %r40;
+	and.b32 	%r58, %r42, %r57;
+	or.b32 	%r59, %r56, %r58;
+	add.u32 	%r60, %r39, %r59;
+	add.u32 	%r61, %r55, %r60;
+	sub.u32 	%r62, %r61, 680876936;
+	shr.u32 	%r63, %r62, 25;
+	shl.b32 	%r64, %r62, 7;
+	add.u32 	%r65, %r63, %r64;
+	add.u32 	%r66, %r65, %r40;
+	.loc	3	150	0
+	ld.global.u32 	%r67, [%r49+4];
+	and.b32 	%r68, %r66, %r40;
+	not.b32 	%r69, %r66;
+	and.b32 	%r70, %r41, %r69;
+	or.b32 	%r71, %r68, %r70;
+	add.u32 	%r72, %r42, %r71;
+	add.u32 	%r73, %r67, %r72;
+	sub.u32 	%r74, %r73, 389564586;
+	shr.u32 	%r75, %r74, 20;
+	shl.b32 	%r76, %r74, 12;
+	add.u32 	%r77, %r75, %r76;
+	add.u32 	%r78, %r77, %r66;
+	.loc	3	151	0
+	ld.global.u32 	%r79, [%r49+8];
+	and.b32 	%r80, %r78, %r66;
+	not.b32 	%r81, %r78;
+	and.b32 	%r82, %r40, %r81;
+	or.b32 	%r83, %r80, %r82;
+	add.u32 	%r84, %r41, %r83;
+	add.u32 	%r85, %r79, %r84;
+	add.u32 	%r86, %r85, 606105819;
+	shr.u32 	%r87, %r86, 15;
+	shl.b32 	%r88, %r86, 17;
+	add.u32 	%r89, %r87, %r88;
+	add.u32 	%r90, %r89, %r78;
+	.loc	3	152	0
+	ld.global.u32 	%r91, [%r49+12];
+	and.b32 	%r92, %r90, %r78;
+	not.b32 	%r93, %r90;
+	and.b32 	%r94, %r66, %r93;
+	or.b32 	%r95, %r92, %r94;
+	add.u32 	%r96, %r40, %r95;
+	add.u32 	%r97, %r91, %r96;
+	sub.u32 	%r98, %r97, 1044525330;
+	shr.u32 	%r99, %r98, 10;
+	shl.b32 	%r100, %r98, 22;
+	add.u32 	%r101, %r99, %r100;
+	add.u32 	%r102, %r101, %r90;
+	.loc	3	153	0
+	ld.global.u32 	%r103, [%r49+16];
+	and.b32 	%r104, %r102, %r90;
+	not.b32 	%r105, %r102;
+	and.b32 	%r106, %r78, %r105;
+	or.b32 	%r107, %r104, %r106;
+	add.u32 	%r108, %r66, %r107;
+	add.u32 	%r109, %r103, %r108;
+	sub.u32 	%r110, %r109, 176418897;
+	shr.u32 	%r111, %r110, 25;
+	shl.b32 	%r112, %r110, 7;
+	add.u32 	%r113, %r111, %r112;
+	add.u32 	%r114, %r113, %r102;
+	.loc	3	154	0
+	ld.global.u32 	%r115, [%r49+20];
+	and.b32 	%r116, %r114, %r102;
+	not.b32 	%r117, %r114;
+	and.b32 	%r118, %r90, %r117;
+	or.b32 	%r119, %r116, %r118;
+	add.u32 	%r120, %r78, %r119;
+	add.u32 	%r121, %r115, %r120;
+	add.u32 	%r122, %r121, 1200080426;
+	shr.u32 	%r123, %r122, 20;
+	shl.b32 	%r124, %r122, 12;
+	add.u32 	%r125, %r123, %r124;
+	add.u32 	%r126, %r125, %r114;
+	.loc	3	155	0
+	ld.global.u32 	%r127, [%r49+24];
+	and.b32 	%r128, %r126, %r114;
+	not.b32 	%r129, %r126;
+	and.b32 	%r130, %r102, %r129;
+	or.b32 	%r131, %r128, %r130;
+	add.u32 	%r132, %r90, %r131;
+	add.u32 	%r133, %r127, %r132;
+	sub.u32 	%r134, %r133, 1473231341;
+	shr.u32 	%r135, %r134, 15;
+	shl.b32 	%r136, %r134, 17;
+	add.u32 	%r137, %r135, %r136;
+	add.u32 	%r138, %r137, %r126;
+	.loc	3	156	0
+	ld.global.u32 	%r139, [%r49+28];
+	and.b32 	%r140, %r138, %r126;
+	not.b32 	%r141, %r138;
+	and.b32 	%r142, %r114, %r141;
+	or.b32 	%r143, %r140, %r142;
+	add.u32 	%r144, %r102, %r143;
+	add.u32 	%r145, %r139, %r144;
+	sub.u32 	%r146, %r145, 45705983;
+	shr.u32 	%r147, %r146, 10;
+	shl.b32 	%r148, %r146, 22;
+	add.u32 	%r149, %r147, %r148;
+	add.u32 	%r150, %r149, %r138;
+	.loc	3	157	0
+	ld.global.u32 	%r151, [%r49+32];
+	and.b32 	%r152, %r150, %r138;
+	not.b32 	%r153, %r150;
+	and.b32 	%r154, %r126, %r153;
+	or.b32 	%r155, %r152, %r154;
+	add.u32 	%r156, %r114, %r155;
+	add.u32 	%r157, %r151, %r156;
+	add.u32 	%r158, %r157, 1770035416;
+	shr.u32 	%r159, %r158, 25;
+	shl.b32 	%r160, %r158, 7;
+	add.u32 	%r161, %r159, %r160;
+	add.u32 	%r162, %r161, %r150;
+	.loc	3	158	0
+	ld.global.u32 	%r163, [%r49+36];
+	and.b32 	%r164, %r162, %r150;
+	not.b32 	%r165, %r162;
+	and.b32 	%r166, %r138, %r165;
+	or.b32 	%r167, %r164, %r166;
+	add.u32 	%r168, %r126, %r167;
+	add.u32 	%r169, %r163, %r168;
+	sub.u32 	%r170, %r169, 1958414417;
+	shr.u32 	%r171, %r170, 20;
+	shl.b32 	%r172, %r170, 12;
+	add.u32 	%r173, %r171, %r172;
+	add.u32 	%r174, %r173, %r162;
+	.loc	3	159	0
+	ld.global.u32 	%r175, [%r49+40];
+	and.b32 	%r176, %r174, %r162;
+	not.b32 	%r177, %r174;
+	and.b32 	%r178, %r150, %r177;
+	or.b32 	%r179, %r176, %r178;
+	add.u32 	%r180, %r138, %r179;
+	add.u32 	%r181, %r175, %r180;
+	sub.u32 	%r182, %r181, 42063;
+	shr.u32 	%r183, %r182, 15;
+	shl.b32 	%r184, %r182, 17;
+	add.u32 	%r185, %r183, %r184;
+	add.u32 	%r186, %r185, %r174;
+	.loc	3	160	0
+	ld.global.u32 	%r187, [%r49+44];
+	and.b32 	%r188, %r186, %r174;
+	not.b32 	%r189, %r186;
+	and.b32 	%r190, %r162, %r189;
+	or.b32 	%r191, %r188, %r190;
+	add.u32 	%r192, %r150, %r191;
+	add.u32 	%r193, %r187, %r192;
+	sub.u32 	%r194, %r193, 1990404162;
+	shr.u32 	%r195, %r194, 10;
+	shl.b32 	%r196, %r194, 22;
+	add.u32 	%r197, %r195, %r196;
+	add.u32 	%r198, %r197, %r186;
+	.loc	3	161	0
+	ld.global.u32 	%r199, [%r49+48];
+	and.b32 	%r200, %r198, %r186;
+	not.b32 	%r201, %r198;
+	and.b32 	%r202, %r174, %r201;
+	or.b32 	%r203, %r200, %r202;
+	add.u32 	%r204, %r162, %r203;
+	add.u32 	%r205, %r199, %r204;
+	add.u32 	%r206, %r205, 1804603682;
+	shr.u32 	%r207, %r206, 25;
+	shl.b32 	%r208, %r206, 7;
+	add.u32 	%r209, %r207, %r208;
+	add.u32 	%r210, %r209, %r198;
+	.loc	3	162	0
+	ld.global.u32 	%r211, [%r49+52];
+	and.b32 	%r212, %r210, %r198;
+	not.b32 	%r213, %r210;
+	and.b32 	%r214, %r186, %r213;
+	or.b32 	%r215, %r212, %r214;
+	add.u32 	%r216, %r174, %r215;
+	add.u32 	%r217, %r211, %r216;
+	sub.u32 	%r218, %r217, 40341101;
+	shr.u32 	%r219, %r218, 20;
+	shl.b32 	%r220, %r218, 12;
+	add.u32 	%r221, %r219, %r220;
+	add.u32 	%r222, %r221, %r210;
+	.loc	3	163	0
+	ld.global.u32 	%r223, [%r49+56];
+	not.b32 	%r224, %r222;
+	and.b32 	%r225, %r224, %r198;
+	and.b32 	%r226, %r222, %r210;
+	or.b32 	%r227, %r225, %r226;
+	add.u32 	%r228, %r186, %r227;
+	add.u32 	%r229, %r223, %r228;
+	sub.u32 	%r230, %r229, 1502002290;
+	shr.u32 	%r231, %r230, 15;
+	shl.b32 	%r232, %r230, 17;
+	add.u32 	%r233, %r231, %r232;
+	add.u32 	%r234, %r233, %r222;
+	.loc	3	164	0
+	ld.global.u32 	%r235, [%r49+60];
+	not.b32 	%r236, %r234;
+	and.b32 	%r237, %r236, %r210;
+	and.b32 	%r238, %r234, %r222;
+	or.b32 	%r239, %r237, %r238;
+	add.u32 	%r240, %r198, %r239;
+	add.u32 	%r241, %r235, %r240;
+	add.u32 	%r242, %r241, 1236535329;
+	shr.u32 	%r243, %r242, 10;
+	shl.b32 	%r244, %r242, 22;
+	add.u32 	%r245, %r243, %r244;
+	add.u32 	%r246, %r245, %r234;
+	.loc	3	175	0
+	and.b32 	%r247, %r246, %r222;
+	and.b32 	%r248, %r234, %r224;
+	or.b32 	%r249, %r247, %r248;
+	add.u32 	%r250, %r210, %r249;
+	add.u32 	%r251, %r67, %r250;
+	sub.u32 	%r252, %r251, 165796510;
+	shr.u32 	%r253, %r252, 27;
+	shl.b32 	%r254, %r252, 5;
+	add.u32 	%r255, %r253, %r254;
+	add.u32 	%r256, %r255, %r246;
+	.loc	3	176	0
+	and.b32 	%r257, %r256, %r234;
+	and.b32 	%r258, %r246, %r236;
+	or.b32 	%r259, %r257, %r258;
+	add.u32 	%r260, %r222, %r259;
+	add.u32 	%r261, %r127, %r260;
+	sub.u32 	%r262, %r261, 1069501632;
+	shr.u32 	%r263, %r262, 23;
+	shl.b32 	%r264, %r262, 9;
+	add.u32 	%r265, %r263, %r264;
+	add.u32 	%r266, %r265, %r256;
+	.loc	3	177	0
+	and.b32 	%r267, %r266, %r246;
+	not.b32 	%r268, %r246;
+	and.b32 	%r269, %r256, %r268;
+	or.b32 	%r270, %r267, %r269;
+	add.u32 	%r271, %r234, %r270;
+	add.u32 	%r272, %r187, %r271;
+	add.u32 	%r273, %r272, 643717713;
+	shr.u32 	%r274, %r273, 18;
+	shl.b32 	%r275, %r273, 14;
+	add.u32 	%r276, %r274, %r275;
+	add.u32 	%r277, %r276, %r266;
+	.loc	3	178	0
+	and.b32 	%r278, %r277, %r256;
+	not.b32 	%r279, %r256;
+	and.b32 	%r280, %r266, %r279;
+	or.b32 	%r281, %r278, %r280;
+	add.u32 	%r282, %r246, %r281;
+	add.u32 	%r283, %r55, %r282;
+	sub.u32 	%r284, %r283, 373897302;
+	shr.u32 	%r285, %r284, 12;
+	shl.b32 	%r286, %r284, 20;
+	add.u32 	%r287, %r285, %r286;
+	add.u32 	%r288, %r287, %r277;
+	.loc	3	179	0
+	and.b32 	%r289, %r288, %r266;
+	not.b32 	%r290, %r266;
+	and.b32 	%r291, %r277, %r290;
+	or.b32 	%r292, %r289, %r291;
+	add.u32 	%r293, %r256, %r292;
+	add.u32 	%r294, %r115, %r293;
+	sub.u32 	%r295, %r294, 701558691;
+	shr.u32 	%r296, %r295, 27;
+	shl.b32 	%r297, %r295, 5;
+	add.u32 	%r298, %r296, %r297;
+	add.u32 	%r299, %r298, %r288;
+	.loc	3	180	0
+	and.b32 	%r300, %r299, %r277;
+	not.b32 	%r301, %r277;
+	and.b32 	%r302, %r288, %r301;
+	or.b32 	%r303, %r300, %r302;
+	add.u32 	%r304, %r266, %r303;
+	add.u32 	%r305, %r175, %r304;
+	add.u32 	%r306, %r305, 38016083;
+	shr.u32 	%r307, %r306, 23;
+	shl.b32 	%r308, %r306, 9;
+	add.u32 	%r309, %r307, %r308;
+	add.u32 	%r310, %r309, %r299;
+	.loc	3	181	0
+	and.b32 	%r311, %r310, %r288;
+	not.b32 	%r312, %r288;
+	and.b32 	%r313, %r299, %r312;
+	or.b32 	%r314, %r311, %r313;
+	add.u32 	%r315, %r277, %r314;
+	add.u32 	%r316, %r235, %r315;
+	sub.u32 	%r317, %r316, 660478335;
+	shr.u32 	%r318, %r317, 18;
+	shl.b32 	%r319, %r317, 14;
+	add.u32 	%r320, %r318, %r319;
+	add.u32 	%r321, %r320, %r310;
+	.loc	3	182	0
+	and.b32 	%r322, %r321, %r299;
+	not.b32 	%r323, %r299;
+	and.b32 	%r324, %r310, %r323;
+	or.b32 	%r325, %r322, %r324;
+	add.u32 	%r326, %r288, %r325;
+	add.u32 	%r327, %r103, %r326;
+	sub.u32 	%r328, %r327, 405537848;
+	shr.u32 	%r329, %r328, 12;
+	shl.b32 	%r330, %r328, 20;
+	add.u32 	%r331, %r329, %r330;
+	add.u32 	%r332, %r331, %r321;
+	.loc	3	183	0
+	and.b32 	%r333, %r332, %r310;
+	not.b32 	%r334, %r310;
+	and.b32 	%r335, %r321, %r334;
+	or.b32 	%r336, %r333, %r335;
+	add.u32 	%r337, %r299, %r336;
+	add.u32 	%r338, %r163, %r337;
+	add.u32 	%r339, %r338, 568446438;
+	shr.u32 	%r340, %r339, 27;
+	shl.b32 	%r341, %r339, 5;
+	add.u32 	%r342, %r340, %r341;
+	add.u32 	%r343, %r342, %r332;
+	.loc	3	184	0
+	and.b32 	%r344, %r343, %r321;
+	not.b32 	%r345, %r321;
+	and.b32 	%r346, %r332, %r345;
+	or.b32 	%r347, %r344, %r346;
+	add.u32 	%r348, %r310, %r347;
+	add.u32 	%r349, %r223, %r348;
+	sub.u32 	%r350, %r349, 1019803690;
+	shr.u32 	%r351, %r350, 23;
+	shl.b32 	%r352, %r350, 9;
+	add.u32 	%r353, %r351, %r352;
+	add.u32 	%r354, %r353, %r343;
+	.loc	3	185	0
+	and.b32 	%r355, %r354, %r332;
+	not.b32 	%r356, %r332;
+	and.b32 	%r357, %r343, %r356;
+	or.b32 	%r358, %r355, %r357;
+	add.u32 	%r359, %r321, %r358;
+	add.u32 	%r360, %r91, %r359;
+	sub.u32 	%r361, %r360, 187363961;
+	shr.u32 	%r362, %r361, 18;
+	shl.b32 	%r363, %r361, 14;
+	add.u32 	%r364, %r362, %r363;
+	add.u32 	%r365, %r364, %r354;
+	.loc	3	186	0
+	and.b32 	%r366, %r365, %r343;
+	not.b32 	%r367, %r343;
+	and.b32 	%r368, %r354, %r367;
+	or.b32 	%r369, %r366, %r368;
+	add.u32 	%r370, %r332, %r369;
+	add.u32 	%r371, %r151, %r370;
+	add.u32 	%r372, %r371, 1163531501;
+	shr.u32 	%r373, %r372, 12;
+	shl.b32 	%r374, %r372, 20;
+	add.u32 	%r375, %r373, %r374;
+	add.u32 	%r376, %r375, %r365;
+	.loc	3	187	0
+	and.b32 	%r377, %r376, %r354;
+	not.b32 	%r378, %r354;
+	and.b32 	%r379, %r365, %r378;
+	or.b32 	%r380, %r377, %r379;
+	add.u32 	%r381, %r343, %r380;
+	add.u32 	%r382, %r211, %r381;
+	sub.u32 	%r383, %r382, 1444681467;
+	shr.u32 	%r384, %r383, 27;
+	shl.b32 	%r385, %r383, 5;
+	add.u32 	%r386, %r384, %r385;
+	add.u32 	%r387, %r386, %r376;
+	.loc	3	188	0
+	and.b32 	%r388, %r387, %r365;
+	not.b32 	%r389, %r365;
+	and.b32 	%r390, %r376, %r389;
+	or.b32 	%r391, %r388, %r390;
+	add.u32 	%r392, %r354, %r391;
+	add.u32 	%r393, %r79, %r392;
+	sub.u32 	%r394, %r393, 51403784;
+	shr.u32 	%r395, %r394, 23;
+	shl.b32 	%r396, %r394, 9;
+	add.u32 	%r397, %r395, %r396;
+	add.u32 	%r398, %r397, %r387;
+	.loc	3	189	0
+	and.b32 	%r399, %r398, %r376;
+	not.b32 	%r400, %r376;
+	and.b32 	%r401, %r387, %r400;
+	or.b32 	%r402, %r399, %r401;
+	add.u32 	%r403, %r365, %r402;
+	add.u32 	%r404, %r139, %r403;
+	add.u32 	%r405, %r404, 1735328473;
+	shr.u32 	%r406, %r405, 18;
+	shl.b32 	%r407, %r405, 14;
+	add.u32 	%r408, %r406, %r407;
+	add.u32 	%r409, %r408, %r398;
+	.loc	3	190	0
+	and.b32 	%r410, %r409, %r387;
+	not.b32 	%r411, %r387;
+	and.b32 	%r412, %r398, %r411;
+	or.b32 	%r413, %r410, %r412;
+	add.u32 	%r414, %r376, %r413;
+	add.u32 	%r415, %r199, %r414;
+	sub.u32 	%r416, %r415, 1926607734;
+	shr.u32 	%r417, %r416, 12;
+	shl.b32 	%r418, %r416, 20;
+	add.u32 	%r419, %r417, %r418;
+	add.u32 	%r420, %r419, %r409;
+	.loc	3	201	0
+	xor.b32 	%r421, %r420, %r409;
+	xor.b32 	%r422, %r398, %r421;
+	add.u32 	%r423, %r387, %r422;
+	add.u32 	%r424, %r115, %r423;
+	sub.u32 	%r425, %r424, 378558;
+	shr.u32 	%r426, %r425, 28;
+	shl.b32 	%r427, %r425, 4;
+	add.u32 	%r428, %r426, %r427;
+	add.u32 	%r429, %r428, %r420;
+	.loc	3	202	0
+	xor.b32 	%r430, %r429, %r420;
+	xor.b32 	%r431, %r409, %r430;
+	add.u32 	%r432, %r398, %r431;
+	add.u32 	%r433, %r151, %r432;
+	sub.u32 	%r434, %r433, 2022574463;
+	shr.u32 	%r435, %r434, 21;
+	shl.b32 	%r436, %r434, 11;
+	add.u32 	%r437, %r435, %r436;
+	add.u32 	%r438, %r437, %r429;
+	.loc	3	203	0
+	xor.b32 	%r439, %r438, %r429;
+	xor.b32 	%r440, %r420, %r439;
+	add.u32 	%r441, %r409, %r440;
+	add.u32 	%r442, %r187, %r441;
+	add.u32 	%r443, %r442, 1839030562;
+	shr.u32 	%r444, %r443, 16;
+	shl.b32 	%r445, %r443, 16;
+	add.u32 	%r446, %r444, %r445;
+	add.u32 	%r447, %r446, %r438;
+	.loc	3	204	0
+	xor.b32 	%r448, %r447, %r438;
+	xor.b32 	%r449, %r429, %r448;
+	add.u32 	%r450, %r420, %r449;
+	add.u32 	%r451, %r223, %r450;
+	sub.u32 	%r452, %r451, 35309556;
+	shr.u32 	%r453, %r452, 9;
+	shl.b32 	%r454, %r452, 23;
+	add.u32 	%r455, %r453, %r454;
+	add.u32 	%r456, %r455, %r447;
+	.loc	3	205	0
+	xor.b32 	%r457, %r456, %r447;
+	xor.b32 	%r458, %r438, %r457;
+	add.u32 	%r459, %r429, %r458;
+	add.u32 	%r460, %r67, %r459;
+	sub.u32 	%r461, %r460, 1530992060;
+	shr.u32 	%r462, %r461, 28;
+	shl.b32 	%r463, %r461, 4;
+	add.u32 	%r464, %r462, %r463;
+	add.u32 	%r465, %r464, %r456;
+	.loc	3	206	0
+	xor.b32 	%r466, %r465, %r456;
+	xor.b32 	%r467, %r447, %r466;
+	add.u32 	%r468, %r438, %r467;
+	add.u32 	%r469, %r103, %r468;
+	add.u32 	%r470, %r469, 1272893353;
+	shr.u32 	%r471, %r470, 21;
+	shl.b32 	%r472, %r470, 11;
+	add.u32 	%r473, %r471, %r472;
+	add.u32 	%r474, %r473, %r465;
+	.loc	3	207	0
+	xor.b32 	%r475, %r474, %r465;
+	xor.b32 	%r476, %r456, %r475;
+	add.u32 	%r477, %r447, %r476;
+	add.u32 	%r478, %r139, %r477;
+	sub.u32 	%r479, %r478, 155497632;
+	shr.u32 	%r480, %r479, 16;
+	shl.b32 	%r481, %r479, 16;
+	add.u32 	%r482, %r480, %r481;
+	add.u32 	%r483, %r482, %r474;
+	.loc	3	208	0
+	xor.b32 	%r484, %r483, %r474;
+	xor.b32 	%r485, %r465, %r484;
+	add.u32 	%r486, %r456, %r485;
+	add.u32 	%r487, %r175, %r486;
+	sub.u32 	%r488, %r487, 1094730640;
+	shr.u32 	%r489, %r488, 9;
+	shl.b32 	%r490, %r488, 23;
+	add.u32 	%r491, %r489, %r490;
+	add.u32 	%r492, %r491, %r483;
+	.loc	3	209	0
+	xor.b32 	%r493, %r492, %r483;
+	xor.b32 	%r494, %r474, %r493;
+	add.u32 	%r495, %r465, %r494;
+	add.u32 	%r496, %r211, %r495;
+	add.u32 	%r497, %r496, 681279174;
+	shr.u32 	%r498, %r497, 28;
+	shl.b32 	%r499, %r497, 4;
+	add.u32 	%r500, %r498, %r499;
+	add.u32 	%r501, %r500, %r492;
+	.loc	3	210	0
+	xor.b32 	%r502, %r501, %r492;
+	xor.b32 	%r503, %r483, %r502;
+	add.u32 	%r504, %r474, %r503;
+	add.u32 	%r505, %r55, %r504;
+	sub.u32 	%r506, %r505, 358537222;
+	shr.u32 	%r507, %r506, 21;
+	shl.b32 	%r508, %r506, 11;
+	add.u32 	%r509, %r507, %r508;
+	add.u32 	%r510, %r509, %r501;
+	.loc	3	211	0
+	xor.b32 	%r511, %r510, %r501;
+	xor.b32 	%r512, %r492, %r511;
+	add.u32 	%r513, %r483, %r512;
+	add.u32 	%r514, %r91, %r513;
+	sub.u32 	%r515, %r514, 722521979;
+	shr.u32 	%r516, %r515, 16;
+	shl.b32 	%r517, %r515, 16;
+	add.u32 	%r518, %r516, %r517;
+	add.u32 	%r519, %r518, %r510;
+	.loc	3	212	0
+	xor.b32 	%r520, %r519, %r510;
+	xor.b32 	%r521, %r501, %r520;
+	add.u32 	%r522, %r492, %r521;
+	add.u32 	%r523, %r127, %r522;
+	add.u32 	%r524, %r523, 76029189;
+	shr.u32 	%r525, %r524, 9;
+	shl.b32 	%r526, %r524, 23;
+	add.u32 	%r527, %r525, %r526;
+	add.u32 	%r528, %r527, %r519;
+	.loc	3	213	0
+	xor.b32 	%r529, %r528, %r519;
+	xor.b32 	%r530, %r510, %r529;
+	add.u32 	%r531, %r501, %r530;
+	add.u32 	%r532, %r163, %r531;
+	sub.u32 	%r533, %r532, 640364487;
+	shr.u32 	%r534, %r533, 28;
+	shl.b32 	%r535, %r533, 4;
+	add.u32 	%r536, %r534, %r535;
+	add.u32 	%r537, %r536, %r528;
+	.loc	3	214	0
+	xor.b32 	%r538, %r537, %r528;
+	xor.b32 	%r539, %r519, %r538;
+	add.u32 	%r540, %r510, %r539;
+	add.u32 	%r541, %r199, %r540;
+	sub.u32 	%r542, %r541, 421815835;
+	shr.u32 	%r543, %r542, 21;
+	shl.b32 	%r544, %r542, 11;
+	add.u32 	%r545, %r543, %r544;
+	add.u32 	%r546, %r545, %r537;
+	.loc	3	215	0
+	xor.b32 	%r547, %r546, %r537;
+	xor.b32 	%r548, %r528, %r547;
+	add.u32 	%r549, %r519, %r548;
+	add.u32 	%r550, %r235, %r549;
+	add.u32 	%r551, %r550, 530742520;
+	shr.u32 	%r552, %r551, 16;
+	shl.b32 	%r553, %r551, 16;
+	add.u32 	%r554, %r552, %r553;
+	add.u32 	%r555, %r554, %r546;
+	.loc	3	216	0
+	xor.b32 	%r556, %r555, %r546;
+	xor.b32 	%r557, %r537, %r556;
+	add.u32 	%r558, %r528, %r557;
+	add.u32 	%r559, %r79, %r558;
+	sub.u32 	%r560, %r559, 995338651;
+	shr.u32 	%r561, %r560, 9;
+	shl.b32 	%r562, %r560, 23;
+	add.u32 	%r563, %r561, %r562;
+	add.u32 	%r564, %r563, %r555;
+	.loc	3	227	0
+	not.b32 	%r565, %r546;
+	or.b32 	%r566, %r564, %r565;
+	xor.b32 	%r567, %r555, %r566;
+	add.u32 	%r568, %r537, %r567;
+	add.u32 	%r569, %r55, %r568;
+	sub.u32 	%r570, %r569, 198630844;
+	shr.u32 	%r571, %r570, 26;
+	shl.b32 	%r572, %r570, 6;
+	add.u32 	%r573, %r571, %r572;
+	add.u32 	%r574, %r573, %r564;
+	.loc	3	228	0
+	not.b32 	%r575, %r555;
+	or.b32 	%r576, %r574, %r575;
+	xor.b32 	%r577, %r564, %r576;
+	add.u32 	%r578, %r546, %r577;
+	add.u32 	%r579, %r139, %r578;
+	add.u32 	%r580, %r579, 1126891415;
+	shr.u32 	%r581, %r580, 22;
+	shl.b32 	%r582, %r580, 10;
+	add.u32 	%r583, %r581, %r582;
+	add.u32 	%r584, %r583, %r574;
+	.loc	3	229	0
+	not.b32 	%r585, %r564;
+	or.b32 	%r586, %r584, %r585;
+	xor.b32 	%r587, %r574, %r586;
+	add.u32 	%r588, %r555, %r587;
+	add.u32 	%r589, %r223, %r588;
+	sub.u32 	%r590, %r589, 1416354905;
+	shr.u32 	%r591, %r590, 17;
+	shl.b32 	%r592, %r590, 15;
+	add.u32 	%r593, %r591, %r592;
+	add.u32 	%r594, %r593, %r584;
+	.loc	3	230	0
+	not.b32 	%r595, %r574;
+	or.b32 	%r596, %r594, %r595;
+	xor.b32 	%r597, %r584, %r596;
+	add.u32 	%r598, %r564, %r597;
+	add.u32 	%r599, %r115, %r598;
+	sub.u32 	%r600, %r599, 57434055;
+	shr.u32 	%r601, %r600, 11;
+	shl.b32 	%r602, %r600, 21;
+	add.u32 	%r603, %r601, %r602;
+	add.u32 	%r604, %r603, %r594;
+	.loc	3	231	0
+	not.b32 	%r605, %r584;
+	or.b32 	%r606, %r604, %r605;
+	xor.b32 	%r607, %r594, %r606;
+	add.u32 	%r608, %r574, %r607;
+	add.u32 	%r609, %r199, %r608;
+	add.u32 	%r610, %r609, 1700485571;
+	shr.u32 	%r611, %r610, 26;
+	shl.b32 	%r612, %r610, 6;
+	add.u32 	%r613, %r611, %r612;
+	add.u32 	%r614, %r613, %r604;
+	.loc	3	232	0
+	not.b32 	%r615, %r594;
+	or.b32 	%r616, %r614, %r615;
+	xor.b32 	%r617, %r604, %r616;
+	add.u32 	%r618, %r584, %r617;
+	add.u32 	%r619, %r91, %r618;
+	sub.u32 	%r620, %r619, 1894986606;
+	shr.u32 	%r621, %r620, 22;
+	shl.b32 	%r622, %r620, 10;
+	add.u32 	%r623, %r621, %r622;
+	add.u32 	%r624, %r623, %r614;
+	.loc	3	233	0
+	not.b32 	%r625, %r604;
+	or.b32 	%r626, %r624, %r625;
+	xor.b32 	%r627, %r614, %r626;
+	add.u32 	%r628, %r594, %r627;
+	add.u32 	%r629, %r175, %r628;
+	sub.u32 	%r630, %r629, 1051523;
+	shr.u32 	%r631, %r630, 17;
+	shl.b32 	%r632, %r630, 15;
+	add.u32 	%r633, %r631, %r632;
+	add.u32 	%r634, %r633, %r624;
+	.loc	3	234	0
+	not.b32 	%r635, %r614;
+	or.b32 	%r636, %r634, %r635;
+	xor.b32 	%r637, %r624, %r636;
+	add.u32 	%r638, %r604, %r637;
+	add.u32 	%r639, %r67, %r638;
+	sub.u32 	%r640, %r639, 2054922799;
+	shr.u32 	%r641, %r640, 11;
+	shl.b32 	%r642, %r640, 21;
+	add.u32 	%r643, %r641, %r642;
+	add.u32 	%r644, %r643, %r634;
+	.loc	3	235	0
+	not.b32 	%r645, %r624;
+	or.b32 	%r646, %r644, %r645;
+	xor.b32 	%r647, %r634, %r646;
+	add.u32 	%r648, %r614, %r647;
+	add.u32 	%r649, %r151, %r648;
+	add.u32 	%r650, %r649, 1873313359;
+	shr.u32 	%r651, %r650, 26;
+	shl.b32 	%r652, %r650, 6;
+	add.u32 	%r653, %r651, %r652;
+	add.u32 	%r654, %r653, %r644;
+	.loc	3	236	0
+	not.b32 	%r655, %r634;
+	or.b32 	%r656, %r654, %r655;
+	xor.b32 	%r657, %r644, %r656;
+	add.u32 	%r658, %r624, %r657;
+	add.u32 	%r659, %r235, %r658;
+	sub.u32 	%r660, %r659, 30611744;
+	shr.u32 	%r661, %r660, 22;
+	shl.b32 	%r662, %r660, 10;
+	add.u32 	%r663, %r661, %r662;
+	add.u32 	%r664, %r663, %r654;
+	.loc	3	237	0
+	not.b32 	%r665, %r644;
+	or.b32 	%r666, %r664, %r665;
+	xor.b32 	%r667, %r654, %r666;
+	add.u32 	%r668, %r634, %r667;
+	add.u32 	%r669, %r127, %r668;
+	sub.u32 	%r670, %r669, 1560198380;
+	shr.u32 	%r671, %r670, 17;
+	shl.b32 	%r672, %r670, 15;
+	add.u32 	%r673, %r671, %r672;
+	add.u32 	%r674, %r673, %r664;
+	.loc	3	238	0
+	not.b32 	%r675, %r654;
+	or.b32 	%r676, %r674, %r675;
+	xor.b32 	%r677, %r664, %r676;
+	add.u32 	%r678, %r644, %r677;
+	add.u32 	%r679, %r211, %r678;
+	add.u32 	%r680, %r679, 1309151649;
+	shr.u32 	%r681, %r680, 11;
+	shl.b32 	%r682, %r680, 21;
+	add.u32 	%r683, %r681, %r682;
+	add.u32 	%r684, %r683, %r674;
+	.loc	3	239	0
+	not.b32 	%r685, %r664;
+	or.b32 	%r686, %r684, %r685;
+	xor.b32 	%r687, %r674, %r686;
+	add.u32 	%r688, %r654, %r687;
+	add.u32 	%r689, %r103, %r688;
+	sub.u32 	%r690, %r689, 145523070;
+	shr.u32 	%r691, %r690, 26;
+	shl.b32 	%r692, %r690, 6;
+	add.u32 	%r693, %r691, %r692;
+	add.u32 	%r694, %r693, %r684;
+	.loc	3	240	0
+	not.b32 	%r695, %r674;
+	or.b32 	%r696, %r694, %r695;
+	xor.b32 	%r697, %r684, %r696;
+	add.u32 	%r698, %r664, %r697;
+	add.u32 	%r699, %r187, %r698;
+	sub.u32 	%r700, %r699, 1120210379;
+	shr.u32 	%r701, %r700, 22;
+	shl.b32 	%r702, %r700, 10;
+	add.u32 	%r703, %r701, %r702;
+	add.u32 	%r704, %r703, %r694;
+	.loc	3	241	0
+	not.b32 	%r705, %r684;
+	or.b32 	%r706, %r704, %r705;
+	xor.b32 	%r707, %r694, %r706;
+	add.u32 	%r708, %r674, %r707;
+	add.u32 	%r709, %r79, %r708;
+	add.u32 	%r710, %r709, 718787259;
+	shr.u32 	%r711, %r710, 17;
+	shl.b32 	%r712, %r710, 15;
+	add.u32 	%r713, %r711, %r712;
+	add.u32 	%r714, %r713, %r704;
+	.loc	3	242	0
+	not.b32 	%r715, %r694;
+	or.b32 	%r716, %r714, %r715;
+	xor.b32 	%r717, %r704, %r716;
+	add.u32 	%r718, %r684, %r717;
+	add.u32 	%r719, %r163, %r718;
+	sub.u32 	%r720, %r719, 343485551;
+	.loc	3	248	0
+	add.u32 	%r14, %r694, %r14;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+8], %r14;
+	.loc	3	249	0
+	add.u32 	%r721, %r714, %r15;
+	shr.u32 	%r722, %r720, 11;
+	shl.b32 	%r723, %r720, 21;
+	add.u32 	%r724, %r722, %r723;
+	add.u32 	%r15, %r721, %r724;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+12], %r15;
+	.loc	3	250	0
+	add.u32 	%r16, %r714, %r16;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+16], %r16;
+	.loc	3	251	0
+	add.u32 	%r17, %r704, %r17;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+20], %r17;
+	.loc	3	293	0
+	bra.uni 	$Lt_0_39682;
+$Lt_0_39938:
+	mov.s32 	%r38, 4;
+	mov.u32 	%r36, __cuda___cuda_local_var_38693_8_non_const_word_320;
+$Lt_0_39682:
+	mov.u32 	%r725, 63;
+	setp.le.s32 	%p9, %r38, %r725;
+	@%p9 bra 	$Lt_0_43266;
+	shr.s32 	%r726, %r38, 31;
+	mov.s32 	%r727, 63;
+	and.b32 	%r728, %r726, %r727;
+	add.s32 	%r729, %r728, %r38;
+	shr.s32 	%r730, %r729, 6;
+	mov.s32 	%r731, %r730;
+$Lt_0_43778:
+ //<loop> Loop body line 293, nesting depth: 4, estimated iterations: unknown
+	.loc	3	108	0
+	mov.s32 	%r39, %r14;
+	mov.s32 	%r40, %r15;
+	mov.s32 	%r41, %r16;
+	mov.s32 	%r42, %r17;
+	mov.s32 	%r732, 1;
+	mov.u32 	%r733, 1;
+	mov.u32 	%r734, 0;
+	setp.eq.u32 	%p10, %r733, %r734;
+	@%p10 bra 	$Lt_0_44290;
+	and.b32 	%r735, %r36, 3;
+	mov.u32 	%r736, 0;
+	setp.ne.s32 	%p11, %r735, %r736;
+	@%p11 bra 	$Lt_0_44802;
+	.loc	3	130	0
+	mov.s32 	%r49, %r36;
+	mov.s32 	%r50, %r49;
+	bra.uni 	$Lt_0_44034;
+$Lt_0_44802:
+	.loc	3	133	0
+	mov.s32 	%r737, %r36;
+	mov.u32 	%r738, __cuda___cuda_local_var_38410_14_non_const_xbuf_140160;
+	mov.s32 	%r739, 64;
+$Lt_0_45570:
+ //<loop> Loop body line 133, nesting depth: 5, iterations: 64
+	ld.local.u8 	%rh106, [%r737+0];
+	st.local.u8 	[%r738+0], %rh106;
+	add.u32 	%r737, %r737, 1;
+	add.u32 	%r738, %r738, 1;
+	sub.s32 	%r739, %r739, 1;
+	mov.u32 	%r740, 0;
+	setp.ne.s32 	%p12, %r739, %r740;
+	@%p12 bra 	$Lt_0_45570;
+	.loc	3	134	0
+	mov.u32 	%r49, __cuda___cuda_local_var_38410_14_non_const_xbuf_140160;
+	mov.s32 	%r50, %r49;
+	ld.local.u32 	%r17, [__cuda___cuda_local_var_38708_15_non_const_state_4072+20];
+	ld.local.u32 	%r16, [__cuda___cuda_local_var_38708_15_non_const_state_4072+16];
+	ld.local.u32 	%r15, [__cuda___cuda_local_var_38708_15_non_const_state_4072+12];
+	ld.local.u32 	%r14, [__cuda___cuda_local_var_38708_15_non_const_state_4072+8];
+	bra.uni 	$Lt_0_44034;
+$Lt_0_44290:
+	mov.s32 	%r49, %r50;
+$Lt_0_44034:
+	.loc	3	149	0
+	ld.global.u32 	%r55, [%r49+0];
+	and.b32 	%r741, %r40, %r41;
+	not.b32 	%r742, %r40;
+	and.b32 	%r743, %r42, %r742;
+	or.b32 	%r744, %r741, %r743;
+	add.u32 	%r745, %r39, %r744;
+	add.u32 	%r746, %r55, %r745;
+	sub.u32 	%r747, %r746, 680876936;
+	shr.u32 	%r748, %r747, 25;
+	shl.b32 	%r749, %r747, 7;
+	add.u32 	%r750, %r748, %r749;
+	add.u32 	%r751, %r750, %r40;
+	.loc	3	150	0
+	ld.global.u32 	%r67, [%r49+4];
+	and.b32 	%r752, %r751, %r40;
+	not.b32 	%r753, %r751;
+	and.b32 	%r754, %r41, %r753;
+	or.b32 	%r755, %r752, %r754;
+	add.u32 	%r756, %r42, %r755;
+	add.u32 	%r757, %r67, %r756;
+	sub.u32 	%r758, %r757, 389564586;
+	shr.u32 	%r759, %r758, 20;
+	shl.b32 	%r760, %r758, 12;
+	add.u32 	%r761, %r759, %r760;
+	add.u32 	%r762, %r761, %r751;
+	.loc	3	151	0
+	ld.global.u32 	%r79, [%r49+8];
+	and.b32 	%r763, %r762, %r751;
+	not.b32 	%r764, %r762;
+	and.b32 	%r765, %r40, %r764;
+	or.b32 	%r766, %r763, %r765;
+	add.u32 	%r767, %r41, %r766;
+	add.u32 	%r768, %r79, %r767;
+	add.u32 	%r769, %r768, 606105819;
+	shr.u32 	%r770, %r769, 15;
+	shl.b32 	%r771, %r769, 17;
+	add.u32 	%r772, %r770, %r771;
+	add.u32 	%r773, %r772, %r762;
+	.loc	3	152	0
+	ld.global.u32 	%r91, [%r49+12];
+	and.b32 	%r774, %r773, %r762;
+	not.b32 	%r775, %r773;
+	and.b32 	%r776, %r751, %r775;
+	or.b32 	%r777, %r774, %r776;
+	add.u32 	%r778, %r40, %r777;
+	add.u32 	%r779, %r91, %r778;
+	sub.u32 	%r780, %r779, 1044525330;
+	shr.u32 	%r781, %r780, 10;
+	shl.b32 	%r782, %r780, 22;
+	add.u32 	%r783, %r781, %r782;
+	add.u32 	%r784, %r783, %r773;
+	.loc	3	153	0
+	ld.global.u32 	%r103, [%r49+16];
+	and.b32 	%r785, %r784, %r773;
+	not.b32 	%r786, %r784;
+	and.b32 	%r787, %r762, %r786;
+	or.b32 	%r788, %r785, %r787;
+	add.u32 	%r789, %r751, %r788;
+	add.u32 	%r790, %r103, %r789;
+	sub.u32 	%r791, %r790, 176418897;
+	shr.u32 	%r792, %r791, 25;
+	shl.b32 	%r793, %r791, 7;
+	add.u32 	%r794, %r792, %r793;
+	add.u32 	%r795, %r794, %r784;
+	.loc	3	154	0
+	ld.global.u32 	%r115, [%r49+20];
+	and.b32 	%r796, %r795, %r784;
+	not.b32 	%r797, %r795;
+	and.b32 	%r798, %r773, %r797;
+	or.b32 	%r799, %r796, %r798;
+	add.u32 	%r800, %r762, %r799;
+	add.u32 	%r801, %r115, %r800;
+	add.u32 	%r802, %r801, 1200080426;
+	shr.u32 	%r803, %r802, 20;
+	shl.b32 	%r804, %r802, 12;
+	add.u32 	%r805, %r803, %r804;
+	add.u32 	%r806, %r805, %r795;
+	.loc	3	155	0
+	ld.global.u32 	%r127, [%r49+24];
+	and.b32 	%r807, %r806, %r795;
+	not.b32 	%r808, %r806;
+	and.b32 	%r809, %r784, %r808;
+	or.b32 	%r810, %r807, %r809;
+	add.u32 	%r811, %r773, %r810;
+	add.u32 	%r812, %r127, %r811;
+	sub.u32 	%r813, %r812, 1473231341;
+	shr.u32 	%r814, %r813, 15;
+	shl.b32 	%r815, %r813, 17;
+	add.u32 	%r816, %r814, %r815;
+	add.u32 	%r817, %r816, %r806;
+	.loc	3	156	0
+	ld.global.u32 	%r139, [%r49+28];
+	and.b32 	%r818, %r817, %r806;
+	not.b32 	%r819, %r817;
+	and.b32 	%r820, %r795, %r819;
+	or.b32 	%r821, %r818, %r820;
+	add.u32 	%r822, %r784, %r821;
+	add.u32 	%r823, %r139, %r822;
+	sub.u32 	%r824, %r823, 45705983;
+	shr.u32 	%r825, %r824, 10;
+	shl.b32 	%r826, %r824, 22;
+	add.u32 	%r827, %r825, %r826;
+	add.u32 	%r828, %r827, %r817;
+	.loc	3	157	0
+	ld.global.u32 	%r151, [%r49+32];
+	and.b32 	%r829, %r828, %r817;
+	not.b32 	%r830, %r828;
+	and.b32 	%r831, %r806, %r830;
+	or.b32 	%r832, %r829, %r831;
+	add.u32 	%r833, %r795, %r832;
+	add.u32 	%r834, %r151, %r833;
+	add.u32 	%r835, %r834, 1770035416;
+	shr.u32 	%r836, %r835, 25;
+	shl.b32 	%r837, %r835, 7;
+	add.u32 	%r838, %r836, %r837;
+	add.u32 	%r839, %r838, %r828;
+	.loc	3	158	0
+	ld.global.u32 	%r163, [%r49+36];
+	and.b32 	%r840, %r839, %r828;
+	not.b32 	%r841, %r839;
+	and.b32 	%r842, %r817, %r841;
+	or.b32 	%r843, %r840, %r842;
+	add.u32 	%r844, %r806, %r843;
+	add.u32 	%r845, %r163, %r844;
+	sub.u32 	%r846, %r845, 1958414417;
+	shr.u32 	%r847, %r846, 20;
+	shl.b32 	%r848, %r846, 12;
+	add.u32 	%r849, %r847, %r848;
+	add.u32 	%r850, %r849, %r839;
+	.loc	3	159	0
+	ld.global.u32 	%r175, [%r49+40];
+	and.b32 	%r851, %r850, %r839;
+	not.b32 	%r852, %r850;
+	and.b32 	%r853, %r828, %r852;
+	or.b32 	%r854, %r851, %r853;
+	add.u32 	%r855, %r817, %r854;
+	add.u32 	%r856, %r175, %r855;
+	sub.u32 	%r857, %r856, 42063;
+	shr.u32 	%r858, %r857, 15;
+	shl.b32 	%r859, %r857, 17;
+	add.u32 	%r860, %r858, %r859;
+	add.u32 	%r861, %r860, %r850;
+	.loc	3	160	0
+	ld.global.u32 	%r187, [%r49+44];
+	and.b32 	%r862, %r861, %r850;
+	not.b32 	%r863, %r861;
+	and.b32 	%r864, %r839, %r863;
+	or.b32 	%r865, %r862, %r864;
+	add.u32 	%r866, %r828, %r865;
+	add.u32 	%r867, %r187, %r866;
+	sub.u32 	%r868, %r867, 1990404162;
+	shr.u32 	%r869, %r868, 10;
+	shl.b32 	%r870, %r868, 22;
+	add.u32 	%r871, %r869, %r870;
+	add.u32 	%r872, %r871, %r861;
+	.loc	3	161	0
+	ld.global.u32 	%r199, [%r49+48];
+	and.b32 	%r873, %r872, %r861;
+	not.b32 	%r874, %r872;
+	and.b32 	%r875, %r850, %r874;
+	or.b32 	%r876, %r873, %r875;
+	add.u32 	%r877, %r839, %r876;
+	add.u32 	%r878, %r199, %r877;
+	add.u32 	%r879, %r878, 1804603682;
+	shr.u32 	%r207, %r879, 25;
+	shl.b32 	%r208, %r879, 7;
+	add.u32 	%r209, %r207, %r208;
+	add.u32 	%r880, %r209, %r872;
+	.loc	3	162	0
+	ld.global.u32 	%r211, [%r49+52];
+	and.b32 	%r881, %r880, %r872;
+	not.b32 	%r882, %r880;
+	and.b32 	%r883, %r861, %r882;
+	or.b32 	%r884, %r881, %r883;
+	add.u32 	%r885, %r850, %r884;
+	add.u32 	%r886, %r211, %r885;
+	sub.u32 	%r887, %r886, 40341101;
+	shr.u32 	%r219, %r887, 20;
+	shl.b32 	%r220, %r887, 12;
+	add.u32 	%r221, %r219, %r220;
+	add.u32 	%r888, %r221, %r880;
+	.loc	3	163	0
+	ld.global.u32 	%r223, [%r49+56];
+	not.b32 	%r889, %r888;
+	and.b32 	%r890, %r889, %r872;
+	and.b32 	%r891, %r888, %r880;
+	or.b32 	%r892, %r890, %r891;
+	add.u32 	%r893, %r861, %r892;
+	add.u32 	%r894, %r223, %r893;
+	sub.u32 	%r895, %r894, 1502002290;
+	shr.u32 	%r231, %r895, 15;
+	shl.b32 	%r232, %r895, 17;
+	add.u32 	%r233, %r231, %r232;
+	add.u32 	%r896, %r233, %r888;
+	.loc	3	164	0
+	ld.global.u32 	%r235, [%r49+60];
+	not.b32 	%r897, %r896;
+	and.b32 	%r898, %r897, %r880;
+	and.b32 	%r899, %r896, %r888;
+	or.b32 	%r900, %r898, %r899;
+	add.u32 	%r901, %r872, %r900;
+	add.u32 	%r902, %r235, %r901;
+	add.u32 	%r903, %r902, 1236535329;
+	shr.u32 	%r243, %r903, 10;
+	shl.b32 	%r244, %r903, 22;
+	add.u32 	%r245, %r243, %r244;
+	add.u32 	%r904, %r245, %r896;
+	.loc	3	175	0
+	and.b32 	%r905, %r904, %r888;
+	and.b32 	%r906, %r896, %r889;
+	or.b32 	%r907, %r905, %r906;
+	add.u32 	%r908, %r880, %r907;
+	add.u32 	%r909, %r67, %r908;
+	sub.u32 	%r910, %r909, 165796510;
+	shr.u32 	%r911, %r910, 27;
+	shl.b32 	%r912, %r910, 5;
+	add.u32 	%r913, %r911, %r912;
+	add.u32 	%r914, %r913, %r904;
+	.loc	3	176	0
+	and.b32 	%r915, %r914, %r896;
+	and.b32 	%r916, %r904, %r897;
+	or.b32 	%r917, %r915, %r916;
+	add.u32 	%r918, %r888, %r917;
+	add.u32 	%r919, %r127, %r918;
+	sub.u32 	%r920, %r919, 1069501632;
+	shr.u32 	%r921, %r920, 23;
+	shl.b32 	%r922, %r920, 9;
+	add.u32 	%r923, %r921, %r922;
+	add.u32 	%r924, %r923, %r914;
+	.loc	3	177	0
+	and.b32 	%r925, %r924, %r904;
+	not.b32 	%r926, %r904;
+	and.b32 	%r927, %r914, %r926;
+	or.b32 	%r928, %r925, %r927;
+	add.u32 	%r929, %r896, %r928;
+	add.u32 	%r930, %r187, %r929;
+	add.u32 	%r931, %r930, 643717713;
+	shr.u32 	%r932, %r931, 18;
+	shl.b32 	%r933, %r931, 14;
+	add.u32 	%r934, %r932, %r933;
+	add.u32 	%r935, %r934, %r924;
+	.loc	3	178	0
+	and.b32 	%r936, %r935, %r914;
+	not.b32 	%r937, %r914;
+	and.b32 	%r938, %r924, %r937;
+	or.b32 	%r939, %r936, %r938;
+	add.u32 	%r940, %r904, %r939;
+	add.u32 	%r941, %r55, %r940;
+	sub.u32 	%r942, %r941, 373897302;
+	shr.u32 	%r943, %r942, 12;
+	shl.b32 	%r944, %r942, 20;
+	add.u32 	%r945, %r943, %r944;
+	add.u32 	%r946, %r945, %r935;
+	.loc	3	179	0
+	and.b32 	%r947, %r946, %r924;
+	not.b32 	%r948, %r924;
+	and.b32 	%r949, %r935, %r948;
+	or.b32 	%r950, %r947, %r949;
+	add.u32 	%r951, %r914, %r950;
+	add.u32 	%r952, %r115, %r951;
+	sub.u32 	%r953, %r952, 701558691;
+	shr.u32 	%r954, %r953, 27;
+	shl.b32 	%r955, %r953, 5;
+	add.u32 	%r956, %r954, %r955;
+	add.u32 	%r957, %r956, %r946;
+	.loc	3	180	0
+	and.b32 	%r958, %r957, %r935;
+	not.b32 	%r959, %r935;
+	and.b32 	%r960, %r946, %r959;
+	or.b32 	%r961, %r958, %r960;
+	add.u32 	%r962, %r924, %r961;
+	add.u32 	%r963, %r175, %r962;
+	add.u32 	%r964, %r963, 38016083;
+	shr.u32 	%r965, %r964, 23;
+	shl.b32 	%r966, %r964, 9;
+	add.u32 	%r967, %r965, %r966;
+	add.u32 	%r968, %r967, %r957;
+	.loc	3	181	0
+	and.b32 	%r969, %r968, %r946;
+	not.b32 	%r970, %r946;
+	and.b32 	%r971, %r957, %r970;
+	or.b32 	%r972, %r969, %r971;
+	add.u32 	%r973, %r935, %r972;
+	add.u32 	%r974, %r235, %r973;
+	sub.u32 	%r975, %r974, 660478335;
+	shr.u32 	%r976, %r975, 18;
+	shl.b32 	%r977, %r975, 14;
+	add.u32 	%r978, %r976, %r977;
+	add.u32 	%r979, %r978, %r968;
+	.loc	3	182	0
+	and.b32 	%r980, %r979, %r957;
+	not.b32 	%r981, %r957;
+	and.b32 	%r982, %r968, %r981;
+	or.b32 	%r983, %r980, %r982;
+	add.u32 	%r984, %r946, %r983;
+	add.u32 	%r985, %r103, %r984;
+	sub.u32 	%r986, %r985, 405537848;
+	shr.u32 	%r987, %r986, 12;
+	shl.b32 	%r988, %r986, 20;
+	add.u32 	%r989, %r987, %r988;
+	add.u32 	%r990, %r989, %r979;
+	.loc	3	183	0
+	and.b32 	%r991, %r990, %r968;
+	not.b32 	%r992, %r968;
+	and.b32 	%r993, %r979, %r992;
+	or.b32 	%r994, %r991, %r993;
+	add.u32 	%r995, %r957, %r994;
+	add.u32 	%r996, %r163, %r995;
+	add.u32 	%r997, %r996, 568446438;
+	shr.u32 	%r998, %r997, 27;
+	shl.b32 	%r999, %r997, 5;
+	add.u32 	%r1000, %r998, %r999;
+	add.u32 	%r1001, %r1000, %r990;
+	.loc	3	184	0
+	and.b32 	%r1002, %r1001, %r979;
+	not.b32 	%r1003, %r979;
+	and.b32 	%r1004, %r990, %r1003;
+	or.b32 	%r1005, %r1002, %r1004;
+	add.u32 	%r1006, %r968, %r1005;
+	add.u32 	%r1007, %r223, %r1006;
+	sub.u32 	%r1008, %r1007, 1019803690;
+	shr.u32 	%r1009, %r1008, 23;
+	shl.b32 	%r1010, %r1008, 9;
+	add.u32 	%r1011, %r1009, %r1010;
+	add.u32 	%r1012, %r1011, %r1001;
+	.loc	3	185	0
+	and.b32 	%r1013, %r1012, %r990;
+	not.b32 	%r1014, %r990;
+	and.b32 	%r1015, %r1001, %r1014;
+	or.b32 	%r1016, %r1013, %r1015;
+	add.u32 	%r1017, %r979, %r1016;
+	add.u32 	%r1018, %r91, %r1017;
+	sub.u32 	%r1019, %r1018, 187363961;
+	shr.u32 	%r1020, %r1019, 18;
+	shl.b32 	%r1021, %r1019, 14;
+	add.u32 	%r1022, %r1020, %r1021;
+	add.u32 	%r1023, %r1022, %r1012;
+	.loc	3	186	0
+	and.b32 	%r1024, %r1023, %r1001;
+	not.b32 	%r1025, %r1001;
+	and.b32 	%r1026, %r1012, %r1025;
+	or.b32 	%r1027, %r1024, %r1026;
+	add.u32 	%r1028, %r990, %r1027;
+	add.u32 	%r1029, %r151, %r1028;
+	add.u32 	%r1030, %r1029, 1163531501;
+	shr.u32 	%r1031, %r1030, 12;
+	shl.b32 	%r1032, %r1030, 20;
+	add.u32 	%r1033, %r1031, %r1032;
+	add.u32 	%r1034, %r1033, %r1023;
+	.loc	3	187	0
+	and.b32 	%r1035, %r1034, %r1012;
+	not.b32 	%r1036, %r1012;
+	and.b32 	%r1037, %r1023, %r1036;
+	or.b32 	%r1038, %r1035, %r1037;
+	add.u32 	%r1039, %r1001, %r1038;
+	add.u32 	%r1040, %r211, %r1039;
+	sub.u32 	%r1041, %r1040, 1444681467;
+	shr.u32 	%r384, %r1041, 27;
+	shl.b32 	%r385, %r1041, 5;
+	add.u32 	%r386, %r384, %r385;
+	add.u32 	%r1042, %r386, %r1034;
+	.loc	3	188	0
+	and.b32 	%r1043, %r1042, %r1023;
+	not.b32 	%r1044, %r1023;
+	and.b32 	%r1045, %r1034, %r1044;
+	or.b32 	%r1046, %r1043, %r1045;
+	add.u32 	%r1047, %r1012, %r1046;
+	add.u32 	%r1048, %r79, %r1047;
+	sub.u32 	%r1049, %r1048, 51403784;
+	shr.u32 	%r395, %r1049, 23;
+	shl.b32 	%r396, %r1049, 9;
+	add.u32 	%r397, %r395, %r396;
+	add.u32 	%r1050, %r397, %r1042;
+	.loc	3	189	0
+	and.b32 	%r1051, %r1050, %r1034;
+	not.b32 	%r1052, %r1034;
+	and.b32 	%r1053, %r1042, %r1052;
+	or.b32 	%r1054, %r1051, %r1053;
+	add.u32 	%r1055, %r1023, %r1054;
+	add.u32 	%r1056, %r139, %r1055;
+	add.u32 	%r1057, %r1056, 1735328473;
+	shr.u32 	%r406, %r1057, 18;
+	shl.b32 	%r407, %r1057, 14;
+	add.u32 	%r408, %r406, %r407;
+	add.u32 	%r1058, %r408, %r1050;
+	.loc	3	190	0
+	and.b32 	%r1059, %r1058, %r1042;
+	not.b32 	%r1060, %r1042;
+	and.b32 	%r1061, %r1050, %r1060;
+	or.b32 	%r1062, %r1059, %r1061;
+	add.u32 	%r1063, %r1034, %r1062;
+	add.u32 	%r1064, %r199, %r1063;
+	sub.u32 	%r1065, %r1064, 1926607734;
+	shr.u32 	%r417, %r1065, 12;
+	shl.b32 	%r418, %r1065, 20;
+	add.u32 	%r419, %r417, %r418;
+	add.u32 	%r1066, %r419, %r1058;
+	.loc	3	201	0
+	xor.b32 	%r1067, %r1066, %r1058;
+	xor.b32 	%r1068, %r1050, %r1067;
+	add.u32 	%r1069, %r1042, %r1068;
+	add.u32 	%r1070, %r115, %r1069;
+	sub.u32 	%r1071, %r1070, 378558;
+	shr.u32 	%r1072, %r1071, 28;
+	shl.b32 	%r1073, %r1071, 4;
+	add.u32 	%r1074, %r1072, %r1073;
+	add.u32 	%r1075, %r1074, %r1066;
+	.loc	3	202	0
+	xor.b32 	%r1076, %r1075, %r1066;
+	xor.b32 	%r1077, %r1058, %r1076;
+	add.u32 	%r1078, %r1050, %r1077;
+	add.u32 	%r1079, %r151, %r1078;
+	sub.u32 	%r1080, %r1079, 2022574463;
+	shr.u32 	%r1081, %r1080, 21;
+	shl.b32 	%r1082, %r1080, 11;
+	add.u32 	%r1083, %r1081, %r1082;
+	add.u32 	%r1084, %r1083, %r1075;
+	.loc	3	203	0
+	xor.b32 	%r1085, %r1084, %r1075;
+	xor.b32 	%r1086, %r1066, %r1085;
+	add.u32 	%r1087, %r1058, %r1086;
+	add.u32 	%r1088, %r187, %r1087;
+	add.u32 	%r1089, %r1088, 1839030562;
+	shr.u32 	%r1090, %r1089, 16;
+	shl.b32 	%r1091, %r1089, 16;
+	add.u32 	%r1092, %r1090, %r1091;
+	add.u32 	%r1093, %r1092, %r1084;
+	.loc	3	204	0
+	xor.b32 	%r1094, %r1093, %r1084;
+	xor.b32 	%r1095, %r1075, %r1094;
+	add.u32 	%r1096, %r1066, %r1095;
+	add.u32 	%r1097, %r223, %r1096;
+	sub.u32 	%r1098, %r1097, 35309556;
+	shr.u32 	%r1099, %r1098, 9;
+	shl.b32 	%r1100, %r1098, 23;
+	add.u32 	%r1101, %r1099, %r1100;
+	add.u32 	%r1102, %r1101, %r1093;
+	.loc	3	205	0
+	xor.b32 	%r1103, %r1102, %r1093;
+	xor.b32 	%r1104, %r1084, %r1103;
+	add.u32 	%r1105, %r1075, %r1104;
+	add.u32 	%r1106, %r67, %r1105;
+	sub.u32 	%r1107, %r1106, 1530992060;
+	shr.u32 	%r1108, %r1107, 28;
+	shl.b32 	%r1109, %r1107, 4;
+	add.u32 	%r1110, %r1108, %r1109;
+	add.u32 	%r1111, %r1110, %r1102;
+	.loc	3	206	0
+	xor.b32 	%r1112, %r1111, %r1102;
+	xor.b32 	%r1113, %r1093, %r1112;
+	add.u32 	%r1114, %r1084, %r1113;
+	add.u32 	%r1115, %r103, %r1114;
+	add.u32 	%r1116, %r1115, 1272893353;
+	shr.u32 	%r1117, %r1116, 21;
+	shl.b32 	%r1118, %r1116, 11;
+	add.u32 	%r1119, %r1117, %r1118;
+	add.u32 	%r1120, %r1119, %r1111;
+	.loc	3	207	0
+	xor.b32 	%r1121, %r1120, %r1111;
+	xor.b32 	%r1122, %r1102, %r1121;
+	add.u32 	%r1123, %r1093, %r1122;
+	add.u32 	%r1124, %r139, %r1123;
+	sub.u32 	%r1125, %r1124, 155497632;
+	shr.u32 	%r1126, %r1125, 16;
+	shl.b32 	%r1127, %r1125, 16;
+	add.u32 	%r1128, %r1126, %r1127;
+	add.u32 	%r1129, %r1128, %r1120;
+	.loc	3	208	0
+	xor.b32 	%r1130, %r1129, %r1120;
+	xor.b32 	%r1131, %r1111, %r1130;
+	add.u32 	%r1132, %r1102, %r1131;
+	add.u32 	%r1133, %r175, %r1132;
+	sub.u32 	%r1134, %r1133, 1094730640;
+	shr.u32 	%r1135, %r1134, 9;
+	shl.b32 	%r1136, %r1134, 23;
+	add.u32 	%r1137, %r1135, %r1136;
+	add.u32 	%r1138, %r1137, %r1129;
+	.loc	3	209	0
+	xor.b32 	%r1139, %r1138, %r1129;
+	xor.b32 	%r1140, %r1120, %r1139;
+	add.u32 	%r1141, %r1111, %r1140;
+	add.u32 	%r1142, %r211, %r1141;
+	add.u32 	%r1143, %r1142, 681279174;
+	shr.u32 	%r1144, %r1143, 28;
+	shl.b32 	%r1145, %r1143, 4;
+	add.u32 	%r1146, %r1144, %r1145;
+	add.u32 	%r1147, %r1146, %r1138;
+	.loc	3	210	0
+	xor.b32 	%r1148, %r1147, %r1138;
+	xor.b32 	%r1149, %r1129, %r1148;
+	add.u32 	%r1150, %r1120, %r1149;
+	add.u32 	%r1151, %r55, %r1150;
+	sub.u32 	%r1152, %r1151, 358537222;
+	shr.u32 	%r1153, %r1152, 21;
+	shl.b32 	%r1154, %r1152, 11;
+	add.u32 	%r1155, %r1153, %r1154;
+	add.u32 	%r1156, %r1155, %r1147;
+	.loc	3	211	0
+	xor.b32 	%r1157, %r1156, %r1147;
+	xor.b32 	%r1158, %r1138, %r1157;
+	add.u32 	%r1159, %r1129, %r1158;
+	add.u32 	%r1160, %r91, %r1159;
+	sub.u32 	%r1161, %r1160, 722521979;
+	shr.u32 	%r1162, %r1161, 16;
+	shl.b32 	%r1163, %r1161, 16;
+	add.u32 	%r1164, %r1162, %r1163;
+	add.u32 	%r1165, %r1164, %r1156;
+	.loc	3	212	0
+	xor.b32 	%r1166, %r1165, %r1156;
+	xor.b32 	%r1167, %r1147, %r1166;
+	add.u32 	%r1168, %r1138, %r1167;
+	add.u32 	%r1169, %r127, %r1168;
+	add.u32 	%r1170, %r1169, 76029189;
+	shr.u32 	%r1171, %r1170, 9;
+	shl.b32 	%r1172, %r1170, 23;
+	add.u32 	%r1173, %r1171, %r1172;
+	add.u32 	%r1174, %r1173, %r1165;
+	.loc	3	213	0
+	xor.b32 	%r1175, %r1174, %r1165;
+	xor.b32 	%r1176, %r1156, %r1175;
+	add.u32 	%r1177, %r1147, %r1176;
+	add.u32 	%r1178, %r163, %r1177;
+	sub.u32 	%r1179, %r1178, 640364487;
+	shr.u32 	%r534, %r1179, 28;
+	shl.b32 	%r535, %r1179, 4;
+	add.u32 	%r536, %r534, %r535;
+	add.u32 	%r1180, %r536, %r1174;
+	.loc	3	214	0
+	xor.b32 	%r1181, %r1180, %r1174;
+	xor.b32 	%r1182, %r1165, %r1181;
+	add.u32 	%r1183, %r1156, %r1182;
+	add.u32 	%r1184, %r199, %r1183;
+	sub.u32 	%r1185, %r1184, 421815835;
+	shr.u32 	%r543, %r1185, 21;
+	shl.b32 	%r544, %r1185, 11;
+	add.u32 	%r545, %r543, %r544;
+	add.u32 	%r1186, %r545, %r1180;
+	.loc	3	215	0
+	xor.b32 	%r1187, %r1186, %r1180;
+	xor.b32 	%r1188, %r1174, %r1187;
+	add.u32 	%r1189, %r1165, %r1188;
+	add.u32 	%r1190, %r235, %r1189;
+	add.u32 	%r1191, %r1190, 530742520;
+	shr.u32 	%r552, %r1191, 16;
+	shl.b32 	%r553, %r1191, 16;
+	add.u32 	%r554, %r552, %r553;
+	add.u32 	%r1192, %r554, %r1186;
+	.loc	3	216	0
+	xor.b32 	%r1193, %r1192, %r1186;
+	xor.b32 	%r1194, %r1180, %r1193;
+	add.u32 	%r1195, %r1174, %r1194;
+	add.u32 	%r1196, %r79, %r1195;
+	sub.u32 	%r1197, %r1196, 995338651;
+	shr.u32 	%r561, %r1197, 9;
+	shl.b32 	%r562, %r1197, 23;
+	add.u32 	%r563, %r561, %r562;
+	add.u32 	%r1198, %r563, %r1192;
+	.loc	3	227	0
+	not.b32 	%r1199, %r1186;
+	or.b32 	%r1200, %r1198, %r1199;
+	xor.b32 	%r1201, %r1192, %r1200;
+	add.u32 	%r1202, %r1180, %r1201;
+	add.u32 	%r1203, %r55, %r1202;
+	sub.u32 	%r1204, %r1203, 198630844;
+	shr.u32 	%r1205, %r1204, 26;
+	shl.b32 	%r1206, %r1204, 6;
+	add.u32 	%r1207, %r1205, %r1206;
+	add.u32 	%r1208, %r1207, %r1198;
+	.loc	3	228	0
+	not.b32 	%r1209, %r1192;
+	or.b32 	%r1210, %r1208, %r1209;
+	xor.b32 	%r1211, %r1198, %r1210;
+	add.u32 	%r1212, %r1186, %r1211;
+	add.u32 	%r1213, %r139, %r1212;
+	add.u32 	%r1214, %r1213, 1126891415;
+	shr.u32 	%r1215, %r1214, 22;
+	shl.b32 	%r1216, %r1214, 10;
+	add.u32 	%r1217, %r1215, %r1216;
+	add.u32 	%r1218, %r1217, %r1208;
+	.loc	3	229	0
+	not.b32 	%r1219, %r1198;
+	or.b32 	%r1220, %r1218, %r1219;
+	xor.b32 	%r1221, %r1208, %r1220;
+	add.u32 	%r1222, %r1192, %r1221;
+	add.u32 	%r1223, %r223, %r1222;
+	sub.u32 	%r1224, %r1223, 1416354905;
+	shr.u32 	%r1225, %r1224, 17;
+	shl.b32 	%r1226, %r1224, 15;
+	add.u32 	%r1227, %r1225, %r1226;
+	add.u32 	%r1228, %r1227, %r1218;
+	.loc	3	230	0
+	not.b32 	%r1229, %r1208;
+	or.b32 	%r1230, %r1228, %r1229;
+	xor.b32 	%r1231, %r1218, %r1230;
+	add.u32 	%r1232, %r1198, %r1231;
+	add.u32 	%r1233, %r115, %r1232;
+	sub.u32 	%r1234, %r1233, 57434055;
+	shr.u32 	%r1235, %r1234, 11;
+	shl.b32 	%r1236, %r1234, 21;
+	add.u32 	%r1237, %r1235, %r1236;
+	add.u32 	%r1238, %r1237, %r1228;
+	.loc	3	231	0
+	not.b32 	%r1239, %r1218;
+	or.b32 	%r1240, %r1238, %r1239;
+	xor.b32 	%r1241, %r1228, %r1240;
+	add.u32 	%r1242, %r1208, %r1241;
+	add.u32 	%r1243, %r199, %r1242;
+	add.u32 	%r1244, %r1243, 1700485571;
+	shr.u32 	%r1245, %r1244, 26;
+	shl.b32 	%r1246, %r1244, 6;
+	add.u32 	%r1247, %r1245, %r1246;
+	add.u32 	%r1248, %r1247, %r1238;
+	.loc	3	232	0
+	not.b32 	%r1249, %r1228;
+	or.b32 	%r1250, %r1248, %r1249;
+	xor.b32 	%r1251, %r1238, %r1250;
+	add.u32 	%r1252, %r1218, %r1251;
+	add.u32 	%r1253, %r91, %r1252;
+	sub.u32 	%r1254, %r1253, 1894986606;
+	shr.u32 	%r1255, %r1254, 22;
+	shl.b32 	%r1256, %r1254, 10;
+	add.u32 	%r1257, %r1255, %r1256;
+	add.u32 	%r1258, %r1257, %r1248;
+	.loc	3	233	0
+	not.b32 	%r1259, %r1238;
+	or.b32 	%r1260, %r1258, %r1259;
+	xor.b32 	%r1261, %r1248, %r1260;
+	add.u32 	%r1262, %r1228, %r1261;
+	add.u32 	%r1263, %r175, %r1262;
+	sub.u32 	%r1264, %r1263, 1051523;
+	shr.u32 	%r1265, %r1264, 17;
+	shl.b32 	%r1266, %r1264, 15;
+	add.u32 	%r1267, %r1265, %r1266;
+	add.u32 	%r1268, %r1267, %r1258;
+	.loc	3	234	0
+	not.b32 	%r1269, %r1248;
+	or.b32 	%r1270, %r1268, %r1269;
+	xor.b32 	%r1271, %r1258, %r1270;
+	add.u32 	%r1272, %r1238, %r1271;
+	add.u32 	%r1273, %r67, %r1272;
+	sub.u32 	%r1274, %r1273, 2054922799;
+	shr.u32 	%r1275, %r1274, 11;
+	shl.b32 	%r1276, %r1274, 21;
+	add.u32 	%r1277, %r1275, %r1276;
+	add.u32 	%r1278, %r1277, %r1268;
+	.loc	3	235	0
+	not.b32 	%r1279, %r1258;
+	or.b32 	%r1280, %r1278, %r1279;
+	xor.b32 	%r1281, %r1268, %r1280;
+	add.u32 	%r1282, %r1248, %r1281;
+	add.u32 	%r1283, %r151, %r1282;
+	add.u32 	%r1284, %r1283, 1873313359;
+	shr.u32 	%r1285, %r1284, 26;
+	shl.b32 	%r1286, %r1284, 6;
+	add.u32 	%r1287, %r1285, %r1286;
+	add.u32 	%r1288, %r1287, %r1278;
+	.loc	3	236	0
+	not.b32 	%r1289, %r1268;
+	or.b32 	%r1290, %r1288, %r1289;
+	xor.b32 	%r1291, %r1278, %r1290;
+	add.u32 	%r1292, %r1258, %r1291;
+	add.u32 	%r1293, %r235, %r1292;
+	sub.u32 	%r1294, %r1293, 30611744;
+	shr.u32 	%r1295, %r1294, 22;
+	shl.b32 	%r1296, %r1294, 10;
+	add.u32 	%r1297, %r1295, %r1296;
+	add.u32 	%r1298, %r1297, %r1288;
+	.loc	3	237	0
+	not.b32 	%r1299, %r1278;
+	or.b32 	%r1300, %r1298, %r1299;
+	xor.b32 	%r1301, %r1288, %r1300;
+	add.u32 	%r1302, %r1268, %r1301;
+	add.u32 	%r1303, %r127, %r1302;
+	sub.u32 	%r1304, %r1303, 1560198380;
+	shr.u32 	%r1305, %r1304, 17;
+	shl.b32 	%r1306, %r1304, 15;
+	add.u32 	%r1307, %r1305, %r1306;
+	add.u32 	%r1308, %r1307, %r1298;
+	.loc	3	238	0
+	not.b32 	%r1309, %r1288;
+	or.b32 	%r1310, %r1308, %r1309;
+	xor.b32 	%r1311, %r1298, %r1310;
+	add.u32 	%r1312, %r1278, %r1311;
+	add.u32 	%r1313, %r211, %r1312;
+	add.u32 	%r1314, %r1313, 1309151649;
+	shr.u32 	%r681, %r1314, 11;
+	shl.b32 	%r682, %r1314, 21;
+	add.u32 	%r683, %r681, %r682;
+	add.u32 	%r1315, %r683, %r1308;
+	.loc	3	239	0
+	not.b32 	%r1316, %r1298;
+	or.b32 	%r1317, %r1315, %r1316;
+	xor.b32 	%r1318, %r1308, %r1317;
+	add.u32 	%r1319, %r1288, %r1318;
+	add.u32 	%r1320, %r103, %r1319;
+	sub.u32 	%r1321, %r1320, 145523070;
+	shr.u32 	%r691, %r1321, 26;
+	shl.b32 	%r692, %r1321, 6;
+	add.u32 	%r693, %r691, %r692;
+	add.u32 	%r1322, %r693, %r1315;
+	.loc	3	240	0
+	not.b32 	%r1323, %r1308;
+	or.b32 	%r1324, %r1322, %r1323;
+	xor.b32 	%r1325, %r1315, %r1324;
+	add.u32 	%r1326, %r1298, %r1325;
+	add.u32 	%r1327, %r187, %r1326;
+	sub.u32 	%r1328, %r1327, 1120210379;
+	shr.u32 	%r701, %r1328, 22;
+	shl.b32 	%r702, %r1328, 10;
+	add.u32 	%r703, %r701, %r702;
+	add.u32 	%r1329, %r703, %r1322;
+	.loc	3	241	0
+	not.b32 	%r1330, %r1315;
+	or.b32 	%r1331, %r1329, %r1330;
+	xor.b32 	%r1332, %r1322, %r1331;
+	add.u32 	%r1333, %r1308, %r1332;
+	add.u32 	%r1334, %r79, %r1333;
+	add.u32 	%r1335, %r1334, 718787259;
+	shr.u32 	%r711, %r1335, 17;
+	shl.b32 	%r712, %r1335, 15;
+	add.u32 	%r713, %r711, %r712;
+	add.u32 	%r1336, %r713, %r1329;
+	.loc	3	242	0
+	not.b32 	%r1337, %r1322;
+	or.b32 	%r1338, %r1336, %r1337;
+	xor.b32 	%r1339, %r1329, %r1338;
+	add.u32 	%r1340, %r1315, %r1339;
+	add.u32 	%r1341, %r163, %r1340;
+	sub.u32 	%r720, %r1341, 343485551;
+	.loc	3	248	0
+	add.u32 	%r14, %r1322, %r14;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+8], %r14;
+	.loc	3	249	0
+	add.u32 	%r1342, %r1336, %r15;
+	shr.u32 	%r1343, %r720, 11;
+	shl.b32 	%r1344, %r720, 21;
+	add.u32 	%r1345, %r1343, %r1344;
+	add.u32 	%r15, %r1342, %r1345;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+12], %r15;
+	.loc	3	250	0
+	add.u32 	%r16, %r1336, %r16;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+16], %r16;
+	.loc	3	251	0
+	add.u32 	%r17, %r1329, %r17;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+20], %r17;
+	.loc	3	297	0
+	add.u32 	%r36, %r36, 64;
+	sub.s32 	%r38, %r38, 64;
+	mov.u32 	%r1346, 63;
+	setp.gt.s32 	%p13, %r38, %r1346;
+	@%p13 bra 	$Lt_0_43778;
+$Lt_0_43266:
+	mov.u32 	%r1347, 0;
+	setp.eq.s32 	%p14, %r38, %r1347;
+	@%p14 bra 	$Lt_0_46850;
+	mov.u32 	%r1348, 0;
+	setp.le.s32 	%p15, %r38, %r1348;
+	@%p15 bra 	$Lt_0_46850;
+	mov.s32 	%r1349, %r38;
+	mov.s32 	%r1350, %r36;
+	add.s32 	%r1351, %r38, %r36;
+	mov.u32 	%r1352, __cuda___cuda_local_var_38708_15_non_const_state_4072;
+	mov.s32 	%r1353, %r1349;
+$Lt_0_47362:
+ //<loop> Loop body line 297, nesting depth: 4, estimated iterations: unknown
+	ld.local.u8 	%rh107, [%r1350+0];
+	st.local.u8 	[%r1352+24], %rh107;
+	add.s32 	%r1352, %r1352, 1;
+	add.s32 	%r1350, %r1350, 1;
+	setp.ne.s32 	%p16, %r1350, %r1351;
+	@%p16 bra 	$Lt_0_47362;
+$Lt_0_46850:
+$Lt_0_46338:
+$LDWendi__Z11md5_processP11md5_state_sPKh_248_5:
+	.loc	3	497	0
+	ld.local.u32 	%r1354, [__cuda___cuda_local_var_38708_15_non_const_state_4072+0];
+	st.local.u8 	[__cuda___cuda_local_var_38728_20_non_const_data_1284+0], %r1354;
+	shr.u32 	%r1355, %r1354, 8;
+	st.local.u8 	[__cuda___cuda_local_var_38728_20_non_const_data_1284+1], %r1355;
+	shr.u32 	%r1356, %r1354, 16;
+	st.local.u8 	[__cuda___cuda_local_var_38728_20_non_const_data_1284+2], %r1356;
+	shr.u32 	%r1357, %r1354, 24;
+	st.local.u8 	[__cuda___cuda_local_var_38728_20_non_const_data_1284+3], %r1357;
+	ld.local.u32 	%r1358, [__cuda___cuda_local_var_38708_15_non_const_state_4072+4];
+	st.local.u8 	[__cuda___cuda_local_var_38728_20_non_const_data_1284+4], %r1358;
+	shr.u32 	%r1359, %r1358, 8;
+	st.local.u8 	[__cuda___cuda_local_var_38728_20_non_const_data_1284+5], %r1359;
+	shr.u32 	%r1360, %r1358, 16;
+	st.local.u8 	[__cuda___cuda_local_var_38728_20_non_const_data_1284+6], %r1360;
+	shr.u32 	%r1361, %r1358, 24;
+	st.local.u8 	[__cuda___cuda_local_var_38728_20_non_const_data_1284+7], %r1361;
+	.loc	3	500	0
+	shr.u32 	%r1362, %r1354, 3;
+	mov.s32 	%r1363, 55;
+	sub.s32 	%r1364, %r1363, %r1362;
+	and.b32 	%r1365, %r1364, 63;
+	add.s32 	%r1366, %r1365, 1;
+	.loc	3	268	0
+	mov.s32 	%r38, %r1366;
+	.loc	3	269	0
+	shl.b32 	%r1367, %r1354, 23;
+	shr.u32 	%r1368, %r1367, 26;
+	mov.s32 	%r1369, %r1368;
+	.loc	3	270	0
+	shl.b32 	%r1370, %r1366, 3;
+	mov.u32 	%r1371, 0;
+	setp.le.s32 	%p17, %r1366, %r1371;
+	@%p17 bra 	$LDWendi__Z11md5_processP11md5_state_sPKh_248_3;
+	.loc	3	277	0
+	shr.s32 	%r1372, %r1366, 29;
+	add.u32 	%r1358, %r1358, %r1372;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+4], %r1358;
+	.loc	3	278	0
+	add.u32 	%r1354, %r1370, %r1354;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+0], %r1354;
+	.loc	3	277	0
+	add.u32 	%r1373, %r1358, 1;
+	setp.gt.u32 	%p18, %r1370, %r1354;
+	selp.u32 	%r1374, %r1373, %r1358, %p18;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+4], %r1374;
+	mov.u32 	%r1375, 0;
+	setp.eq.s32 	%p19, %r1368, %r1375;
+	@%p19 bra 	$Lt_0_48130;
+	add.s32 	%r1376, %r1366, %r1368;
+	mov.s32 	%r1377, 64;
+	sub.s32 	%r1378, %r1377, %r1368;
+	mov.s32 	%r1379, 64;
+	setp.gt.s32 	%p20, %r1376, %r1379;
+	selp.s32 	%r1380, %r1378, %r1366, %p20;
+	mov.u32 	%r1381, 0;
+	setp.le.s32 	%p21, %r1380, %r1381;
+	@%p21 bra 	$Lt_0_48386;
+	mov.s32 	%r1382, %r1380;
+	add.u32 	%r1383, %r1368, %r6;
+	mov.s32 	%r1384, %r7;
+	mov.s32 	%r1385, %r1383;
+	add.s32 	%r1386, %r1380, %r7;
+	mov.s32 	%r1387, %r1382;
+$Lt_0_48898:
+ //<loop> Loop body line 277, nesting depth: 4, estimated iterations: unknown
+	ld.shared.u8 	%rh108, [%r1384+0];
+	st.local.u8 	[%r1385+24], %rh108;
+	add.u32 	%r1385, %r1385, 1;
+	add.s32 	%r1384, %r1384, 1;
+	setp.ne.s32 	%p22, %r1384, %r1386;
+	@%p22 bra 	$Lt_0_48898;
+$Lt_0_48386:
+	add.s32 	%r1388, %r1380, %r1368;
+	mov.u32 	%r1389, 63;
+	setp.le.s32 	%p23, %r1388, %r1389;
+	@%p23 bra 	$Lt_0_75778;
+	.loc	3	291	0
+	add.u32 	%r36, %r1380, %r7;
+	.loc	3	292	0
+	sub.s32 	%r38, %r1366, %r1380;
+	.loc	3	108	0
+	ld.local.u32 	%r14, [__cuda___cuda_local_var_38708_15_non_const_state_4072+8];
+	mov.s32 	%r39, %r14;
+	ld.local.u32 	%r15, [__cuda___cuda_local_var_38708_15_non_const_state_4072+12];
+	mov.s32 	%r40, %r15;
+	ld.local.u32 	%r16, [__cuda___cuda_local_var_38708_15_non_const_state_4072+16];
+	mov.s32 	%r41, %r16;
+	ld.local.u32 	%r17, [__cuda___cuda_local_var_38708_15_non_const_state_4072+20];
+	mov.s32 	%r42, %r17;
+	mov.s32 	%r1390, 1;
+	mov.u32 	%r1391, 1;
+	mov.u32 	%r1392, 0;
+	setp.eq.u32 	%p24, %r1391, %r1392;
+	@%p24 bra 	$Lt_0_49666;
+	add.u32 	%r46, %r6, 24;
+	and.b32 	%r1393, %r46, 3;
+	mov.u32 	%r1394, 0;
+	setp.ne.s32 	%p25, %r1393, %r1394;
+	@%p25 bra 	$Lt_0_50178;
+	.loc	3	130	0
+	mov.s32 	%r49, %r46;
+	mov.s32 	%r50, %r49;
+	bra.uni 	$Lt_0_49410;
+$Lt_0_50178:
+	.loc	3	133	0
+	mov.s32 	%r1395, %r46;
+	mov.u32 	%r1396, __cuda___cuda_local_var_38410_14_non_const_xbuf_140160;
+	mov.s32 	%r1397, 64;
+$Lt_0_50946:
+ //<loop> Loop body line 133, nesting depth: 4, iterations: 64
+	ld.local.u8 	%rh109, [%r1395+0];
+	st.local.u8 	[%r1396+0], %rh109;
+	add.u32 	%r1395, %r1395, 1;
+	add.u32 	%r1396, %r1396, 1;
+	sub.s32 	%r1397, %r1397, 1;
+	mov.u32 	%r1398, 0;
+	setp.ne.s32 	%p26, %r1397, %r1398;
+	@%p26 bra 	$Lt_0_50946;
+	.loc	3	134	0
+	mov.u32 	%r49, __cuda___cuda_local_var_38410_14_non_const_xbuf_140160;
+	mov.s32 	%r50, %r49;
+	ld.local.u32 	%r17, [__cuda___cuda_local_var_38708_15_non_const_state_4072+20];
+	ld.local.u32 	%r16, [__cuda___cuda_local_var_38708_15_non_const_state_4072+16];
+	ld.local.u32 	%r15, [__cuda___cuda_local_var_38708_15_non_const_state_4072+12];
+	ld.local.u32 	%r14, [__cuda___cuda_local_var_38708_15_non_const_state_4072+8];
+	bra.uni 	$Lt_0_49410;
+$Lt_0_49666:
+	mov.s32 	%r49, %r50;
+$Lt_0_49410:
+	.loc	3	149	0
+	ld.global.u32 	%r55, [%r49+0];
+	and.b32 	%r1399, %r40, %r41;
+	not.b32 	%r1400, %r40;
+	and.b32 	%r1401, %r42, %r1400;
+	or.b32 	%r1402, %r1399, %r1401;
+	add.u32 	%r1403, %r39, %r1402;
+	add.u32 	%r1404, %r55, %r1403;
+	sub.u32 	%r1405, %r1404, 680876936;
+	shr.u32 	%r1406, %r1405, 25;
+	shl.b32 	%r1407, %r1405, 7;
+	add.u32 	%r1408, %r1406, %r1407;
+	add.u32 	%r1409, %r1408, %r40;
+	.loc	3	150	0
+	ld.global.u32 	%r67, [%r49+4];
+	and.b32 	%r1410, %r1409, %r40;
+	not.b32 	%r1411, %r1409;
+	and.b32 	%r1412, %r41, %r1411;
+	or.b32 	%r1413, %r1410, %r1412;
+	add.u32 	%r1414, %r42, %r1413;
+	add.u32 	%r1415, %r67, %r1414;
+	sub.u32 	%r1416, %r1415, 389564586;
+	shr.u32 	%r1417, %r1416, 20;
+	shl.b32 	%r1418, %r1416, 12;
+	add.u32 	%r1419, %r1417, %r1418;
+	add.u32 	%r1420, %r1419, %r1409;
+	.loc	3	151	0
+	ld.global.u32 	%r79, [%r49+8];
+	and.b32 	%r1421, %r1420, %r1409;
+	not.b32 	%r1422, %r1420;
+	and.b32 	%r1423, %r40, %r1422;
+	or.b32 	%r1424, %r1421, %r1423;
+	add.u32 	%r1425, %r41, %r1424;
+	add.u32 	%r1426, %r79, %r1425;
+	add.u32 	%r1427, %r1426, 606105819;
+	shr.u32 	%r1428, %r1427, 15;
+	shl.b32 	%r1429, %r1427, 17;
+	add.u32 	%r1430, %r1428, %r1429;
+	add.u32 	%r1431, %r1430, %r1420;
+	.loc	3	152	0
+	ld.global.u32 	%r91, [%r49+12];
+	and.b32 	%r1432, %r1431, %r1420;
+	not.b32 	%r1433, %r1431;
+	and.b32 	%r1434, %r1409, %r1433;
+	or.b32 	%r1435, %r1432, %r1434;
+	add.u32 	%r1436, %r40, %r1435;
+	add.u32 	%r1437, %r91, %r1436;
+	sub.u32 	%r1438, %r1437, 1044525330;
+	shr.u32 	%r1439, %r1438, 10;
+	shl.b32 	%r1440, %r1438, 22;
+	add.u32 	%r1441, %r1439, %r1440;
+	add.u32 	%r1442, %r1441, %r1431;
+	.loc	3	153	0
+	ld.global.u32 	%r103, [%r49+16];
+	and.b32 	%r1443, %r1442, %r1431;
+	not.b32 	%r1444, %r1442;
+	and.b32 	%r1445, %r1420, %r1444;
+	or.b32 	%r1446, %r1443, %r1445;
+	add.u32 	%r1447, %r1409, %r1446;
+	add.u32 	%r1448, %r103, %r1447;
+	sub.u32 	%r1449, %r1448, 176418897;
+	shr.u32 	%r1450, %r1449, 25;
+	shl.b32 	%r1451, %r1449, 7;
+	add.u32 	%r1452, %r1450, %r1451;
+	add.u32 	%r1453, %r1452, %r1442;
+	.loc	3	154	0
+	ld.global.u32 	%r115, [%r49+20];
+	and.b32 	%r1454, %r1453, %r1442;
+	not.b32 	%r1455, %r1453;
+	and.b32 	%r1456, %r1431, %r1455;
+	or.b32 	%r1457, %r1454, %r1456;
+	add.u32 	%r1458, %r1420, %r1457;
+	add.u32 	%r1459, %r115, %r1458;
+	add.u32 	%r1460, %r1459, 1200080426;
+	shr.u32 	%r1461, %r1460, 20;
+	shl.b32 	%r1462, %r1460, 12;
+	add.u32 	%r1463, %r1461, %r1462;
+	add.u32 	%r1464, %r1463, %r1453;
+	.loc	3	155	0
+	ld.global.u32 	%r127, [%r49+24];
+	and.b32 	%r1465, %r1464, %r1453;
+	not.b32 	%r1466, %r1464;
+	and.b32 	%r1467, %r1442, %r1466;
+	or.b32 	%r1468, %r1465, %r1467;
+	add.u32 	%r1469, %r1431, %r1468;
+	add.u32 	%r1470, %r127, %r1469;
+	sub.u32 	%r1471, %r1470, 1473231341;
+	shr.u32 	%r1472, %r1471, 15;
+	shl.b32 	%r1473, %r1471, 17;
+	add.u32 	%r1474, %r1472, %r1473;
+	add.u32 	%r1475, %r1474, %r1464;
+	.loc	3	156	0
+	ld.global.u32 	%r139, [%r49+28];
+	and.b32 	%r1476, %r1475, %r1464;
+	not.b32 	%r1477, %r1475;
+	and.b32 	%r1478, %r1453, %r1477;
+	or.b32 	%r1479, %r1476, %r1478;
+	add.u32 	%r1480, %r1442, %r1479;
+	add.u32 	%r1481, %r139, %r1480;
+	sub.u32 	%r1482, %r1481, 45705983;
+	shr.u32 	%r1483, %r1482, 10;
+	shl.b32 	%r1484, %r1482, 22;
+	add.u32 	%r1485, %r1483, %r1484;
+	add.u32 	%r1486, %r1485, %r1475;
+	.loc	3	157	0
+	ld.global.u32 	%r151, [%r49+32];
+	and.b32 	%r1487, %r1486, %r1475;
+	not.b32 	%r1488, %r1486;
+	and.b32 	%r1489, %r1464, %r1488;
+	or.b32 	%r1490, %r1487, %r1489;
+	add.u32 	%r1491, %r1453, %r1490;
+	add.u32 	%r1492, %r151, %r1491;
+	add.u32 	%r1493, %r1492, 1770035416;
+	shr.u32 	%r1494, %r1493, 25;
+	shl.b32 	%r1495, %r1493, 7;
+	add.u32 	%r1496, %r1494, %r1495;
+	add.u32 	%r1497, %r1496, %r1486;
+	.loc	3	158	0
+	ld.global.u32 	%r163, [%r49+36];
+	and.b32 	%r1498, %r1497, %r1486;
+	not.b32 	%r1499, %r1497;
+	and.b32 	%r1500, %r1475, %r1499;
+	or.b32 	%r1501, %r1498, %r1500;
+	add.u32 	%r1502, %r1464, %r1501;
+	add.u32 	%r1503, %r163, %r1502;
+	sub.u32 	%r1504, %r1503, 1958414417;
+	shr.u32 	%r1505, %r1504, 20;
+	shl.b32 	%r1506, %r1504, 12;
+	add.u32 	%r1507, %r1505, %r1506;
+	add.u32 	%r1508, %r1507, %r1497;
+	.loc	3	159	0
+	ld.global.u32 	%r175, [%r49+40];
+	and.b32 	%r1509, %r1508, %r1497;
+	not.b32 	%r1510, %r1508;
+	and.b32 	%r1511, %r1486, %r1510;
+	or.b32 	%r1512, %r1509, %r1511;
+	add.u32 	%r1513, %r1475, %r1512;
+	add.u32 	%r1514, %r175, %r1513;
+	sub.u32 	%r1515, %r1514, 42063;
+	shr.u32 	%r1516, %r1515, 15;
+	shl.b32 	%r1517, %r1515, 17;
+	add.u32 	%r1518, %r1516, %r1517;
+	add.u32 	%r1519, %r1518, %r1508;
+	.loc	3	160	0
+	ld.global.u32 	%r187, [%r49+44];
+	and.b32 	%r1520, %r1519, %r1508;
+	not.b32 	%r1521, %r1519;
+	and.b32 	%r1522, %r1497, %r1521;
+	or.b32 	%r1523, %r1520, %r1522;
+	add.u32 	%r1524, %r1486, %r1523;
+	add.u32 	%r1525, %r187, %r1524;
+	sub.u32 	%r1526, %r1525, 1990404162;
+	shr.u32 	%r1527, %r1526, 10;
+	shl.b32 	%r1528, %r1526, 22;
+	add.u32 	%r1529, %r1527, %r1528;
+	add.u32 	%r1530, %r1529, %r1519;
+	.loc	3	161	0
+	ld.global.u32 	%r199, [%r49+48];
+	and.b32 	%r1531, %r1530, %r1519;
+	not.b32 	%r1532, %r1530;
+	and.b32 	%r1533, %r1508, %r1532;
+	or.b32 	%r1534, %r1531, %r1533;
+	add.u32 	%r1535, %r1497, %r1534;
+	add.u32 	%r1536, %r199, %r1535;
+	add.u32 	%r1537, %r1536, 1804603682;
+	shr.u32 	%r207, %r1537, 25;
+	shl.b32 	%r208, %r1537, 7;
+	add.u32 	%r209, %r207, %r208;
+	add.u32 	%r1538, %r209, %r1530;
+	.loc	3	162	0
+	ld.global.u32 	%r211, [%r49+52];
+	and.b32 	%r1539, %r1538, %r1530;
+	not.b32 	%r1540, %r1538;
+	and.b32 	%r1541, %r1519, %r1540;
+	or.b32 	%r1542, %r1539, %r1541;
+	add.u32 	%r1543, %r1508, %r1542;
+	add.u32 	%r1544, %r211, %r1543;
+	sub.u32 	%r1545, %r1544, 40341101;
+	shr.u32 	%r219, %r1545, 20;
+	shl.b32 	%r220, %r1545, 12;
+	add.u32 	%r221, %r219, %r220;
+	add.u32 	%r1546, %r221, %r1538;
+	.loc	3	163	0
+	ld.global.u32 	%r223, [%r49+56];
+	not.b32 	%r1547, %r1546;
+	and.b32 	%r1548, %r1547, %r1530;
+	and.b32 	%r1549, %r1546, %r1538;
+	or.b32 	%r1550, %r1548, %r1549;
+	add.u32 	%r1551, %r1519, %r1550;
+	add.u32 	%r1552, %r223, %r1551;
+	sub.u32 	%r1553, %r1552, 1502002290;
+	shr.u32 	%r231, %r1553, 15;
+	shl.b32 	%r232, %r1553, 17;
+	add.u32 	%r233, %r231, %r232;
+	add.u32 	%r1554, %r233, %r1546;
+	.loc	3	164	0
+	ld.global.u32 	%r235, [%r49+60];
+	not.b32 	%r1555, %r1554;
+	and.b32 	%r1556, %r1555, %r1538;
+	and.b32 	%r1557, %r1554, %r1546;
+	or.b32 	%r1558, %r1556, %r1557;
+	add.u32 	%r1559, %r1530, %r1558;
+	add.u32 	%r1560, %r235, %r1559;
+	add.u32 	%r1561, %r1560, 1236535329;
+	shr.u32 	%r243, %r1561, 10;
+	shl.b32 	%r244, %r1561, 22;
+	add.u32 	%r245, %r243, %r244;
+	add.u32 	%r1562, %r245, %r1554;
+	.loc	3	175	0
+	and.b32 	%r1563, %r1562, %r1546;
+	and.b32 	%r1564, %r1554, %r1547;
+	or.b32 	%r1565, %r1563, %r1564;
+	add.u32 	%r1566, %r1538, %r1565;
+	add.u32 	%r1567, %r67, %r1566;
+	sub.u32 	%r1568, %r1567, 165796510;
+	shr.u32 	%r1569, %r1568, 27;
+	shl.b32 	%r1570, %r1568, 5;
+	add.u32 	%r1571, %r1569, %r1570;
+	add.u32 	%r1572, %r1571, %r1562;
+	.loc	3	176	0
+	and.b32 	%r1573, %r1572, %r1554;
+	and.b32 	%r1574, %r1562, %r1555;
+	or.b32 	%r1575, %r1573, %r1574;
+	add.u32 	%r1576, %r1546, %r1575;
+	add.u32 	%r1577, %r127, %r1576;
+	sub.u32 	%r1578, %r1577, 1069501632;
+	shr.u32 	%r1579, %r1578, 23;
+	shl.b32 	%r1580, %r1578, 9;
+	add.u32 	%r1581, %r1579, %r1580;
+	add.u32 	%r1582, %r1581, %r1572;
+	.loc	3	177	0
+	and.b32 	%r1583, %r1582, %r1562;
+	not.b32 	%r1584, %r1562;
+	and.b32 	%r1585, %r1572, %r1584;
+	or.b32 	%r1586, %r1583, %r1585;
+	add.u32 	%r1587, %r1554, %r1586;
+	add.u32 	%r1588, %r187, %r1587;
+	add.u32 	%r1589, %r1588, 643717713;
+	shr.u32 	%r1590, %r1589, 18;
+	shl.b32 	%r1591, %r1589, 14;
+	add.u32 	%r1592, %r1590, %r1591;
+	add.u32 	%r1593, %r1592, %r1582;
+	.loc	3	178	0
+	and.b32 	%r1594, %r1593, %r1572;
+	not.b32 	%r1595, %r1572;
+	and.b32 	%r1596, %r1582, %r1595;
+	or.b32 	%r1597, %r1594, %r1596;
+	add.u32 	%r1598, %r1562, %r1597;
+	add.u32 	%r1599, %r55, %r1598;
+	sub.u32 	%r1600, %r1599, 373897302;
+	shr.u32 	%r1601, %r1600, 12;
+	shl.b32 	%r1602, %r1600, 20;
+	add.u32 	%r1603, %r1601, %r1602;
+	add.u32 	%r1604, %r1603, %r1593;
+	.loc	3	179	0
+	and.b32 	%r1605, %r1604, %r1582;
+	not.b32 	%r1606, %r1582;
+	and.b32 	%r1607, %r1593, %r1606;
+	or.b32 	%r1608, %r1605, %r1607;
+	add.u32 	%r1609, %r1572, %r1608;
+	add.u32 	%r1610, %r115, %r1609;
+	sub.u32 	%r1611, %r1610, 701558691;
+	shr.u32 	%r1612, %r1611, 27;
+	shl.b32 	%r1613, %r1611, 5;
+	add.u32 	%r1614, %r1612, %r1613;
+	add.u32 	%r1615, %r1614, %r1604;
+	.loc	3	180	0
+	and.b32 	%r1616, %r1615, %r1593;
+	not.b32 	%r1617, %r1593;
+	and.b32 	%r1618, %r1604, %r1617;
+	or.b32 	%r1619, %r1616, %r1618;
+	add.u32 	%r1620, %r1582, %r1619;
+	add.u32 	%r1621, %r175, %r1620;
+	add.u32 	%r1622, %r1621, 38016083;
+	shr.u32 	%r1623, %r1622, 23;
+	shl.b32 	%r1624, %r1622, 9;
+	add.u32 	%r1625, %r1623, %r1624;
+	add.u32 	%r1626, %r1625, %r1615;
+	.loc	3	181	0
+	and.b32 	%r1627, %r1626, %r1604;
+	not.b32 	%r1628, %r1604;
+	and.b32 	%r1629, %r1615, %r1628;
+	or.b32 	%r1630, %r1627, %r1629;
+	add.u32 	%r1631, %r1593, %r1630;
+	add.u32 	%r1632, %r235, %r1631;
+	sub.u32 	%r1633, %r1632, 660478335;
+	shr.u32 	%r1634, %r1633, 18;
+	shl.b32 	%r1635, %r1633, 14;
+	add.u32 	%r1636, %r1634, %r1635;
+	add.u32 	%r1637, %r1636, %r1626;
+	.loc	3	182	0
+	and.b32 	%r1638, %r1637, %r1615;
+	not.b32 	%r1639, %r1615;
+	and.b32 	%r1640, %r1626, %r1639;
+	or.b32 	%r1641, %r1638, %r1640;
+	add.u32 	%r1642, %r1604, %r1641;
+	add.u32 	%r1643, %r103, %r1642;
+	sub.u32 	%r1644, %r1643, 405537848;
+	shr.u32 	%r1645, %r1644, 12;
+	shl.b32 	%r1646, %r1644, 20;
+	add.u32 	%r1647, %r1645, %r1646;
+	add.u32 	%r1648, %r1647, %r1637;
+	.loc	3	183	0
+	and.b32 	%r1649, %r1648, %r1626;
+	not.b32 	%r1650, %r1626;
+	and.b32 	%r1651, %r1637, %r1650;
+	or.b32 	%r1652, %r1649, %r1651;
+	add.u32 	%r1653, %r1615, %r1652;
+	add.u32 	%r1654, %r163, %r1653;
+	add.u32 	%r1655, %r1654, 568446438;
+	shr.u32 	%r1656, %r1655, 27;
+	shl.b32 	%r1657, %r1655, 5;
+	add.u32 	%r1658, %r1656, %r1657;
+	add.u32 	%r1659, %r1658, %r1648;
+	.loc	3	184	0
+	and.b32 	%r1660, %r1659, %r1637;
+	not.b32 	%r1661, %r1637;
+	and.b32 	%r1662, %r1648, %r1661;
+	or.b32 	%r1663, %r1660, %r1662;
+	add.u32 	%r1664, %r1626, %r1663;
+	add.u32 	%r1665, %r223, %r1664;
+	sub.u32 	%r1666, %r1665, 1019803690;
+	shr.u32 	%r1667, %r1666, 23;
+	shl.b32 	%r1668, %r1666, 9;
+	add.u32 	%r1669, %r1667, %r1668;
+	add.u32 	%r1670, %r1669, %r1659;
+	.loc	3	185	0
+	and.b32 	%r1671, %r1670, %r1648;
+	not.b32 	%r1672, %r1648;
+	and.b32 	%r1673, %r1659, %r1672;
+	or.b32 	%r1674, %r1671, %r1673;
+	add.u32 	%r1675, %r1637, %r1674;
+	add.u32 	%r1676, %r91, %r1675;
+	sub.u32 	%r1677, %r1676, 187363961;
+	shr.u32 	%r1678, %r1677, 18;
+	shl.b32 	%r1679, %r1677, 14;
+	add.u32 	%r1680, %r1678, %r1679;
+	add.u32 	%r1681, %r1680, %r1670;
+	.loc	3	186	0
+	and.b32 	%r1682, %r1681, %r1659;
+	not.b32 	%r1683, %r1659;
+	and.b32 	%r1684, %r1670, %r1683;
+	or.b32 	%r1685, %r1682, %r1684;
+	add.u32 	%r1686, %r1648, %r1685;
+	add.u32 	%r1687, %r151, %r1686;
+	add.u32 	%r1688, %r1687, 1163531501;
+	shr.u32 	%r1689, %r1688, 12;
+	shl.b32 	%r1690, %r1688, 20;
+	add.u32 	%r1691, %r1689, %r1690;
+	add.u32 	%r1692, %r1691, %r1681;
+	.loc	3	187	0
+	and.b32 	%r1693, %r1692, %r1670;
+	not.b32 	%r1694, %r1670;
+	and.b32 	%r1695, %r1681, %r1694;
+	or.b32 	%r1696, %r1693, %r1695;
+	add.u32 	%r1697, %r1659, %r1696;
+	add.u32 	%r1698, %r211, %r1697;
+	sub.u32 	%r1699, %r1698, 1444681467;
+	shr.u32 	%r384, %r1699, 27;
+	shl.b32 	%r385, %r1699, 5;
+	add.u32 	%r386, %r384, %r385;
+	add.u32 	%r1700, %r386, %r1692;
+	.loc	3	188	0
+	and.b32 	%r1701, %r1700, %r1681;
+	not.b32 	%r1702, %r1681;
+	and.b32 	%r1703, %r1692, %r1702;
+	or.b32 	%r1704, %r1701, %r1703;
+	add.u32 	%r1705, %r1670, %r1704;
+	add.u32 	%r1706, %r79, %r1705;
+	sub.u32 	%r1707, %r1706, 51403784;
+	shr.u32 	%r395, %r1707, 23;
+	shl.b32 	%r396, %r1707, 9;
+	add.u32 	%r397, %r395, %r396;
+	add.u32 	%r1708, %r397, %r1700;
+	.loc	3	189	0
+	and.b32 	%r1709, %r1708, %r1692;
+	not.b32 	%r1710, %r1692;
+	and.b32 	%r1711, %r1700, %r1710;
+	or.b32 	%r1712, %r1709, %r1711;
+	add.u32 	%r1713, %r1681, %r1712;
+	add.u32 	%r1714, %r139, %r1713;
+	add.u32 	%r1715, %r1714, 1735328473;
+	shr.u32 	%r406, %r1715, 18;
+	shl.b32 	%r407, %r1715, 14;
+	add.u32 	%r408, %r406, %r407;
+	add.u32 	%r1716, %r408, %r1708;
+	.loc	3	190	0
+	and.b32 	%r1717, %r1716, %r1700;
+	not.b32 	%r1718, %r1700;
+	and.b32 	%r1719, %r1708, %r1718;
+	or.b32 	%r1720, %r1717, %r1719;
+	add.u32 	%r1721, %r1692, %r1720;
+	add.u32 	%r1722, %r199, %r1721;
+	sub.u32 	%r1723, %r1722, 1926607734;
+	shr.u32 	%r417, %r1723, 12;
+	shl.b32 	%r418, %r1723, 20;
+	add.u32 	%r419, %r417, %r418;
+	add.u32 	%r1724, %r419, %r1716;
+	.loc	3	201	0
+	xor.b32 	%r1725, %r1724, %r1716;
+	xor.b32 	%r1726, %r1708, %r1725;
+	add.u32 	%r1727, %r1700, %r1726;
+	add.u32 	%r1728, %r115, %r1727;
+	sub.u32 	%r1729, %r1728, 378558;
+	shr.u32 	%r1730, %r1729, 28;
+	shl.b32 	%r1731, %r1729, 4;
+	add.u32 	%r1732, %r1730, %r1731;
+	add.u32 	%r1733, %r1732, %r1724;
+	.loc	3	202	0
+	xor.b32 	%r1734, %r1733, %r1724;
+	xor.b32 	%r1735, %r1716, %r1734;
+	add.u32 	%r1736, %r1708, %r1735;
+	add.u32 	%r1737, %r151, %r1736;
+	sub.u32 	%r1738, %r1737, 2022574463;
+	shr.u32 	%r1739, %r1738, 21;
+	shl.b32 	%r1740, %r1738, 11;
+	add.u32 	%r1741, %r1739, %r1740;
+	add.u32 	%r1742, %r1741, %r1733;
+	.loc	3	203	0
+	xor.b32 	%r1743, %r1742, %r1733;
+	xor.b32 	%r1744, %r1724, %r1743;
+	add.u32 	%r1745, %r1716, %r1744;
+	add.u32 	%r1746, %r187, %r1745;
+	add.u32 	%r1747, %r1746, 1839030562;
+	shr.u32 	%r1748, %r1747, 16;
+	shl.b32 	%r1749, %r1747, 16;
+	add.u32 	%r1750, %r1748, %r1749;
+	add.u32 	%r1751, %r1750, %r1742;
+	.loc	3	204	0
+	xor.b32 	%r1752, %r1751, %r1742;
+	xor.b32 	%r1753, %r1733, %r1752;
+	add.u32 	%r1754, %r1724, %r1753;
+	add.u32 	%r1755, %r223, %r1754;
+	sub.u32 	%r1756, %r1755, 35309556;
+	shr.u32 	%r1757, %r1756, 9;
+	shl.b32 	%r1758, %r1756, 23;
+	add.u32 	%r1759, %r1757, %r1758;
+	add.u32 	%r1760, %r1759, %r1751;
+	.loc	3	205	0
+	xor.b32 	%r1761, %r1760, %r1751;
+	xor.b32 	%r1762, %r1742, %r1761;
+	add.u32 	%r1763, %r1733, %r1762;
+	add.u32 	%r1764, %r67, %r1763;
+	sub.u32 	%r1765, %r1764, 1530992060;
+	shr.u32 	%r1766, %r1765, 28;
+	shl.b32 	%r1767, %r1765, 4;
+	add.u32 	%r1768, %r1766, %r1767;
+	add.u32 	%r1769, %r1768, %r1760;
+	.loc	3	206	0
+	xor.b32 	%r1770, %r1769, %r1760;
+	xor.b32 	%r1771, %r1751, %r1770;
+	add.u32 	%r1772, %r1742, %r1771;
+	add.u32 	%r1773, %r103, %r1772;
+	add.u32 	%r1774, %r1773, 1272893353;
+	shr.u32 	%r1775, %r1774, 21;
+	shl.b32 	%r1776, %r1774, 11;
+	add.u32 	%r1777, %r1775, %r1776;
+	add.u32 	%r1778, %r1777, %r1769;
+	.loc	3	207	0
+	xor.b32 	%r1779, %r1778, %r1769;
+	xor.b32 	%r1780, %r1760, %r1779;
+	add.u32 	%r1781, %r1751, %r1780;
+	add.u32 	%r1782, %r139, %r1781;
+	sub.u32 	%r1783, %r1782, 155497632;
+	shr.u32 	%r1784, %r1783, 16;
+	shl.b32 	%r1785, %r1783, 16;
+	add.u32 	%r1786, %r1784, %r1785;
+	add.u32 	%r1787, %r1786, %r1778;
+	.loc	3	208	0
+	xor.b32 	%r1788, %r1787, %r1778;
+	xor.b32 	%r1789, %r1769, %r1788;
+	add.u32 	%r1790, %r1760, %r1789;
+	add.u32 	%r1791, %r175, %r1790;
+	sub.u32 	%r1792, %r1791, 1094730640;
+	shr.u32 	%r1793, %r1792, 9;
+	shl.b32 	%r1794, %r1792, 23;
+	add.u32 	%r1795, %r1793, %r1794;
+	add.u32 	%r1796, %r1795, %r1787;
+	.loc	3	209	0
+	xor.b32 	%r1797, %r1796, %r1787;
+	xor.b32 	%r1798, %r1778, %r1797;
+	add.u32 	%r1799, %r1769, %r1798;
+	add.u32 	%r1800, %r211, %r1799;
+	add.u32 	%r1801, %r1800, 681279174;
+	shr.u32 	%r1802, %r1801, 28;
+	shl.b32 	%r1803, %r1801, 4;
+	add.u32 	%r1804, %r1802, %r1803;
+	add.u32 	%r1805, %r1804, %r1796;
+	.loc	3	210	0
+	xor.b32 	%r1806, %r1805, %r1796;
+	xor.b32 	%r1807, %r1787, %r1806;
+	add.u32 	%r1808, %r1778, %r1807;
+	add.u32 	%r1809, %r55, %r1808;
+	sub.u32 	%r1810, %r1809, 358537222;
+	shr.u32 	%r1811, %r1810, 21;
+	shl.b32 	%r1812, %r1810, 11;
+	add.u32 	%r1813, %r1811, %r1812;
+	add.u32 	%r1814, %r1813, %r1805;
+	.loc	3	211	0
+	xor.b32 	%r1815, %r1814, %r1805;
+	xor.b32 	%r1816, %r1796, %r1815;
+	add.u32 	%r1817, %r1787, %r1816;
+	add.u32 	%r1818, %r91, %r1817;
+	sub.u32 	%r1819, %r1818, 722521979;
+	shr.u32 	%r1820, %r1819, 16;
+	shl.b32 	%r1821, %r1819, 16;
+	add.u32 	%r1822, %r1820, %r1821;
+	add.u32 	%r1823, %r1822, %r1814;
+	.loc	3	212	0
+	xor.b32 	%r1824, %r1823, %r1814;
+	xor.b32 	%r1825, %r1805, %r1824;
+	add.u32 	%r1826, %r1796, %r1825;
+	add.u32 	%r1827, %r127, %r1826;
+	add.u32 	%r1828, %r1827, 76029189;
+	shr.u32 	%r1829, %r1828, 9;
+	shl.b32 	%r1830, %r1828, 23;
+	add.u32 	%r1831, %r1829, %r1830;
+	add.u32 	%r1832, %r1831, %r1823;
+	.loc	3	213	0
+	xor.b32 	%r1833, %r1832, %r1823;
+	xor.b32 	%r1834, %r1814, %r1833;
+	add.u32 	%r1835, %r1805, %r1834;
+	add.u32 	%r1836, %r163, %r1835;
+	sub.u32 	%r1837, %r1836, 640364487;
+	shr.u32 	%r534, %r1837, 28;
+	shl.b32 	%r535, %r1837, 4;
+	add.u32 	%r536, %r534, %r535;
+	add.u32 	%r1838, %r536, %r1832;
+	.loc	3	214	0
+	xor.b32 	%r1839, %r1838, %r1832;
+	xor.b32 	%r1840, %r1823, %r1839;
+	add.u32 	%r1841, %r1814, %r1840;
+	add.u32 	%r1842, %r199, %r1841;
+	sub.u32 	%r1843, %r1842, 421815835;
+	shr.u32 	%r543, %r1843, 21;
+	shl.b32 	%r544, %r1843, 11;
+	add.u32 	%r545, %r543, %r544;
+	add.u32 	%r1844, %r545, %r1838;
+	.loc	3	215	0
+	xor.b32 	%r1845, %r1844, %r1838;
+	xor.b32 	%r1846, %r1832, %r1845;
+	add.u32 	%r1847, %r1823, %r1846;
+	add.u32 	%r1848, %r235, %r1847;
+	add.u32 	%r1849, %r1848, 530742520;
+	shr.u32 	%r552, %r1849, 16;
+	shl.b32 	%r553, %r1849, 16;
+	add.u32 	%r554, %r552, %r553;
+	add.u32 	%r1850, %r554, %r1844;
+	.loc	3	216	0
+	xor.b32 	%r1851, %r1850, %r1844;
+	xor.b32 	%r1852, %r1838, %r1851;
+	add.u32 	%r1853, %r1832, %r1852;
+	add.u32 	%r1854, %r79, %r1853;
+	sub.u32 	%r1855, %r1854, 995338651;
+	shr.u32 	%r561, %r1855, 9;
+	shl.b32 	%r562, %r1855, 23;
+	add.u32 	%r563, %r561, %r562;
+	add.u32 	%r1856, %r563, %r1850;
+	.loc	3	227	0
+	not.b32 	%r1857, %r1844;
+	or.b32 	%r1858, %r1856, %r1857;
+	xor.b32 	%r1859, %r1850, %r1858;
+	add.u32 	%r1860, %r1838, %r1859;
+	add.u32 	%r1861, %r55, %r1860;
+	sub.u32 	%r1862, %r1861, 198630844;
+	shr.u32 	%r1863, %r1862, 26;
+	shl.b32 	%r1864, %r1862, 6;
+	add.u32 	%r1865, %r1863, %r1864;
+	add.u32 	%r1866, %r1865, %r1856;
+	.loc	3	228	0
+	not.b32 	%r1867, %r1850;
+	or.b32 	%r1868, %r1866, %r1867;
+	xor.b32 	%r1869, %r1856, %r1868;
+	add.u32 	%r1870, %r1844, %r1869;
+	add.u32 	%r1871, %r139, %r1870;
+	add.u32 	%r1872, %r1871, 1126891415;
+	shr.u32 	%r1873, %r1872, 22;
+	shl.b32 	%r1874, %r1872, 10;
+	add.u32 	%r1875, %r1873, %r1874;
+	add.u32 	%r1876, %r1875, %r1866;
+	.loc	3	229	0
+	not.b32 	%r1877, %r1856;
+	or.b32 	%r1878, %r1876, %r1877;
+	xor.b32 	%r1879, %r1866, %r1878;
+	add.u32 	%r1880, %r1850, %r1879;
+	add.u32 	%r1881, %r223, %r1880;
+	sub.u32 	%r1882, %r1881, 1416354905;
+	shr.u32 	%r1883, %r1882, 17;
+	shl.b32 	%r1884, %r1882, 15;
+	add.u32 	%r1885, %r1883, %r1884;
+	add.u32 	%r1886, %r1885, %r1876;
+	.loc	3	230	0
+	not.b32 	%r1887, %r1866;
+	or.b32 	%r1888, %r1886, %r1887;
+	xor.b32 	%r1889, %r1876, %r1888;
+	add.u32 	%r1890, %r1856, %r1889;
+	add.u32 	%r1891, %r115, %r1890;
+	sub.u32 	%r1892, %r1891, 57434055;
+	shr.u32 	%r1893, %r1892, 11;
+	shl.b32 	%r1894, %r1892, 21;
+	add.u32 	%r1895, %r1893, %r1894;
+	add.u32 	%r1896, %r1895, %r1886;
+	.loc	3	231	0
+	not.b32 	%r1897, %r1876;
+	or.b32 	%r1898, %r1896, %r1897;
+	xor.b32 	%r1899, %r1886, %r1898;
+	add.u32 	%r1900, %r1866, %r1899;
+	add.u32 	%r1901, %r199, %r1900;
+	add.u32 	%r1902, %r1901, 1700485571;
+	shr.u32 	%r1903, %r1902, 26;
+	shl.b32 	%r1904, %r1902, 6;
+	add.u32 	%r1905, %r1903, %r1904;
+	add.u32 	%r1906, %r1905, %r1896;
+	.loc	3	232	0
+	not.b32 	%r1907, %r1886;
+	or.b32 	%r1908, %r1906, %r1907;
+	xor.b32 	%r1909, %r1896, %r1908;
+	add.u32 	%r1910, %r1876, %r1909;
+	add.u32 	%r1911, %r91, %r1910;
+	sub.u32 	%r1912, %r1911, 1894986606;
+	shr.u32 	%r1913, %r1912, 22;
+	shl.b32 	%r1914, %r1912, 10;
+	add.u32 	%r1915, %r1913, %r1914;
+	add.u32 	%r1916, %r1915, %r1906;
+	.loc	3	233	0
+	not.b32 	%r1917, %r1896;
+	or.b32 	%r1918, %r1916, %r1917;
+	xor.b32 	%r1919, %r1906, %r1918;
+	add.u32 	%r1920, %r1886, %r1919;
+	add.u32 	%r1921, %r175, %r1920;
+	sub.u32 	%r1922, %r1921, 1051523;
+	shr.u32 	%r1923, %r1922, 17;
+	shl.b32 	%r1924, %r1922, 15;
+	add.u32 	%r1925, %r1923, %r1924;
+	add.u32 	%r1926, %r1925, %r1916;
+	.loc	3	234	0
+	not.b32 	%r1927, %r1906;
+	or.b32 	%r1928, %r1926, %r1927;
+	xor.b32 	%r1929, %r1916, %r1928;
+	add.u32 	%r1930, %r1896, %r1929;
+	add.u32 	%r1931, %r67, %r1930;
+	sub.u32 	%r1932, %r1931, 2054922799;
+	shr.u32 	%r1933, %r1932, 11;
+	shl.b32 	%r1934, %r1932, 21;
+	add.u32 	%r1935, %r1933, %r1934;
+	add.u32 	%r1936, %r1935, %r1926;
+	.loc	3	235	0
+	not.b32 	%r1937, %r1916;
+	or.b32 	%r1938, %r1936, %r1937;
+	xor.b32 	%r1939, %r1926, %r1938;
+	add.u32 	%r1940, %r1906, %r1939;
+	add.u32 	%r1941, %r151, %r1940;
+	add.u32 	%r1942, %r1941, 1873313359;
+	shr.u32 	%r1943, %r1942, 26;
+	shl.b32 	%r1944, %r1942, 6;
+	add.u32 	%r1945, %r1943, %r1944;
+	add.u32 	%r1946, %r1945, %r1936;
+	.loc	3	236	0
+	not.b32 	%r1947, %r1926;
+	or.b32 	%r1948, %r1946, %r1947;
+	xor.b32 	%r1949, %r1936, %r1948;
+	add.u32 	%r1950, %r1916, %r1949;
+	add.u32 	%r1951, %r235, %r1950;
+	sub.u32 	%r1952, %r1951, 30611744;
+	shr.u32 	%r1953, %r1952, 22;
+	shl.b32 	%r1954, %r1952, 10;
+	add.u32 	%r1955, %r1953, %r1954;
+	add.u32 	%r1956, %r1955, %r1946;
+	.loc	3	237	0
+	not.b32 	%r1957, %r1936;
+	or.b32 	%r1958, %r1956, %r1957;
+	xor.b32 	%r1959, %r1946, %r1958;
+	add.u32 	%r1960, %r1926, %r1959;
+	add.u32 	%r1961, %r127, %r1960;
+	sub.u32 	%r1962, %r1961, 1560198380;
+	shr.u32 	%r1963, %r1962, 17;
+	shl.b32 	%r1964, %r1962, 15;
+	add.u32 	%r1965, %r1963, %r1964;
+	add.u32 	%r1966, %r1965, %r1956;
+	.loc	3	238	0
+	not.b32 	%r1967, %r1946;
+	or.b32 	%r1968, %r1966, %r1967;
+	xor.b32 	%r1969, %r1956, %r1968;
+	add.u32 	%r1970, %r1936, %r1969;
+	add.u32 	%r1971, %r211, %r1970;
+	add.u32 	%r1972, %r1971, 1309151649;
+	shr.u32 	%r681, %r1972, 11;
+	shl.b32 	%r682, %r1972, 21;
+	add.u32 	%r683, %r681, %r682;
+	add.u32 	%r1973, %r683, %r1966;
+	.loc	3	239	0
+	not.b32 	%r1974, %r1956;
+	or.b32 	%r1975, %r1973, %r1974;
+	xor.b32 	%r1976, %r1966, %r1975;
+	add.u32 	%r1977, %r1946, %r1976;
+	add.u32 	%r1978, %r103, %r1977;
+	sub.u32 	%r1979, %r1978, 145523070;
+	shr.u32 	%r691, %r1979, 26;
+	shl.b32 	%r692, %r1979, 6;
+	add.u32 	%r693, %r691, %r692;
+	add.u32 	%r1980, %r693, %r1973;
+	.loc	3	240	0
+	not.b32 	%r1981, %r1966;
+	or.b32 	%r1982, %r1980, %r1981;
+	xor.b32 	%r1983, %r1973, %r1982;
+	add.u32 	%r1984, %r1956, %r1983;
+	add.u32 	%r1985, %r187, %r1984;
+	sub.u32 	%r1986, %r1985, 1120210379;
+	shr.u32 	%r701, %r1986, 22;
+	shl.b32 	%r702, %r1986, 10;
+	add.u32 	%r703, %r701, %r702;
+	add.u32 	%r1987, %r703, %r1980;
+	.loc	3	241	0
+	not.b32 	%r1988, %r1973;
+	or.b32 	%r1989, %r1987, %r1988;
+	xor.b32 	%r1990, %r1980, %r1989;
+	add.u32 	%r1991, %r1966, %r1990;
+	add.u32 	%r1992, %r79, %r1991;
+	add.u32 	%r1993, %r1992, 718787259;
+	shr.u32 	%r711, %r1993, 17;
+	shl.b32 	%r712, %r1993, 15;
+	add.u32 	%r713, %r711, %r712;
+	add.u32 	%r1994, %r713, %r1987;
+	.loc	3	242	0
+	not.b32 	%r1995, %r1980;
+	or.b32 	%r1996, %r1994, %r1995;
+	xor.b32 	%r1997, %r1987, %r1996;
+	add.u32 	%r1998, %r1973, %r1997;
+	add.u32 	%r1999, %r163, %r1998;
+	sub.u32 	%r720, %r1999, 343485551;
+	.loc	3	248	0
+	add.u32 	%r2000, %r1980, %r14;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+8], %r2000;
+	.loc	3	249	0
+	add.u32 	%r2001, %r1994, %r15;
+	shr.u32 	%r2002, %r720, 11;
+	shl.b32 	%r2003, %r720, 21;
+	add.u32 	%r2004, %r2002, %r2003;
+	add.u32 	%r2005, %r2001, %r2004;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+12], %r2005;
+	.loc	3	250	0
+	add.u32 	%r2006, %r1994, %r16;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+16], %r2006;
+	.loc	3	251	0
+	add.u32 	%r2007, %r1987, %r17;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+20], %r2007;
+	.loc	3	293	0
+	bra.uni 	$Lt_0_47874;
+$Lt_0_48130:
+	mov.s32 	%r36, %r7;
+$Lt_0_47874:
+	mov.u32 	%r2008, 63;
+	setp.le.s32 	%p27, %r38, %r2008;
+	@%p27 bra 	$Lt_0_51458;
+	shr.s32 	%r2009, %r38, 31;
+	mov.s32 	%r2010, 63;
+	and.b32 	%r2011, %r2009, %r2010;
+	add.s32 	%r2012, %r2011, %r38;
+	shr.s32 	%r2013, %r2012, 6;
+	ld.local.u32 	%r17, [__cuda___cuda_local_var_38708_15_non_const_state_4072+20];
+	ld.local.u32 	%r16, [__cuda___cuda_local_var_38708_15_non_const_state_4072+16];
+	ld.local.u32 	%r15, [__cuda___cuda_local_var_38708_15_non_const_state_4072+12];
+	ld.local.u32 	%r14, [__cuda___cuda_local_var_38708_15_non_const_state_4072+8];
+	mov.s32 	%r2014, %r2013;
+$Lt_0_51970:
+ //<loop> Loop body line 293, nesting depth: 4, estimated iterations: unknown
+	.loc	3	108	0
+	mov.s32 	%r39, %r14;
+	mov.s32 	%r40, %r15;
+	mov.s32 	%r41, %r16;
+	mov.s32 	%r42, %r17;
+	mov.s32 	%r2015, 1;
+	mov.u32 	%r2016, 1;
+	mov.u32 	%r2017, 0;
+	setp.eq.u32 	%p28, %r2016, %r2017;
+	@%p28 bra 	$Lt_0_52482;
+	and.b32 	%r2018, %r36, 3;
+	mov.u32 	%r2019, 0;
+	setp.ne.s32 	%p29, %r2018, %r2019;
+	@%p29 bra 	$Lt_0_52994;
+	.loc	3	130	0
+	mov.s32 	%r49, %r36;
+	mov.s32 	%r50, %r49;
+	bra.uni 	$Lt_0_52226;
+$Lt_0_52994:
+	.loc	3	133	0
+	mov.s32 	%r2020, %r36;
+	mov.u32 	%r2021, __cuda___cuda_local_var_38410_14_non_const_xbuf_140160;
+	mov.s32 	%r2022, 64;
+$Lt_0_53762:
+ //<loop> Loop body line 133, nesting depth: 5, iterations: 64
+	ld.shared.u8 	%rh110, [%r2020+0];
+	st.local.u8 	[%r2021+0], %rh110;
+	add.u32 	%r2020, %r2020, 1;
+	add.u32 	%r2021, %r2021, 1;
+	sub.s32 	%r2022, %r2022, 1;
+	mov.u32 	%r2023, 0;
+	setp.ne.s32 	%p30, %r2022, %r2023;
+	@%p30 bra 	$Lt_0_53762;
+	.loc	3	134	0
+	mov.u32 	%r49, __cuda___cuda_local_var_38410_14_non_const_xbuf_140160;
+	mov.s32 	%r50, %r49;
+	ld.local.u32 	%r17, [__cuda___cuda_local_var_38708_15_non_const_state_4072+20];
+	ld.local.u32 	%r16, [__cuda___cuda_local_var_38708_15_non_const_state_4072+16];
+	ld.local.u32 	%r15, [__cuda___cuda_local_var_38708_15_non_const_state_4072+12];
+	ld.local.u32 	%r14, [__cuda___cuda_local_var_38708_15_non_const_state_4072+8];
+	bra.uni 	$Lt_0_52226;
+$Lt_0_52482:
+	mov.s32 	%r49, %r50;
+$Lt_0_52226:
+	.loc	3	149	0
+	ld.global.u32 	%r55, [%r49+0];
+	and.b32 	%r2024, %r40, %r41;
+	not.b32 	%r2025, %r40;
+	and.b32 	%r2026, %r42, %r2025;
+	or.b32 	%r2027, %r2024, %r2026;
+	add.u32 	%r2028, %r39, %r2027;
+	add.u32 	%r2029, %r55, %r2028;
+	sub.u32 	%r2030, %r2029, 680876936;
+	shr.u32 	%r2031, %r2030, 25;
+	shl.b32 	%r2032, %r2030, 7;
+	add.u32 	%r2033, %r2031, %r2032;
+	add.u32 	%r2034, %r2033, %r40;
+	.loc	3	150	0
+	ld.global.u32 	%r67, [%r49+4];
+	and.b32 	%r2035, %r2034, %r40;
+	not.b32 	%r2036, %r2034;
+	and.b32 	%r2037, %r41, %r2036;
+	or.b32 	%r2038, %r2035, %r2037;
+	add.u32 	%r2039, %r42, %r2038;
+	add.u32 	%r2040, %r67, %r2039;
+	sub.u32 	%r2041, %r2040, 389564586;
+	shr.u32 	%r2042, %r2041, 20;
+	shl.b32 	%r2043, %r2041, 12;
+	add.u32 	%r2044, %r2042, %r2043;
+	add.u32 	%r2045, %r2044, %r2034;
+	.loc	3	151	0
+	ld.global.u32 	%r79, [%r49+8];
+	and.b32 	%r2046, %r2045, %r2034;
+	not.b32 	%r2047, %r2045;
+	and.b32 	%r2048, %r40, %r2047;
+	or.b32 	%r2049, %r2046, %r2048;
+	add.u32 	%r2050, %r41, %r2049;
+	add.u32 	%r2051, %r79, %r2050;
+	add.u32 	%r2052, %r2051, 606105819;
+	shr.u32 	%r2053, %r2052, 15;
+	shl.b32 	%r2054, %r2052, 17;
+	add.u32 	%r2055, %r2053, %r2054;
+	add.u32 	%r2056, %r2055, %r2045;
+	.loc	3	152	0
+	ld.global.u32 	%r91, [%r49+12];
+	and.b32 	%r2057, %r2056, %r2045;
+	not.b32 	%r2058, %r2056;
+	and.b32 	%r2059, %r2034, %r2058;
+	or.b32 	%r2060, %r2057, %r2059;
+	add.u32 	%r2061, %r40, %r2060;
+	add.u32 	%r2062, %r91, %r2061;
+	sub.u32 	%r2063, %r2062, 1044525330;
+	shr.u32 	%r2064, %r2063, 10;
+	shl.b32 	%r2065, %r2063, 22;
+	add.u32 	%r2066, %r2064, %r2065;
+	add.u32 	%r2067, %r2066, %r2056;
+	.loc	3	153	0
+	ld.global.u32 	%r103, [%r49+16];
+	and.b32 	%r2068, %r2067, %r2056;
+	not.b32 	%r2069, %r2067;
+	and.b32 	%r2070, %r2045, %r2069;
+	or.b32 	%r2071, %r2068, %r2070;
+	add.u32 	%r2072, %r2034, %r2071;
+	add.u32 	%r2073, %r103, %r2072;
+	sub.u32 	%r2074, %r2073, 176418897;
+	shr.u32 	%r2075, %r2074, 25;
+	shl.b32 	%r2076, %r2074, 7;
+	add.u32 	%r2077, %r2075, %r2076;
+	add.u32 	%r2078, %r2077, %r2067;
+	.loc	3	154	0
+	ld.global.u32 	%r115, [%r49+20];
+	and.b32 	%r2079, %r2078, %r2067;
+	not.b32 	%r2080, %r2078;
+	and.b32 	%r2081, %r2056, %r2080;
+	or.b32 	%r2082, %r2079, %r2081;
+	add.u32 	%r2083, %r2045, %r2082;
+	add.u32 	%r2084, %r115, %r2083;
+	add.u32 	%r2085, %r2084, 1200080426;
+	shr.u32 	%r2086, %r2085, 20;
+	shl.b32 	%r2087, %r2085, 12;
+	add.u32 	%r2088, %r2086, %r2087;
+	add.u32 	%r2089, %r2088, %r2078;
+	.loc	3	155	0
+	ld.global.u32 	%r127, [%r49+24];
+	and.b32 	%r2090, %r2089, %r2078;
+	not.b32 	%r2091, %r2089;
+	and.b32 	%r2092, %r2067, %r2091;
+	or.b32 	%r2093, %r2090, %r2092;
+	add.u32 	%r2094, %r2056, %r2093;
+	add.u32 	%r2095, %r127, %r2094;
+	sub.u32 	%r2096, %r2095, 1473231341;
+	shr.u32 	%r2097, %r2096, 15;
+	shl.b32 	%r2098, %r2096, 17;
+	add.u32 	%r2099, %r2097, %r2098;
+	add.u32 	%r2100, %r2099, %r2089;
+	.loc	3	156	0
+	ld.global.u32 	%r139, [%r49+28];
+	and.b32 	%r2101, %r2100, %r2089;
+	not.b32 	%r2102, %r2100;
+	and.b32 	%r2103, %r2078, %r2102;
+	or.b32 	%r2104, %r2101, %r2103;
+	add.u32 	%r2105, %r2067, %r2104;
+	add.u32 	%r2106, %r139, %r2105;
+	sub.u32 	%r2107, %r2106, 45705983;
+	shr.u32 	%r2108, %r2107, 10;
+	shl.b32 	%r2109, %r2107, 22;
+	add.u32 	%r2110, %r2108, %r2109;
+	add.u32 	%r2111, %r2110, %r2100;
+	.loc	3	157	0
+	ld.global.u32 	%r151, [%r49+32];
+	and.b32 	%r2112, %r2111, %r2100;
+	not.b32 	%r2113, %r2111;
+	and.b32 	%r2114, %r2089, %r2113;
+	or.b32 	%r2115, %r2112, %r2114;
+	add.u32 	%r2116, %r2078, %r2115;
+	add.u32 	%r2117, %r151, %r2116;
+	add.u32 	%r2118, %r2117, 1770035416;
+	shr.u32 	%r2119, %r2118, 25;
+	shl.b32 	%r2120, %r2118, 7;
+	add.u32 	%r2121, %r2119, %r2120;
+	add.u32 	%r2122, %r2121, %r2111;
+	.loc	3	158	0
+	ld.global.u32 	%r163, [%r49+36];
+	and.b32 	%r2123, %r2122, %r2111;
+	not.b32 	%r2124, %r2122;
+	and.b32 	%r2125, %r2100, %r2124;
+	or.b32 	%r2126, %r2123, %r2125;
+	add.u32 	%r2127, %r2089, %r2126;
+	add.u32 	%r2128, %r163, %r2127;
+	sub.u32 	%r2129, %r2128, 1958414417;
+	shr.u32 	%r2130, %r2129, 20;
+	shl.b32 	%r2131, %r2129, 12;
+	add.u32 	%r2132, %r2130, %r2131;
+	add.u32 	%r2133, %r2132, %r2122;
+	.loc	3	159	0
+	ld.global.u32 	%r175, [%r49+40];
+	and.b32 	%r2134, %r2133, %r2122;
+	not.b32 	%r2135, %r2133;
+	and.b32 	%r2136, %r2111, %r2135;
+	or.b32 	%r2137, %r2134, %r2136;
+	add.u32 	%r2138, %r2100, %r2137;
+	add.u32 	%r2139, %r175, %r2138;
+	sub.u32 	%r2140, %r2139, 42063;
+	shr.u32 	%r2141, %r2140, 15;
+	shl.b32 	%r2142, %r2140, 17;
+	add.u32 	%r2143, %r2141, %r2142;
+	add.u32 	%r2144, %r2143, %r2133;
+	.loc	3	160	0
+	ld.global.u32 	%r187, [%r49+44];
+	and.b32 	%r2145, %r2144, %r2133;
+	not.b32 	%r2146, %r2144;
+	and.b32 	%r2147, %r2122, %r2146;
+	or.b32 	%r2148, %r2145, %r2147;
+	add.u32 	%r2149, %r2111, %r2148;
+	add.u32 	%r2150, %r187, %r2149;
+	sub.u32 	%r2151, %r2150, 1990404162;
+	shr.u32 	%r2152, %r2151, 10;
+	shl.b32 	%r2153, %r2151, 22;
+	add.u32 	%r2154, %r2152, %r2153;
+	add.u32 	%r2155, %r2154, %r2144;
+	.loc	3	161	0
+	ld.global.u32 	%r199, [%r49+48];
+	and.b32 	%r2156, %r2155, %r2144;
+	not.b32 	%r2157, %r2155;
+	and.b32 	%r2158, %r2133, %r2157;
+	or.b32 	%r2159, %r2156, %r2158;
+	add.u32 	%r2160, %r2122, %r2159;
+	add.u32 	%r2161, %r199, %r2160;
+	add.u32 	%r2162, %r2161, 1804603682;
+	shr.u32 	%r207, %r2162, 25;
+	shl.b32 	%r208, %r2162, 7;
+	add.u32 	%r209, %r207, %r208;
+	add.u32 	%r2163, %r209, %r2155;
+	.loc	3	162	0
+	ld.global.u32 	%r211, [%r49+52];
+	and.b32 	%r2164, %r2163, %r2155;
+	not.b32 	%r2165, %r2163;
+	and.b32 	%r2166, %r2144, %r2165;
+	or.b32 	%r2167, %r2164, %r2166;
+	add.u32 	%r2168, %r2133, %r2167;
+	add.u32 	%r2169, %r211, %r2168;
+	sub.u32 	%r2170, %r2169, 40341101;
+	shr.u32 	%r219, %r2170, 20;
+	shl.b32 	%r220, %r2170, 12;
+	add.u32 	%r221, %r219, %r220;
+	add.u32 	%r2171, %r221, %r2163;
+	.loc	3	163	0
+	ld.global.u32 	%r223, [%r49+56];
+	not.b32 	%r2172, %r2171;
+	and.b32 	%r2173, %r2172, %r2155;
+	and.b32 	%r2174, %r2171, %r2163;
+	or.b32 	%r2175, %r2173, %r2174;
+	add.u32 	%r2176, %r2144, %r2175;
+	add.u32 	%r2177, %r223, %r2176;
+	sub.u32 	%r2178, %r2177, 1502002290;
+	shr.u32 	%r231, %r2178, 15;
+	shl.b32 	%r232, %r2178, 17;
+	add.u32 	%r233, %r231, %r232;
+	add.u32 	%r2179, %r233, %r2171;
+	.loc	3	164	0
+	ld.global.u32 	%r235, [%r49+60];
+	not.b32 	%r2180, %r2179;
+	and.b32 	%r2181, %r2180, %r2163;
+	and.b32 	%r2182, %r2179, %r2171;
+	or.b32 	%r2183, %r2181, %r2182;
+	add.u32 	%r2184, %r2155, %r2183;
+	add.u32 	%r2185, %r235, %r2184;
+	add.u32 	%r2186, %r2185, 1236535329;
+	shr.u32 	%r243, %r2186, 10;
+	shl.b32 	%r244, %r2186, 22;
+	add.u32 	%r245, %r243, %r244;
+	add.u32 	%r2187, %r245, %r2179;
+	.loc	3	175	0
+	and.b32 	%r2188, %r2187, %r2171;
+	and.b32 	%r2189, %r2179, %r2172;
+	or.b32 	%r2190, %r2188, %r2189;
+	add.u32 	%r2191, %r2163, %r2190;
+	add.u32 	%r2192, %r67, %r2191;
+	sub.u32 	%r2193, %r2192, 165796510;
+	shr.u32 	%r2194, %r2193, 27;
+	shl.b32 	%r2195, %r2193, 5;
+	add.u32 	%r2196, %r2194, %r2195;
+	add.u32 	%r2197, %r2196, %r2187;
+	.loc	3	176	0
+	and.b32 	%r2198, %r2197, %r2179;
+	and.b32 	%r2199, %r2187, %r2180;
+	or.b32 	%r2200, %r2198, %r2199;
+	add.u32 	%r2201, %r2171, %r2200;
+	add.u32 	%r2202, %r127, %r2201;
+	sub.u32 	%r2203, %r2202, 1069501632;
+	shr.u32 	%r2204, %r2203, 23;
+	shl.b32 	%r2205, %r2203, 9;
+	add.u32 	%r2206, %r2204, %r2205;
+	add.u32 	%r2207, %r2206, %r2197;
+	.loc	3	177	0
+	and.b32 	%r2208, %r2207, %r2187;
+	not.b32 	%r2209, %r2187;
+	and.b32 	%r2210, %r2197, %r2209;
+	or.b32 	%r2211, %r2208, %r2210;
+	add.u32 	%r2212, %r2179, %r2211;
+	add.u32 	%r2213, %r187, %r2212;
+	add.u32 	%r2214, %r2213, 643717713;
+	shr.u32 	%r2215, %r2214, 18;
+	shl.b32 	%r2216, %r2214, 14;
+	add.u32 	%r2217, %r2215, %r2216;
+	add.u32 	%r2218, %r2217, %r2207;
+	.loc	3	178	0
+	and.b32 	%r2219, %r2218, %r2197;
+	not.b32 	%r2220, %r2197;
+	and.b32 	%r2221, %r2207, %r2220;
+	or.b32 	%r2222, %r2219, %r2221;
+	add.u32 	%r2223, %r2187, %r2222;
+	add.u32 	%r2224, %r55, %r2223;
+	sub.u32 	%r2225, %r2224, 373897302;
+	shr.u32 	%r2226, %r2225, 12;
+	shl.b32 	%r2227, %r2225, 20;
+	add.u32 	%r2228, %r2226, %r2227;
+	add.u32 	%r2229, %r2228, %r2218;
+	.loc	3	179	0
+	and.b32 	%r2230, %r2229, %r2207;
+	not.b32 	%r2231, %r2207;
+	and.b32 	%r2232, %r2218, %r2231;
+	or.b32 	%r2233, %r2230, %r2232;
+	add.u32 	%r2234, %r2197, %r2233;
+	add.u32 	%r2235, %r115, %r2234;
+	sub.u32 	%r2236, %r2235, 701558691;
+	shr.u32 	%r2237, %r2236, 27;
+	shl.b32 	%r2238, %r2236, 5;
+	add.u32 	%r2239, %r2237, %r2238;
+	add.u32 	%r2240, %r2239, %r2229;
+	.loc	3	180	0
+	and.b32 	%r2241, %r2240, %r2218;
+	not.b32 	%r2242, %r2218;
+	and.b32 	%r2243, %r2229, %r2242;
+	or.b32 	%r2244, %r2241, %r2243;
+	add.u32 	%r2245, %r2207, %r2244;
+	add.u32 	%r2246, %r175, %r2245;
+	add.u32 	%r2247, %r2246, 38016083;
+	shr.u32 	%r2248, %r2247, 23;
+	shl.b32 	%r2249, %r2247, 9;
+	add.u32 	%r2250, %r2248, %r2249;
+	add.u32 	%r2251, %r2250, %r2240;
+	.loc	3	181	0
+	and.b32 	%r2252, %r2251, %r2229;
+	not.b32 	%r2253, %r2229;
+	and.b32 	%r2254, %r2240, %r2253;
+	or.b32 	%r2255, %r2252, %r2254;
+	add.u32 	%r2256, %r2218, %r2255;
+	add.u32 	%r2257, %r235, %r2256;
+	sub.u32 	%r2258, %r2257, 660478335;
+	shr.u32 	%r2259, %r2258, 18;
+	shl.b32 	%r2260, %r2258, 14;
+	add.u32 	%r2261, %r2259, %r2260;
+	add.u32 	%r2262, %r2261, %r2251;
+	.loc	3	182	0
+	and.b32 	%r2263, %r2262, %r2240;
+	not.b32 	%r2264, %r2240;
+	and.b32 	%r2265, %r2251, %r2264;
+	or.b32 	%r2266, %r2263, %r2265;
+	add.u32 	%r2267, %r2229, %r2266;
+	add.u32 	%r2268, %r103, %r2267;
+	sub.u32 	%r2269, %r2268, 405537848;
+	shr.u32 	%r2270, %r2269, 12;
+	shl.b32 	%r2271, %r2269, 20;
+	add.u32 	%r2272, %r2270, %r2271;
+	add.u32 	%r2273, %r2272, %r2262;
+	.loc	3	183	0
+	and.b32 	%r2274, %r2273, %r2251;
+	not.b32 	%r2275, %r2251;
+	and.b32 	%r2276, %r2262, %r2275;
+	or.b32 	%r2277, %r2274, %r2276;
+	add.u32 	%r2278, %r2240, %r2277;
+	add.u32 	%r2279, %r163, %r2278;
+	add.u32 	%r2280, %r2279, 568446438;
+	shr.u32 	%r2281, %r2280, 27;
+	shl.b32 	%r2282, %r2280, 5;
+	add.u32 	%r2283, %r2281, %r2282;
+	add.u32 	%r2284, %r2283, %r2273;
+	.loc	3	184	0
+	and.b32 	%r2285, %r2284, %r2262;
+	not.b32 	%r2286, %r2262;
+	and.b32 	%r2287, %r2273, %r2286;
+	or.b32 	%r2288, %r2285, %r2287;
+	add.u32 	%r2289, %r2251, %r2288;
+	add.u32 	%r2290, %r223, %r2289;
+	sub.u32 	%r2291, %r2290, 1019803690;
+	shr.u32 	%r2292, %r2291, 23;
+	shl.b32 	%r2293, %r2291, 9;
+	add.u32 	%r2294, %r2292, %r2293;
+	add.u32 	%r2295, %r2294, %r2284;
+	.loc	3	185	0
+	and.b32 	%r2296, %r2295, %r2273;
+	not.b32 	%r2297, %r2273;
+	and.b32 	%r2298, %r2284, %r2297;
+	or.b32 	%r2299, %r2296, %r2298;
+	add.u32 	%r2300, %r2262, %r2299;
+	add.u32 	%r2301, %r91, %r2300;
+	sub.u32 	%r2302, %r2301, 187363961;
+	shr.u32 	%r2303, %r2302, 18;
+	shl.b32 	%r2304, %r2302, 14;
+	add.u32 	%r2305, %r2303, %r2304;
+	add.u32 	%r2306, %r2305, %r2295;
+	.loc	3	186	0
+	and.b32 	%r2307, %r2306, %r2284;
+	not.b32 	%r2308, %r2284;
+	and.b32 	%r2309, %r2295, %r2308;
+	or.b32 	%r2310, %r2307, %r2309;
+	add.u32 	%r2311, %r2273, %r2310;
+	add.u32 	%r2312, %r151, %r2311;
+	add.u32 	%r2313, %r2312, 1163531501;
+	shr.u32 	%r2314, %r2313, 12;
+	shl.b32 	%r2315, %r2313, 20;
+	add.u32 	%r2316, %r2314, %r2315;
+	add.u32 	%r2317, %r2316, %r2306;
+	.loc	3	187	0
+	and.b32 	%r2318, %r2317, %r2295;
+	not.b32 	%r2319, %r2295;
+	and.b32 	%r2320, %r2306, %r2319;
+	or.b32 	%r2321, %r2318, %r2320;
+	add.u32 	%r2322, %r2284, %r2321;
+	add.u32 	%r2323, %r211, %r2322;
+	sub.u32 	%r2324, %r2323, 1444681467;
+	shr.u32 	%r384, %r2324, 27;
+	shl.b32 	%r385, %r2324, 5;
+	add.u32 	%r386, %r384, %r385;
+	add.u32 	%r2325, %r386, %r2317;
+	.loc	3	188	0
+	and.b32 	%r2326, %r2325, %r2306;
+	not.b32 	%r2327, %r2306;
+	and.b32 	%r2328, %r2317, %r2327;
+	or.b32 	%r2329, %r2326, %r2328;
+	add.u32 	%r2330, %r2295, %r2329;
+	add.u32 	%r2331, %r79, %r2330;
+	sub.u32 	%r2332, %r2331, 51403784;
+	shr.u32 	%r395, %r2332, 23;
+	shl.b32 	%r396, %r2332, 9;
+	add.u32 	%r397, %r395, %r396;
+	add.u32 	%r2333, %r397, %r2325;
+	.loc	3	189	0
+	and.b32 	%r2334, %r2333, %r2317;
+	not.b32 	%r2335, %r2317;
+	and.b32 	%r2336, %r2325, %r2335;
+	or.b32 	%r2337, %r2334, %r2336;
+	add.u32 	%r2338, %r2306, %r2337;
+	add.u32 	%r2339, %r139, %r2338;
+	add.u32 	%r2340, %r2339, 1735328473;
+	shr.u32 	%r406, %r2340, 18;
+	shl.b32 	%r407, %r2340, 14;
+	add.u32 	%r408, %r406, %r407;
+	add.u32 	%r2341, %r408, %r2333;
+	.loc	3	190	0
+	and.b32 	%r2342, %r2341, %r2325;
+	not.b32 	%r2343, %r2325;
+	and.b32 	%r2344, %r2333, %r2343;
+	or.b32 	%r2345, %r2342, %r2344;
+	add.u32 	%r2346, %r2317, %r2345;
+	add.u32 	%r2347, %r199, %r2346;
+	sub.u32 	%r2348, %r2347, 1926607734;
+	shr.u32 	%r417, %r2348, 12;
+	shl.b32 	%r418, %r2348, 20;
+	add.u32 	%r419, %r417, %r418;
+	add.u32 	%r2349, %r419, %r2341;
+	.loc	3	201	0
+	xor.b32 	%r2350, %r2349, %r2341;
+	xor.b32 	%r2351, %r2333, %r2350;
+	add.u32 	%r2352, %r2325, %r2351;
+	add.u32 	%r2353, %r115, %r2352;
+	sub.u32 	%r2354, %r2353, 378558;
+	shr.u32 	%r2355, %r2354, 28;
+	shl.b32 	%r2356, %r2354, 4;
+	add.u32 	%r2357, %r2355, %r2356;
+	add.u32 	%r2358, %r2357, %r2349;
+	.loc	3	202	0
+	xor.b32 	%r2359, %r2358, %r2349;
+	xor.b32 	%r2360, %r2341, %r2359;
+	add.u32 	%r2361, %r2333, %r2360;
+	add.u32 	%r2362, %r151, %r2361;
+	sub.u32 	%r2363, %r2362, 2022574463;
+	shr.u32 	%r2364, %r2363, 21;
+	shl.b32 	%r2365, %r2363, 11;
+	add.u32 	%r2366, %r2364, %r2365;
+	add.u32 	%r2367, %r2366, %r2358;
+	.loc	3	203	0
+	xor.b32 	%r2368, %r2367, %r2358;
+	xor.b32 	%r2369, %r2349, %r2368;
+	add.u32 	%r2370, %r2341, %r2369;
+	add.u32 	%r2371, %r187, %r2370;
+	add.u32 	%r2372, %r2371, 1839030562;
+	shr.u32 	%r2373, %r2372, 16;
+	shl.b32 	%r2374, %r2372, 16;
+	add.u32 	%r2375, %r2373, %r2374;
+	add.u32 	%r2376, %r2375, %r2367;
+	.loc	3	204	0
+	xor.b32 	%r2377, %r2376, %r2367;
+	xor.b32 	%r2378, %r2358, %r2377;
+	add.u32 	%r2379, %r2349, %r2378;
+	add.u32 	%r2380, %r223, %r2379;
+	sub.u32 	%r2381, %r2380, 35309556;
+	shr.u32 	%r2382, %r2381, 9;
+	shl.b32 	%r2383, %r2381, 23;
+	add.u32 	%r2384, %r2382, %r2383;
+	add.u32 	%r2385, %r2384, %r2376;
+	.loc	3	205	0
+	xor.b32 	%r2386, %r2385, %r2376;
+	xor.b32 	%r2387, %r2367, %r2386;
+	add.u32 	%r2388, %r2358, %r2387;
+	add.u32 	%r2389, %r67, %r2388;
+	sub.u32 	%r2390, %r2389, 1530992060;
+	shr.u32 	%r2391, %r2390, 28;
+	shl.b32 	%r2392, %r2390, 4;
+	add.u32 	%r2393, %r2391, %r2392;
+	add.u32 	%r2394, %r2393, %r2385;
+	.loc	3	206	0
+	xor.b32 	%r2395, %r2394, %r2385;
+	xor.b32 	%r2396, %r2376, %r2395;
+	add.u32 	%r2397, %r2367, %r2396;
+	add.u32 	%r2398, %r103, %r2397;
+	add.u32 	%r2399, %r2398, 1272893353;
+	shr.u32 	%r2400, %r2399, 21;
+	shl.b32 	%r2401, %r2399, 11;
+	add.u32 	%r2402, %r2400, %r2401;
+	add.u32 	%r2403, %r2402, %r2394;
+	.loc	3	207	0
+	xor.b32 	%r2404, %r2403, %r2394;
+	xor.b32 	%r2405, %r2385, %r2404;
+	add.u32 	%r2406, %r2376, %r2405;
+	add.u32 	%r2407, %r139, %r2406;
+	sub.u32 	%r2408, %r2407, 155497632;
+	shr.u32 	%r2409, %r2408, 16;
+	shl.b32 	%r2410, %r2408, 16;
+	add.u32 	%r2411, %r2409, %r2410;
+	add.u32 	%r2412, %r2411, %r2403;
+	.loc	3	208	0
+	xor.b32 	%r2413, %r2412, %r2403;
+	xor.b32 	%r2414, %r2394, %r2413;
+	add.u32 	%r2415, %r2385, %r2414;
+	add.u32 	%r2416, %r175, %r2415;
+	sub.u32 	%r2417, %r2416, 1094730640;
+	shr.u32 	%r2418, %r2417, 9;
+	shl.b32 	%r2419, %r2417, 23;
+	add.u32 	%r2420, %r2418, %r2419;
+	add.u32 	%r2421, %r2420, %r2412;
+	.loc	3	209	0
+	xor.b32 	%r2422, %r2421, %r2412;
+	xor.b32 	%r2423, %r2403, %r2422;
+	add.u32 	%r2424, %r2394, %r2423;
+	add.u32 	%r2425, %r211, %r2424;
+	add.u32 	%r2426, %r2425, 681279174;
+	shr.u32 	%r2427, %r2426, 28;
+	shl.b32 	%r2428, %r2426, 4;
+	add.u32 	%r2429, %r2427, %r2428;
+	add.u32 	%r2430, %r2429, %r2421;
+	.loc	3	210	0
+	xor.b32 	%r2431, %r2430, %r2421;
+	xor.b32 	%r2432, %r2412, %r2431;
+	add.u32 	%r2433, %r2403, %r2432;
+	add.u32 	%r2434, %r55, %r2433;
+	sub.u32 	%r2435, %r2434, 358537222;
+	shr.u32 	%r2436, %r2435, 21;
+	shl.b32 	%r2437, %r2435, 11;
+	add.u32 	%r2438, %r2436, %r2437;
+	add.u32 	%r2439, %r2438, %r2430;
+	.loc	3	211	0
+	xor.b32 	%r2440, %r2439, %r2430;
+	xor.b32 	%r2441, %r2421, %r2440;
+	add.u32 	%r2442, %r2412, %r2441;
+	add.u32 	%r2443, %r91, %r2442;
+	sub.u32 	%r2444, %r2443, 722521979;
+	shr.u32 	%r2445, %r2444, 16;
+	shl.b32 	%r2446, %r2444, 16;
+	add.u32 	%r2447, %r2445, %r2446;
+	add.u32 	%r2448, %r2447, %r2439;
+	.loc	3	212	0
+	xor.b32 	%r2449, %r2448, %r2439;
+	xor.b32 	%r2450, %r2430, %r2449;
+	add.u32 	%r2451, %r2421, %r2450;
+	add.u32 	%r2452, %r127, %r2451;
+	add.u32 	%r2453, %r2452, 76029189;
+	shr.u32 	%r2454, %r2453, 9;
+	shl.b32 	%r2455, %r2453, 23;
+	add.u32 	%r2456, %r2454, %r2455;
+	add.u32 	%r2457, %r2456, %r2448;
+	.loc	3	213	0
+	xor.b32 	%r2458, %r2457, %r2448;
+	xor.b32 	%r2459, %r2439, %r2458;
+	add.u32 	%r2460, %r2430, %r2459;
+	add.u32 	%r2461, %r163, %r2460;
+	sub.u32 	%r2462, %r2461, 640364487;
+	shr.u32 	%r534, %r2462, 28;
+	shl.b32 	%r535, %r2462, 4;
+	add.u32 	%r536, %r534, %r535;
+	add.u32 	%r2463, %r536, %r2457;
+	.loc	3	214	0
+	xor.b32 	%r2464, %r2463, %r2457;
+	xor.b32 	%r2465, %r2448, %r2464;
+	add.u32 	%r2466, %r2439, %r2465;
+	add.u32 	%r2467, %r199, %r2466;
+	sub.u32 	%r2468, %r2467, 421815835;
+	shr.u32 	%r543, %r2468, 21;
+	shl.b32 	%r544, %r2468, 11;
+	add.u32 	%r545, %r543, %r544;
+	add.u32 	%r2469, %r545, %r2463;
+	.loc	3	215	0
+	xor.b32 	%r2470, %r2469, %r2463;
+	xor.b32 	%r2471, %r2457, %r2470;
+	add.u32 	%r2472, %r2448, %r2471;
+	add.u32 	%r2473, %r235, %r2472;
+	add.u32 	%r2474, %r2473, 530742520;
+	shr.u32 	%r552, %r2474, 16;
+	shl.b32 	%r553, %r2474, 16;
+	add.u32 	%r554, %r552, %r553;
+	add.u32 	%r2475, %r554, %r2469;
+	.loc	3	216	0
+	xor.b32 	%r2476, %r2475, %r2469;
+	xor.b32 	%r2477, %r2463, %r2476;
+	add.u32 	%r2478, %r2457, %r2477;
+	add.u32 	%r2479, %r79, %r2478;
+	sub.u32 	%r2480, %r2479, 995338651;
+	shr.u32 	%r561, %r2480, 9;
+	shl.b32 	%r562, %r2480, 23;
+	add.u32 	%r563, %r561, %r562;
+	add.u32 	%r2481, %r563, %r2475;
+	.loc	3	227	0
+	not.b32 	%r2482, %r2469;
+	or.b32 	%r2483, %r2481, %r2482;
+	xor.b32 	%r2484, %r2475, %r2483;
+	add.u32 	%r2485, %r2463, %r2484;
+	add.u32 	%r2486, %r55, %r2485;
+	sub.u32 	%r2487, %r2486, 198630844;
+	shr.u32 	%r2488, %r2487, 26;
+	shl.b32 	%r2489, %r2487, 6;
+	add.u32 	%r2490, %r2488, %r2489;
+	add.u32 	%r2491, %r2490, %r2481;
+	.loc	3	228	0
+	not.b32 	%r2492, %r2475;
+	or.b32 	%r2493, %r2491, %r2492;
+	xor.b32 	%r2494, %r2481, %r2493;
+	add.u32 	%r2495, %r2469, %r2494;
+	add.u32 	%r2496, %r139, %r2495;
+	add.u32 	%r2497, %r2496, 1126891415;
+	shr.u32 	%r2498, %r2497, 22;
+	shl.b32 	%r2499, %r2497, 10;
+	add.u32 	%r2500, %r2498, %r2499;
+	add.u32 	%r2501, %r2500, %r2491;
+	.loc	3	229	0
+	not.b32 	%r2502, %r2481;
+	or.b32 	%r2503, %r2501, %r2502;
+	xor.b32 	%r2504, %r2491, %r2503;
+	add.u32 	%r2505, %r2475, %r2504;
+	add.u32 	%r2506, %r223, %r2505;
+	sub.u32 	%r2507, %r2506, 1416354905;
+	shr.u32 	%r2508, %r2507, 17;
+	shl.b32 	%r2509, %r2507, 15;
+	add.u32 	%r2510, %r2508, %r2509;
+	add.u32 	%r2511, %r2510, %r2501;
+	.loc	3	230	0
+	not.b32 	%r2512, %r2491;
+	or.b32 	%r2513, %r2511, %r2512;
+	xor.b32 	%r2514, %r2501, %r2513;
+	add.u32 	%r2515, %r2481, %r2514;
+	add.u32 	%r2516, %r115, %r2515;
+	sub.u32 	%r2517, %r2516, 57434055;
+	shr.u32 	%r2518, %r2517, 11;
+	shl.b32 	%r2519, %r2517, 21;
+	add.u32 	%r2520, %r2518, %r2519;
+	add.u32 	%r2521, %r2520, %r2511;
+	.loc	3	231	0
+	not.b32 	%r2522, %r2501;
+	or.b32 	%r2523, %r2521, %r2522;
+	xor.b32 	%r2524, %r2511, %r2523;
+	add.u32 	%r2525, %r2491, %r2524;
+	add.u32 	%r2526, %r199, %r2525;
+	add.u32 	%r2527, %r2526, 1700485571;
+	shr.u32 	%r2528, %r2527, 26;
+	shl.b32 	%r2529, %r2527, 6;
+	add.u32 	%r2530, %r2528, %r2529;
+	add.u32 	%r2531, %r2530, %r2521;
+	.loc	3	232	0
+	not.b32 	%r2532, %r2511;
+	or.b32 	%r2533, %r2531, %r2532;
+	xor.b32 	%r2534, %r2521, %r2533;
+	add.u32 	%r2535, %r2501, %r2534;
+	add.u32 	%r2536, %r91, %r2535;
+	sub.u32 	%r2537, %r2536, 1894986606;
+	shr.u32 	%r2538, %r2537, 22;
+	shl.b32 	%r2539, %r2537, 10;
+	add.u32 	%r2540, %r2538, %r2539;
+	add.u32 	%r2541, %r2540, %r2531;
+	.loc	3	233	0
+	not.b32 	%r2542, %r2521;
+	or.b32 	%r2543, %r2541, %r2542;
+	xor.b32 	%r2544, %r2531, %r2543;
+	add.u32 	%r2545, %r2511, %r2544;
+	add.u32 	%r2546, %r175, %r2545;
+	sub.u32 	%r2547, %r2546, 1051523;
+	shr.u32 	%r2548, %r2547, 17;
+	shl.b32 	%r2549, %r2547, 15;
+	add.u32 	%r2550, %r2548, %r2549;
+	add.u32 	%r2551, %r2550, %r2541;
+	.loc	3	234	0
+	not.b32 	%r2552, %r2531;
+	or.b32 	%r2553, %r2551, %r2552;
+	xor.b32 	%r2554, %r2541, %r2553;
+	add.u32 	%r2555, %r2521, %r2554;
+	add.u32 	%r2556, %r67, %r2555;
+	sub.u32 	%r2557, %r2556, 2054922799;
+	shr.u32 	%r2558, %r2557, 11;
+	shl.b32 	%r2559, %r2557, 21;
+	add.u32 	%r2560, %r2558, %r2559;
+	add.u32 	%r2561, %r2560, %r2551;
+	.loc	3	235	0
+	not.b32 	%r2562, %r2541;
+	or.b32 	%r2563, %r2561, %r2562;
+	xor.b32 	%r2564, %r2551, %r2563;
+	add.u32 	%r2565, %r2531, %r2564;
+	add.u32 	%r2566, %r151, %r2565;
+	add.u32 	%r2567, %r2566, 1873313359;
+	shr.u32 	%r2568, %r2567, 26;
+	shl.b32 	%r2569, %r2567, 6;
+	add.u32 	%r2570, %r2568, %r2569;
+	add.u32 	%r2571, %r2570, %r2561;
+	.loc	3	236	0
+	not.b32 	%r2572, %r2551;
+	or.b32 	%r2573, %r2571, %r2572;
+	xor.b32 	%r2574, %r2561, %r2573;
+	add.u32 	%r2575, %r2541, %r2574;
+	add.u32 	%r2576, %r235, %r2575;
+	sub.u32 	%r2577, %r2576, 30611744;
+	shr.u32 	%r2578, %r2577, 22;
+	shl.b32 	%r2579, %r2577, 10;
+	add.u32 	%r2580, %r2578, %r2579;
+	add.u32 	%r2581, %r2580, %r2571;
+	.loc	3	237	0
+	not.b32 	%r2582, %r2561;
+	or.b32 	%r2583, %r2581, %r2582;
+	xor.b32 	%r2584, %r2571, %r2583;
+	add.u32 	%r2585, %r2551, %r2584;
+	add.u32 	%r2586, %r127, %r2585;
+	sub.u32 	%r2587, %r2586, 1560198380;
+	shr.u32 	%r2588, %r2587, 17;
+	shl.b32 	%r2589, %r2587, 15;
+	add.u32 	%r2590, %r2588, %r2589;
+	add.u32 	%r2591, %r2590, %r2581;
+	.loc	3	238	0
+	not.b32 	%r2592, %r2571;
+	or.b32 	%r2593, %r2591, %r2592;
+	xor.b32 	%r2594, %r2581, %r2593;
+	add.u32 	%r2595, %r2561, %r2594;
+	add.u32 	%r2596, %r211, %r2595;
+	add.u32 	%r2597, %r2596, 1309151649;
+	shr.u32 	%r681, %r2597, 11;
+	shl.b32 	%r682, %r2597, 21;
+	add.u32 	%r683, %r681, %r682;
+	add.u32 	%r2598, %r683, %r2591;
+	.loc	3	239	0
+	not.b32 	%r2599, %r2581;
+	or.b32 	%r2600, %r2598, %r2599;
+	xor.b32 	%r2601, %r2591, %r2600;
+	add.u32 	%r2602, %r2571, %r2601;
+	add.u32 	%r2603, %r103, %r2602;
+	sub.u32 	%r2604, %r2603, 145523070;
+	shr.u32 	%r691, %r2604, 26;
+	shl.b32 	%r692, %r2604, 6;
+	add.u32 	%r693, %r691, %r692;
+	add.u32 	%r2605, %r693, %r2598;
+	.loc	3	240	0
+	not.b32 	%r2606, %r2591;
+	or.b32 	%r2607, %r2605, %r2606;
+	xor.b32 	%r2608, %r2598, %r2607;
+	add.u32 	%r2609, %r2581, %r2608;
+	add.u32 	%r2610, %r187, %r2609;
+	sub.u32 	%r2611, %r2610, 1120210379;
+	shr.u32 	%r701, %r2611, 22;
+	shl.b32 	%r702, %r2611, 10;
+	add.u32 	%r703, %r701, %r702;
+	add.u32 	%r2612, %r703, %r2605;
+	.loc	3	241	0
+	not.b32 	%r2613, %r2598;
+	or.b32 	%r2614, %r2612, %r2613;
+	xor.b32 	%r2615, %r2605, %r2614;
+	add.u32 	%r2616, %r2591, %r2615;
+	add.u32 	%r2617, %r79, %r2616;
+	add.u32 	%r2618, %r2617, 718787259;
+	shr.u32 	%r711, %r2618, 17;
+	shl.b32 	%r712, %r2618, 15;
+	add.u32 	%r713, %r711, %r712;
+	add.u32 	%r2619, %r713, %r2612;
+	.loc	3	242	0
+	not.b32 	%r2620, %r2605;
+	or.b32 	%r2621, %r2619, %r2620;
+	xor.b32 	%r2622, %r2612, %r2621;
+	add.u32 	%r2623, %r2598, %r2622;
+	add.u32 	%r2624, %r163, %r2623;
+	sub.u32 	%r720, %r2624, 343485551;
+	.loc	3	248	0
+	add.u32 	%r14, %r2605, %r14;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+8], %r14;
+	.loc	3	249	0
+	add.u32 	%r2625, %r2619, %r15;
+	shr.u32 	%r2626, %r720, 11;
+	shl.b32 	%r2627, %r720, 21;
+	add.u32 	%r2628, %r2626, %r2627;
+	add.u32 	%r15, %r2625, %r2628;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+12], %r15;
+	.loc	3	250	0
+	add.u32 	%r16, %r2619, %r16;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+16], %r16;
+	.loc	3	251	0
+	add.u32 	%r17, %r2612, %r17;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+20], %r17;
+	.loc	3	297	0
+	add.u32 	%r36, %r36, 64;
+	sub.s32 	%r38, %r38, 64;
+	mov.u32 	%r2629, 63;
+	setp.gt.s32 	%p31, %r38, %r2629;
+	@%p31 bra 	$Lt_0_51970;
+$Lt_0_51458:
+	mov.u32 	%r2630, 0;
+	setp.eq.s32 	%p32, %r38, %r2630;
+	@%p32 bra 	$Lt_0_55042;
+	mov.u32 	%r2631, 0;
+	setp.le.s32 	%p33, %r38, %r2631;
+	@%p33 bra 	$Lt_0_55042;
+	mov.s32 	%r2632, %r38;
+	mov.s32 	%r2633, %r36;
+	add.s32 	%r2634, %r38, %r36;
+	mov.u32 	%r2635, __cuda___cuda_local_var_38708_15_non_const_state_4072;
+	mov.s32 	%r2636, %r2632;
+$Lt_0_55554:
+ //<loop> Loop body line 297, nesting depth: 4, estimated iterations: unknown
+	ld.shared.u8 	%rh111, [%r2633+0];
+	st.local.u8 	[%r2635+24], %rh111;
+	add.s32 	%r2635, %r2635, 1;
+	add.s32 	%r2633, %r2633, 1;
+	setp.ne.s32 	%p34, %r2633, %r2634;
+	@%p34 bra 	$Lt_0_55554;
+$Lt_0_55042:
+$Lt_0_54530:
+	ld.local.u32 	%r1354, [__cuda___cuda_local_var_38708_15_non_const_state_4072+0];
+	shl.b32 	%r2637, %r1354, 23;
+	shr.u32 	%r1369, %r2637, 26;
+	ld.local.u32 	%r1358, [__cuda___cuda_local_var_38708_15_non_const_state_4072+4];
+	bra.uni 	$LDWendi__Z11md5_processP11md5_state_sPKh_248_3;
+$Lt_0_75778:
+	ld.local.u32 	%r1354, [__cuda___cuda_local_var_38708_15_non_const_state_4072+0];
+	shl.b32 	%r2638, %r1354, 23;
+	shr.u32 	%r1369, %r2638, 26;
+	ld.local.u32 	%r1358, [__cuda___cuda_local_var_38708_15_non_const_state_4072+4];
+$LDWendi__Z11md5_processP11md5_state_sPKh_248_3:
+	.loc	3	269	0
+	mov.s32 	%r2639, %r1369;
+	.loc	3	278	0
+	mov.s32 	%r2640, %r1354;
+	add.u32 	%r1354, %r2640, 64;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+0], %r1354;
+	.loc	3	277	0
+	add.u32 	%r2641, %r1358, 1;
+	mov.u32 	%r2642, 64;
+	setp.lt.u32 	%p35, %r1354, %r2642;
+	selp.u32 	%r2643, %r2641, %r1358, %p35;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+4], %r2643;
+	shl.b32 	%r2644, %r2640, 23;
+	shr.u32 	%r2645, %r2644, 26;
+	mov.u32 	%r2646, 0;
+	setp.eq.s32 	%p36, %r2645, %r2646;
+	@%p36 bra 	$Lt_0_56322;
+	.loc	3	285	0
+	add.s32 	%r2647, %r2645, 8;
+	mov.s32 	%r2648, 64;
+	sub.s32 	%r2649, %r2648, %r2645;
+	mov.s32 	%r2650, 64;
+	setp.gt.s32 	%p37, %r2647, %r2650;
+	mov.s32 	%r2651, 8;
+	selp.s32 	%r2652, %r2649, %r2651, %p37;
+	mov.u32 	%r2653, 0;
+	setp.le.s32 	%p38, %r2652, %r2653;
+	@%p38 bra 	$Lt_0_56578;
+	mov.s32 	%r2654, %r2652;
+	mov.u32 	%r2655, __cuda___cuda_local_var_38728_20_non_const_data_1284;
+	add.s32 	%r2656, %r2652, %r8;
+	add.u32 	%r2657, %r2639, %r6;
+	mov.s32 	%r2658, %r2657;
+	mov.s32 	%r2659, %r2654;
+$Lt_0_57090:
+ //<loop> Loop body line 285, nesting depth: 4, estimated iterations: unknown
+	ld.local.u8 	%rh112, [%r2655+0];
+	st.local.u8 	[%r2658+24], %rh112;
+	add.u32 	%r2658, %r2658, 1;
+	add.s32 	%r2655, %r2655, 1;
+	setp.ne.s32 	%p39, %r2655, %r2656;
+	@%p39 bra 	$Lt_0_57090;
+$Lt_0_56578:
+	add.s32 	%r2660, %r2652, %r2639;
+	mov.u32 	%r2661, 63;
+	setp.le.s32 	%p40, %r2660, %r2661;
+	@%p40 bra 	$Lt_0_63234;
+	.loc	3	291	0
+	add.u32 	%r36, %r2652, %r8;
+	.loc	3	292	0
+	mov.s32 	%r2662, 8;
+	sub.s32 	%r38, %r2662, %r2652;
+	.loc	3	108	0
+	ld.local.u32 	%r14, [__cuda___cuda_local_var_38708_15_non_const_state_4072+8];
+	mov.s32 	%r39, %r14;
+	ld.local.u32 	%r15, [__cuda___cuda_local_var_38708_15_non_const_state_4072+12];
+	mov.s32 	%r40, %r15;
+	ld.local.u32 	%r16, [__cuda___cuda_local_var_38708_15_non_const_state_4072+16];
+	mov.s32 	%r41, %r16;
+	ld.local.u32 	%r17, [__cuda___cuda_local_var_38708_15_non_const_state_4072+20];
+	mov.s32 	%r42, %r17;
+	mov.s32 	%r2663, 1;
+	mov.u32 	%r2664, 1;
+	mov.u32 	%r2665, 0;
+	setp.eq.u32 	%p41, %r2664, %r2665;
+	@%p41 bra 	$Lt_0_57858;
+	add.u32 	%r46, %r6, 24;
+	and.b32 	%r2666, %r46, 3;
+	mov.u32 	%r2667, 0;
+	setp.ne.s32 	%p42, %r2666, %r2667;
+	@%p42 bra 	$Lt_0_58370;
+	.loc	3	130	0
+	mov.s32 	%r49, %r46;
+	mov.s32 	%r50, %r49;
+	bra.uni 	$Lt_0_57602;
+$Lt_0_58370:
+	.loc	3	133	0
+	mov.s32 	%r2668, %r46;
+	mov.u32 	%r2669, __cuda___cuda_local_var_38410_14_non_const_xbuf_140160;
+	mov.s32 	%r2670, 64;
+$Lt_0_59138:
+ //<loop> Loop body line 133, nesting depth: 4, iterations: 64
+	ld.local.u8 	%rh113, [%r2668+0];
+	st.local.u8 	[%r2669+0], %rh113;
+	add.u32 	%r2668, %r2668, 1;
+	add.u32 	%r2669, %r2669, 1;
+	sub.s32 	%r2670, %r2670, 1;
+	mov.u32 	%r2671, 0;
+	setp.ne.s32 	%p43, %r2670, %r2671;
+	@%p43 bra 	$Lt_0_59138;
+	.loc	3	134	0
+	mov.u32 	%r49, __cuda___cuda_local_var_38410_14_non_const_xbuf_140160;
+	mov.s32 	%r50, %r49;
+	ld.local.u32 	%r17, [__cuda___cuda_local_var_38708_15_non_const_state_4072+20];
+	ld.local.u32 	%r16, [__cuda___cuda_local_var_38708_15_non_const_state_4072+16];
+	ld.local.u32 	%r15, [__cuda___cuda_local_var_38708_15_non_const_state_4072+12];
+	ld.local.u32 	%r14, [__cuda___cuda_local_var_38708_15_non_const_state_4072+8];
+	bra.uni 	$Lt_0_57602;
+$Lt_0_57858:
+	mov.s32 	%r49, %r50;
+$Lt_0_57602:
+	.loc	3	149	0
+	ld.global.u32 	%r55, [%r49+0];
+	and.b32 	%r2672, %r40, %r41;
+	not.b32 	%r2673, %r40;
+	and.b32 	%r2674, %r42, %r2673;
+	or.b32 	%r2675, %r2672, %r2674;
+	add.u32 	%r2676, %r39, %r2675;
+	add.u32 	%r2677, %r55, %r2676;
+	sub.u32 	%r2678, %r2677, 680876936;
+	shr.u32 	%r2679, %r2678, 25;
+	shl.b32 	%r2680, %r2678, 7;
+	add.u32 	%r2681, %r2679, %r2680;
+	add.u32 	%r2682, %r2681, %r40;
+	.loc	3	150	0
+	ld.global.u32 	%r67, [%r49+4];
+	and.b32 	%r2683, %r2682, %r40;
+	not.b32 	%r2684, %r2682;
+	and.b32 	%r2685, %r41, %r2684;
+	or.b32 	%r2686, %r2683, %r2685;
+	add.u32 	%r2687, %r42, %r2686;
+	add.u32 	%r2688, %r67, %r2687;
+	sub.u32 	%r2689, %r2688, 389564586;
+	shr.u32 	%r2690, %r2689, 20;
+	shl.b32 	%r2691, %r2689, 12;
+	add.u32 	%r2692, %r2690, %r2691;
+	add.u32 	%r2693, %r2692, %r2682;
+	.loc	3	151	0
+	ld.global.u32 	%r79, [%r49+8];
+	and.b32 	%r2694, %r2693, %r2682;
+	not.b32 	%r2695, %r2693;
+	and.b32 	%r2696, %r40, %r2695;
+	or.b32 	%r2697, %r2694, %r2696;
+	add.u32 	%r2698, %r41, %r2697;
+	add.u32 	%r2699, %r79, %r2698;
+	add.u32 	%r2700, %r2699, 606105819;
+	shr.u32 	%r2701, %r2700, 15;
+	shl.b32 	%r2702, %r2700, 17;
+	add.u32 	%r2703, %r2701, %r2702;
+	add.u32 	%r2704, %r2703, %r2693;
+	.loc	3	152	0
+	ld.global.u32 	%r91, [%r49+12];
+	and.b32 	%r2705, %r2704, %r2693;
+	not.b32 	%r2706, %r2704;
+	and.b32 	%r2707, %r2682, %r2706;
+	or.b32 	%r2708, %r2705, %r2707;
+	add.u32 	%r2709, %r40, %r2708;
+	add.u32 	%r2710, %r91, %r2709;
+	sub.u32 	%r2711, %r2710, 1044525330;
+	shr.u32 	%r2712, %r2711, 10;
+	shl.b32 	%r2713, %r2711, 22;
+	add.u32 	%r2714, %r2712, %r2713;
+	add.u32 	%r2715, %r2714, %r2704;
+	.loc	3	153	0
+	ld.global.u32 	%r103, [%r49+16];
+	and.b32 	%r2716, %r2715, %r2704;
+	not.b32 	%r2717, %r2715;
+	and.b32 	%r2718, %r2693, %r2717;
+	or.b32 	%r2719, %r2716, %r2718;
+	add.u32 	%r2720, %r2682, %r2719;
+	add.u32 	%r2721, %r103, %r2720;
+	sub.u32 	%r2722, %r2721, 176418897;
+	shr.u32 	%r2723, %r2722, 25;
+	shl.b32 	%r2724, %r2722, 7;
+	add.u32 	%r2725, %r2723, %r2724;
+	add.u32 	%r2726, %r2725, %r2715;
+	.loc	3	154	0
+	ld.global.u32 	%r115, [%r49+20];
+	and.b32 	%r2727, %r2726, %r2715;
+	not.b32 	%r2728, %r2726;
+	and.b32 	%r2729, %r2704, %r2728;
+	or.b32 	%r2730, %r2727, %r2729;
+	add.u32 	%r2731, %r2693, %r2730;
+	add.u32 	%r2732, %r115, %r2731;
+	add.u32 	%r2733, %r2732, 1200080426;
+	shr.u32 	%r2734, %r2733, 20;
+	shl.b32 	%r2735, %r2733, 12;
+	add.u32 	%r2736, %r2734, %r2735;
+	add.u32 	%r2737, %r2736, %r2726;
+	.loc	3	155	0
+	ld.global.u32 	%r127, [%r49+24];
+	and.b32 	%r2738, %r2737, %r2726;
+	not.b32 	%r2739, %r2737;
+	and.b32 	%r2740, %r2715, %r2739;
+	or.b32 	%r2741, %r2738, %r2740;
+	add.u32 	%r2742, %r2704, %r2741;
+	add.u32 	%r2743, %r127, %r2742;
+	sub.u32 	%r2744, %r2743, 1473231341;
+	shr.u32 	%r2745, %r2744, 15;
+	shl.b32 	%r2746, %r2744, 17;
+	add.u32 	%r2747, %r2745, %r2746;
+	add.u32 	%r2748, %r2747, %r2737;
+	.loc	3	156	0
+	ld.global.u32 	%r139, [%r49+28];
+	and.b32 	%r2749, %r2748, %r2737;
+	not.b32 	%r2750, %r2748;
+	and.b32 	%r2751, %r2726, %r2750;
+	or.b32 	%r2752, %r2749, %r2751;
+	add.u32 	%r2753, %r2715, %r2752;
+	add.u32 	%r2754, %r139, %r2753;
+	sub.u32 	%r2755, %r2754, 45705983;
+	shr.u32 	%r2756, %r2755, 10;
+	shl.b32 	%r2757, %r2755, 22;
+	add.u32 	%r2758, %r2756, %r2757;
+	add.u32 	%r2759, %r2758, %r2748;
+	.loc	3	157	0
+	ld.global.u32 	%r151, [%r49+32];
+	and.b32 	%r2760, %r2759, %r2748;
+	not.b32 	%r2761, %r2759;
+	and.b32 	%r2762, %r2737, %r2761;
+	or.b32 	%r2763, %r2760, %r2762;
+	add.u32 	%r2764, %r2726, %r2763;
+	add.u32 	%r2765, %r151, %r2764;
+	add.u32 	%r2766, %r2765, 1770035416;
+	shr.u32 	%r2767, %r2766, 25;
+	shl.b32 	%r2768, %r2766, 7;
+	add.u32 	%r2769, %r2767, %r2768;
+	add.u32 	%r2770, %r2769, %r2759;
+	.loc	3	158	0
+	ld.global.u32 	%r163, [%r49+36];
+	and.b32 	%r2771, %r2770, %r2759;
+	not.b32 	%r2772, %r2770;
+	and.b32 	%r2773, %r2748, %r2772;
+	or.b32 	%r2774, %r2771, %r2773;
+	add.u32 	%r2775, %r2737, %r2774;
+	add.u32 	%r2776, %r163, %r2775;
+	sub.u32 	%r2777, %r2776, 1958414417;
+	shr.u32 	%r2778, %r2777, 20;
+	shl.b32 	%r2779, %r2777, 12;
+	add.u32 	%r2780, %r2778, %r2779;
+	add.u32 	%r2781, %r2780, %r2770;
+	.loc	3	159	0
+	ld.global.u32 	%r175, [%r49+40];
+	and.b32 	%r2782, %r2781, %r2770;
+	not.b32 	%r2783, %r2781;
+	and.b32 	%r2784, %r2759, %r2783;
+	or.b32 	%r2785, %r2782, %r2784;
+	add.u32 	%r2786, %r2748, %r2785;
+	add.u32 	%r2787, %r175, %r2786;
+	sub.u32 	%r2788, %r2787, 42063;
+	shr.u32 	%r2789, %r2788, 15;
+	shl.b32 	%r2790, %r2788, 17;
+	add.u32 	%r2791, %r2789, %r2790;
+	add.u32 	%r2792, %r2791, %r2781;
+	.loc	3	160	0
+	ld.global.u32 	%r187, [%r49+44];
+	and.b32 	%r2793, %r2792, %r2781;
+	not.b32 	%r2794, %r2792;
+	and.b32 	%r2795, %r2770, %r2794;
+	or.b32 	%r2796, %r2793, %r2795;
+	add.u32 	%r2797, %r2759, %r2796;
+	add.u32 	%r2798, %r187, %r2797;
+	sub.u32 	%r2799, %r2798, 1990404162;
+	shr.u32 	%r2800, %r2799, 10;
+	shl.b32 	%r2801, %r2799, 22;
+	add.u32 	%r2802, %r2800, %r2801;
+	add.u32 	%r2803, %r2802, %r2792;
+	.loc	3	161	0
+	ld.global.u32 	%r199, [%r49+48];
+	and.b32 	%r2804, %r2803, %r2792;
+	not.b32 	%r2805, %r2803;
+	and.b32 	%r2806, %r2781, %r2805;
+	or.b32 	%r2807, %r2804, %r2806;
+	add.u32 	%r2808, %r2770, %r2807;
+	add.u32 	%r2809, %r199, %r2808;
+	add.u32 	%r2810, %r2809, 1804603682;
+	shr.u32 	%r207, %r2810, 25;
+	shl.b32 	%r208, %r2810, 7;
+	add.u32 	%r209, %r207, %r208;
+	add.u32 	%r2811, %r209, %r2803;
+	.loc	3	162	0
+	ld.global.u32 	%r211, [%r49+52];
+	and.b32 	%r2812, %r2811, %r2803;
+	not.b32 	%r2813, %r2811;
+	and.b32 	%r2814, %r2792, %r2813;
+	or.b32 	%r2815, %r2812, %r2814;
+	add.u32 	%r2816, %r2781, %r2815;
+	add.u32 	%r2817, %r211, %r2816;
+	sub.u32 	%r2818, %r2817, 40341101;
+	shr.u32 	%r219, %r2818, 20;
+	shl.b32 	%r220, %r2818, 12;
+	add.u32 	%r221, %r219, %r220;
+	add.u32 	%r2819, %r221, %r2811;
+	.loc	3	163	0
+	ld.global.u32 	%r223, [%r49+56];
+	not.b32 	%r2820, %r2819;
+	and.b32 	%r2821, %r2820, %r2803;
+	and.b32 	%r2822, %r2819, %r2811;
+	or.b32 	%r2823, %r2821, %r2822;
+	add.u32 	%r2824, %r2792, %r2823;
+	add.u32 	%r2825, %r223, %r2824;
+	sub.u32 	%r2826, %r2825, 1502002290;
+	shr.u32 	%r231, %r2826, 15;
+	shl.b32 	%r232, %r2826, 17;
+	add.u32 	%r233, %r231, %r232;
+	add.u32 	%r2827, %r233, %r2819;
+	.loc	3	164	0
+	ld.global.u32 	%r235, [%r49+60];
+	not.b32 	%r2828, %r2827;
+	and.b32 	%r2829, %r2828, %r2811;
+	and.b32 	%r2830, %r2827, %r2819;
+	or.b32 	%r2831, %r2829, %r2830;
+	add.u32 	%r2832, %r2803, %r2831;
+	add.u32 	%r2833, %r235, %r2832;
+	add.u32 	%r2834, %r2833, 1236535329;
+	shr.u32 	%r243, %r2834, 10;
+	shl.b32 	%r244, %r2834, 22;
+	add.u32 	%r245, %r243, %r244;
+	add.u32 	%r2835, %r245, %r2827;
+	.loc	3	175	0
+	and.b32 	%r2836, %r2835, %r2819;
+	and.b32 	%r2837, %r2827, %r2820;
+	or.b32 	%r2838, %r2836, %r2837;
+	add.u32 	%r2839, %r2811, %r2838;
+	add.u32 	%r2840, %r67, %r2839;
+	sub.u32 	%r2841, %r2840, 165796510;
+	shr.u32 	%r2842, %r2841, 27;
+	shl.b32 	%r2843, %r2841, 5;
+	add.u32 	%r2844, %r2842, %r2843;
+	add.u32 	%r2845, %r2844, %r2835;
+	.loc	3	176	0
+	and.b32 	%r2846, %r2845, %r2827;
+	and.b32 	%r2847, %r2835, %r2828;
+	or.b32 	%r2848, %r2846, %r2847;
+	add.u32 	%r2849, %r2819, %r2848;
+	add.u32 	%r2850, %r127, %r2849;
+	sub.u32 	%r2851, %r2850, 1069501632;
+	shr.u32 	%r2852, %r2851, 23;
+	shl.b32 	%r2853, %r2851, 9;
+	add.u32 	%r2854, %r2852, %r2853;
+	add.u32 	%r2855, %r2854, %r2845;
+	.loc	3	177	0
+	and.b32 	%r2856, %r2855, %r2835;
+	not.b32 	%r2857, %r2835;
+	and.b32 	%r2858, %r2845, %r2857;
+	or.b32 	%r2859, %r2856, %r2858;
+	add.u32 	%r2860, %r2827, %r2859;
+	add.u32 	%r2861, %r187, %r2860;
+	add.u32 	%r2862, %r2861, 643717713;
+	shr.u32 	%r2863, %r2862, 18;
+	shl.b32 	%r2864, %r2862, 14;
+	add.u32 	%r2865, %r2863, %r2864;
+	add.u32 	%r2866, %r2865, %r2855;
+	.loc	3	178	0
+	and.b32 	%r2867, %r2866, %r2845;
+	not.b32 	%r2868, %r2845;
+	and.b32 	%r2869, %r2855, %r2868;
+	or.b32 	%r2870, %r2867, %r2869;
+	add.u32 	%r2871, %r2835, %r2870;
+	add.u32 	%r2872, %r55, %r2871;
+	sub.u32 	%r2873, %r2872, 373897302;
+	shr.u32 	%r2874, %r2873, 12;
+	shl.b32 	%r2875, %r2873, 20;
+	add.u32 	%r2876, %r2874, %r2875;
+	add.u32 	%r2877, %r2876, %r2866;
+	.loc	3	179	0
+	and.b32 	%r2878, %r2877, %r2855;
+	not.b32 	%r2879, %r2855;
+	and.b32 	%r2880, %r2866, %r2879;
+	or.b32 	%r2881, %r2878, %r2880;
+	add.u32 	%r2882, %r2845, %r2881;
+	add.u32 	%r2883, %r115, %r2882;
+	sub.u32 	%r2884, %r2883, 701558691;
+	shr.u32 	%r2885, %r2884, 27;
+	shl.b32 	%r2886, %r2884, 5;
+	add.u32 	%r2887, %r2885, %r2886;
+	add.u32 	%r2888, %r2887, %r2877;
+	.loc	3	180	0
+	and.b32 	%r2889, %r2888, %r2866;
+	not.b32 	%r2890, %r2866;
+	and.b32 	%r2891, %r2877, %r2890;
+	or.b32 	%r2892, %r2889, %r2891;
+	add.u32 	%r2893, %r2855, %r2892;
+	add.u32 	%r2894, %r175, %r2893;
+	add.u32 	%r2895, %r2894, 38016083;
+	shr.u32 	%r2896, %r2895, 23;
+	shl.b32 	%r2897, %r2895, 9;
+	add.u32 	%r2898, %r2896, %r2897;
+	add.u32 	%r2899, %r2898, %r2888;
+	.loc	3	181	0
+	and.b32 	%r2900, %r2899, %r2877;
+	not.b32 	%r2901, %r2877;
+	and.b32 	%r2902, %r2888, %r2901;
+	or.b32 	%r2903, %r2900, %r2902;
+	add.u32 	%r2904, %r2866, %r2903;
+	add.u32 	%r2905, %r235, %r2904;
+	sub.u32 	%r2906, %r2905, 660478335;
+	shr.u32 	%r2907, %r2906, 18;
+	shl.b32 	%r2908, %r2906, 14;
+	add.u32 	%r2909, %r2907, %r2908;
+	add.u32 	%r2910, %r2909, %r2899;
+	.loc	3	182	0
+	and.b32 	%r2911, %r2910, %r2888;
+	not.b32 	%r2912, %r2888;
+	and.b32 	%r2913, %r2899, %r2912;
+	or.b32 	%r2914, %r2911, %r2913;
+	add.u32 	%r2915, %r2877, %r2914;
+	add.u32 	%r2916, %r103, %r2915;
+	sub.u32 	%r2917, %r2916, 405537848;
+	shr.u32 	%r2918, %r2917, 12;
+	shl.b32 	%r2919, %r2917, 20;
+	add.u32 	%r2920, %r2918, %r2919;
+	add.u32 	%r2921, %r2920, %r2910;
+	.loc	3	183	0
+	and.b32 	%r2922, %r2921, %r2899;
+	not.b32 	%r2923, %r2899;
+	and.b32 	%r2924, %r2910, %r2923;
+	or.b32 	%r2925, %r2922, %r2924;
+	add.u32 	%r2926, %r2888, %r2925;
+	add.u32 	%r2927, %r163, %r2926;
+	add.u32 	%r2928, %r2927, 568446438;
+	shr.u32 	%r2929, %r2928, 27;
+	shl.b32 	%r2930, %r2928, 5;
+	add.u32 	%r2931, %r2929, %r2930;
+	add.u32 	%r2932, %r2931, %r2921;
+	.loc	3	184	0
+	and.b32 	%r2933, %r2932, %r2910;
+	not.b32 	%r2934, %r2910;
+	and.b32 	%r2935, %r2921, %r2934;
+	or.b32 	%r2936, %r2933, %r2935;
+	add.u32 	%r2937, %r2899, %r2936;
+	add.u32 	%r2938, %r223, %r2937;
+	sub.u32 	%r2939, %r2938, 1019803690;
+	shr.u32 	%r2940, %r2939, 23;
+	shl.b32 	%r2941, %r2939, 9;
+	add.u32 	%r2942, %r2940, %r2941;
+	add.u32 	%r2943, %r2942, %r2932;
+	.loc	3	185	0
+	and.b32 	%r2944, %r2943, %r2921;
+	not.b32 	%r2945, %r2921;
+	and.b32 	%r2946, %r2932, %r2945;
+	or.b32 	%r2947, %r2944, %r2946;
+	add.u32 	%r2948, %r2910, %r2947;
+	add.u32 	%r2949, %r91, %r2948;
+	sub.u32 	%r2950, %r2949, 187363961;
+	shr.u32 	%r2951, %r2950, 18;
+	shl.b32 	%r2952, %r2950, 14;
+	add.u32 	%r2953, %r2951, %r2952;
+	add.u32 	%r2954, %r2953, %r2943;
+	.loc	3	186	0
+	and.b32 	%r2955, %r2954, %r2932;
+	not.b32 	%r2956, %r2932;
+	and.b32 	%r2957, %r2943, %r2956;
+	or.b32 	%r2958, %r2955, %r2957;
+	add.u32 	%r2959, %r2921, %r2958;
+	add.u32 	%r2960, %r151, %r2959;
+	add.u32 	%r2961, %r2960, 1163531501;
+	shr.u32 	%r2962, %r2961, 12;
+	shl.b32 	%r2963, %r2961, 20;
+	add.u32 	%r2964, %r2962, %r2963;
+	add.u32 	%r2965, %r2964, %r2954;
+	.loc	3	187	0
+	and.b32 	%r2966, %r2965, %r2943;
+	not.b32 	%r2967, %r2943;
+	and.b32 	%r2968, %r2954, %r2967;
+	or.b32 	%r2969, %r2966, %r2968;
+	add.u32 	%r2970, %r2932, %r2969;
+	add.u32 	%r2971, %r211, %r2970;
+	sub.u32 	%r2972, %r2971, 1444681467;
+	shr.u32 	%r384, %r2972, 27;
+	shl.b32 	%r385, %r2972, 5;
+	add.u32 	%r386, %r384, %r385;
+	add.u32 	%r2973, %r386, %r2965;
+	.loc	3	188	0
+	and.b32 	%r2974, %r2973, %r2954;
+	not.b32 	%r2975, %r2954;
+	and.b32 	%r2976, %r2965, %r2975;
+	or.b32 	%r2977, %r2974, %r2976;
+	add.u32 	%r2978, %r2943, %r2977;
+	add.u32 	%r2979, %r79, %r2978;
+	sub.u32 	%r2980, %r2979, 51403784;
+	shr.u32 	%r395, %r2980, 23;
+	shl.b32 	%r396, %r2980, 9;
+	add.u32 	%r397, %r395, %r396;
+	add.u32 	%r2981, %r397, %r2973;
+	.loc	3	189	0
+	and.b32 	%r2982, %r2981, %r2965;
+	not.b32 	%r2983, %r2965;
+	and.b32 	%r2984, %r2973, %r2983;
+	or.b32 	%r2985, %r2982, %r2984;
+	add.u32 	%r2986, %r2954, %r2985;
+	add.u32 	%r2987, %r139, %r2986;
+	add.u32 	%r2988, %r2987, 1735328473;
+	shr.u32 	%r406, %r2988, 18;
+	shl.b32 	%r407, %r2988, 14;
+	add.u32 	%r408, %r406, %r407;
+	add.u32 	%r2989, %r408, %r2981;
+	.loc	3	190	0
+	and.b32 	%r2990, %r2989, %r2973;
+	not.b32 	%r2991, %r2973;
+	and.b32 	%r2992, %r2981, %r2991;
+	or.b32 	%r2993, %r2990, %r2992;
+	add.u32 	%r2994, %r2965, %r2993;
+	add.u32 	%r2995, %r199, %r2994;
+	sub.u32 	%r2996, %r2995, 1926607734;
+	shr.u32 	%r417, %r2996, 12;
+	shl.b32 	%r418, %r2996, 20;
+	add.u32 	%r419, %r417, %r418;
+	add.u32 	%r2997, %r419, %r2989;
+	.loc	3	201	0
+	xor.b32 	%r2998, %r2997, %r2989;
+	xor.b32 	%r2999, %r2981, %r2998;
+	add.u32 	%r3000, %r2973, %r2999;
+	add.u32 	%r3001, %r115, %r3000;
+	sub.u32 	%r3002, %r3001, 378558;
+	shr.u32 	%r3003, %r3002, 28;
+	shl.b32 	%r3004, %r3002, 4;
+	add.u32 	%r3005, %r3003, %r3004;
+	add.u32 	%r3006, %r3005, %r2997;
+	.loc	3	202	0
+	xor.b32 	%r3007, %r3006, %r2997;
+	xor.b32 	%r3008, %r2989, %r3007;
+	add.u32 	%r3009, %r2981, %r3008;
+	add.u32 	%r3010, %r151, %r3009;
+	sub.u32 	%r3011, %r3010, 2022574463;
+	shr.u32 	%r3012, %r3011, 21;
+	shl.b32 	%r3013, %r3011, 11;
+	add.u32 	%r3014, %r3012, %r3013;
+	add.u32 	%r3015, %r3014, %r3006;
+	.loc	3	203	0
+	xor.b32 	%r3016, %r3015, %r3006;
+	xor.b32 	%r3017, %r2997, %r3016;
+	add.u32 	%r3018, %r2989, %r3017;
+	add.u32 	%r3019, %r187, %r3018;
+	add.u32 	%r3020, %r3019, 1839030562;
+	shr.u32 	%r3021, %r3020, 16;
+	shl.b32 	%r3022, %r3020, 16;
+	add.u32 	%r3023, %r3021, %r3022;
+	add.u32 	%r3024, %r3023, %r3015;
+	.loc	3	204	0
+	xor.b32 	%r3025, %r3024, %r3015;
+	xor.b32 	%r3026, %r3006, %r3025;
+	add.u32 	%r3027, %r2997, %r3026;
+	add.u32 	%r3028, %r223, %r3027;
+	sub.u32 	%r3029, %r3028, 35309556;
+	shr.u32 	%r3030, %r3029, 9;
+	shl.b32 	%r3031, %r3029, 23;
+	add.u32 	%r3032, %r3030, %r3031;
+	add.u32 	%r3033, %r3032, %r3024;
+	.loc	3	205	0
+	xor.b32 	%r3034, %r3033, %r3024;
+	xor.b32 	%r3035, %r3015, %r3034;
+	add.u32 	%r3036, %r3006, %r3035;
+	add.u32 	%r3037, %r67, %r3036;
+	sub.u32 	%r3038, %r3037, 1530992060;
+	shr.u32 	%r3039, %r3038, 28;
+	shl.b32 	%r3040, %r3038, 4;
+	add.u32 	%r3041, %r3039, %r3040;
+	add.u32 	%r3042, %r3041, %r3033;
+	.loc	3	206	0
+	xor.b32 	%r3043, %r3042, %r3033;
+	xor.b32 	%r3044, %r3024, %r3043;
+	add.u32 	%r3045, %r3015, %r3044;
+	add.u32 	%r3046, %r103, %r3045;
+	add.u32 	%r3047, %r3046, 1272893353;
+	shr.u32 	%r3048, %r3047, 21;
+	shl.b32 	%r3049, %r3047, 11;
+	add.u32 	%r3050, %r3048, %r3049;
+	add.u32 	%r3051, %r3050, %r3042;
+	.loc	3	207	0
+	xor.b32 	%r3052, %r3051, %r3042;
+	xor.b32 	%r3053, %r3033, %r3052;
+	add.u32 	%r3054, %r3024, %r3053;
+	add.u32 	%r3055, %r139, %r3054;
+	sub.u32 	%r3056, %r3055, 155497632;
+	shr.u32 	%r3057, %r3056, 16;
+	shl.b32 	%r3058, %r3056, 16;
+	add.u32 	%r3059, %r3057, %r3058;
+	add.u32 	%r3060, %r3059, %r3051;
+	.loc	3	208	0
+	xor.b32 	%r3061, %r3060, %r3051;
+	xor.b32 	%r3062, %r3042, %r3061;
+	add.u32 	%r3063, %r3033, %r3062;
+	add.u32 	%r3064, %r175, %r3063;
+	sub.u32 	%r3065, %r3064, 1094730640;
+	shr.u32 	%r3066, %r3065, 9;
+	shl.b32 	%r3067, %r3065, 23;
+	add.u32 	%r3068, %r3066, %r3067;
+	add.u32 	%r3069, %r3068, %r3060;
+	.loc	3	209	0
+	xor.b32 	%r3070, %r3069, %r3060;
+	xor.b32 	%r3071, %r3051, %r3070;
+	add.u32 	%r3072, %r3042, %r3071;
+	add.u32 	%r3073, %r211, %r3072;
+	add.u32 	%r3074, %r3073, 681279174;
+	shr.u32 	%r3075, %r3074, 28;
+	shl.b32 	%r3076, %r3074, 4;
+	add.u32 	%r3077, %r3075, %r3076;
+	add.u32 	%r3078, %r3077, %r3069;
+	.loc	3	210	0
+	xor.b32 	%r3079, %r3078, %r3069;
+	xor.b32 	%r3080, %r3060, %r3079;
+	add.u32 	%r3081, %r3051, %r3080;
+	add.u32 	%r3082, %r55, %r3081;
+	sub.u32 	%r3083, %r3082, 358537222;
+	shr.u32 	%r3084, %r3083, 21;
+	shl.b32 	%r3085, %r3083, 11;
+	add.u32 	%r3086, %r3084, %r3085;
+	add.u32 	%r3087, %r3086, %r3078;
+	.loc	3	211	0
+	xor.b32 	%r3088, %r3087, %r3078;
+	xor.b32 	%r3089, %r3069, %r3088;
+	add.u32 	%r3090, %r3060, %r3089;
+	add.u32 	%r3091, %r91, %r3090;
+	sub.u32 	%r3092, %r3091, 722521979;
+	shr.u32 	%r3093, %r3092, 16;
+	shl.b32 	%r3094, %r3092, 16;
+	add.u32 	%r3095, %r3093, %r3094;
+	add.u32 	%r3096, %r3095, %r3087;
+	.loc	3	212	0
+	xor.b32 	%r3097, %r3096, %r3087;
+	xor.b32 	%r3098, %r3078, %r3097;
+	add.u32 	%r3099, %r3069, %r3098;
+	add.u32 	%r3100, %r127, %r3099;
+	add.u32 	%r3101, %r3100, 76029189;
+	shr.u32 	%r3102, %r3101, 9;
+	shl.b32 	%r3103, %r3101, 23;
+	add.u32 	%r3104, %r3102, %r3103;
+	add.u32 	%r3105, %r3104, %r3096;
+	.loc	3	213	0
+	xor.b32 	%r3106, %r3105, %r3096;
+	xor.b32 	%r3107, %r3087, %r3106;
+	add.u32 	%r3108, %r3078, %r3107;
+	add.u32 	%r3109, %r163, %r3108;
+	sub.u32 	%r3110, %r3109, 640364487;
+	shr.u32 	%r534, %r3110, 28;
+	shl.b32 	%r535, %r3110, 4;
+	add.u32 	%r536, %r534, %r535;
+	add.u32 	%r3111, %r536, %r3105;
+	.loc	3	214	0
+	xor.b32 	%r3112, %r3111, %r3105;
+	xor.b32 	%r3113, %r3096, %r3112;
+	add.u32 	%r3114, %r3087, %r3113;
+	add.u32 	%r3115, %r199, %r3114;
+	sub.u32 	%r3116, %r3115, 421815835;
+	shr.u32 	%r543, %r3116, 21;
+	shl.b32 	%r544, %r3116, 11;
+	add.u32 	%r545, %r543, %r544;
+	add.u32 	%r3117, %r545, %r3111;
+	.loc	3	215	0
+	xor.b32 	%r3118, %r3117, %r3111;
+	xor.b32 	%r3119, %r3105, %r3118;
+	add.u32 	%r3120, %r3096, %r3119;
+	add.u32 	%r3121, %r235, %r3120;
+	add.u32 	%r3122, %r3121, 530742520;
+	shr.u32 	%r552, %r3122, 16;
+	shl.b32 	%r553, %r3122, 16;
+	add.u32 	%r554, %r552, %r553;
+	add.u32 	%r3123, %r554, %r3117;
+	.loc	3	216	0
+	xor.b32 	%r3124, %r3123, %r3117;
+	xor.b32 	%r3125, %r3111, %r3124;
+	add.u32 	%r3126, %r3105, %r3125;
+	add.u32 	%r3127, %r79, %r3126;
+	sub.u32 	%r3128, %r3127, 995338651;
+	shr.u32 	%r561, %r3128, 9;
+	shl.b32 	%r562, %r3128, 23;
+	add.u32 	%r563, %r561, %r562;
+	add.u32 	%r3129, %r563, %r3123;
+	.loc	3	227	0
+	not.b32 	%r3130, %r3117;
+	or.b32 	%r3131, %r3129, %r3130;
+	xor.b32 	%r3132, %r3123, %r3131;
+	add.u32 	%r3133, %r3111, %r3132;
+	add.u32 	%r3134, %r55, %r3133;
+	sub.u32 	%r3135, %r3134, 198630844;
+	shr.u32 	%r3136, %r3135, 26;
+	shl.b32 	%r3137, %r3135, 6;
+	add.u32 	%r3138, %r3136, %r3137;
+	add.u32 	%r3139, %r3138, %r3129;
+	.loc	3	228	0
+	not.b32 	%r3140, %r3123;
+	or.b32 	%r3141, %r3139, %r3140;
+	xor.b32 	%r3142, %r3129, %r3141;
+	add.u32 	%r3143, %r3117, %r3142;
+	add.u32 	%r3144, %r139, %r3143;
+	add.u32 	%r3145, %r3144, 1126891415;
+	shr.u32 	%r3146, %r3145, 22;
+	shl.b32 	%r3147, %r3145, 10;
+	add.u32 	%r3148, %r3146, %r3147;
+	add.u32 	%r3149, %r3148, %r3139;
+	.loc	3	229	0
+	not.b32 	%r3150, %r3129;
+	or.b32 	%r3151, %r3149, %r3150;
+	xor.b32 	%r3152, %r3139, %r3151;
+	add.u32 	%r3153, %r3123, %r3152;
+	add.u32 	%r3154, %r223, %r3153;
+	sub.u32 	%r3155, %r3154, 1416354905;
+	shr.u32 	%r3156, %r3155, 17;
+	shl.b32 	%r3157, %r3155, 15;
+	add.u32 	%r3158, %r3156, %r3157;
+	add.u32 	%r3159, %r3158, %r3149;
+	.loc	3	230	0
+	not.b32 	%r3160, %r3139;
+	or.b32 	%r3161, %r3159, %r3160;
+	xor.b32 	%r3162, %r3149, %r3161;
+	add.u32 	%r3163, %r3129, %r3162;
+	add.u32 	%r3164, %r115, %r3163;
+	sub.u32 	%r3165, %r3164, 57434055;
+	shr.u32 	%r3166, %r3165, 11;
+	shl.b32 	%r3167, %r3165, 21;
+	add.u32 	%r3168, %r3166, %r3167;
+	add.u32 	%r3169, %r3168, %r3159;
+	.loc	3	231	0
+	not.b32 	%r3170, %r3149;
+	or.b32 	%r3171, %r3169, %r3170;
+	xor.b32 	%r3172, %r3159, %r3171;
+	add.u32 	%r3173, %r3139, %r3172;
+	add.u32 	%r3174, %r199, %r3173;
+	add.u32 	%r3175, %r3174, 1700485571;
+	shr.u32 	%r3176, %r3175, 26;
+	shl.b32 	%r3177, %r3175, 6;
+	add.u32 	%r3178, %r3176, %r3177;
+	add.u32 	%r3179, %r3178, %r3169;
+	.loc	3	232	0
+	not.b32 	%r3180, %r3159;
+	or.b32 	%r3181, %r3179, %r3180;
+	xor.b32 	%r3182, %r3169, %r3181;
+	add.u32 	%r3183, %r3149, %r3182;
+	add.u32 	%r3184, %r91, %r3183;
+	sub.u32 	%r3185, %r3184, 1894986606;
+	shr.u32 	%r3186, %r3185, 22;
+	shl.b32 	%r3187, %r3185, 10;
+	add.u32 	%r3188, %r3186, %r3187;
+	add.u32 	%r3189, %r3188, %r3179;
+	.loc	3	233	0
+	not.b32 	%r3190, %r3169;
+	or.b32 	%r3191, %r3189, %r3190;
+	xor.b32 	%r3192, %r3179, %r3191;
+	add.u32 	%r3193, %r3159, %r3192;
+	add.u32 	%r3194, %r175, %r3193;
+	sub.u32 	%r3195, %r3194, 1051523;
+	shr.u32 	%r3196, %r3195, 17;
+	shl.b32 	%r3197, %r3195, 15;
+	add.u32 	%r3198, %r3196, %r3197;
+	add.u32 	%r3199, %r3198, %r3189;
+	.loc	3	234	0
+	not.b32 	%r3200, %r3179;
+	or.b32 	%r3201, %r3199, %r3200;
+	xor.b32 	%r3202, %r3189, %r3201;
+	add.u32 	%r3203, %r3169, %r3202;
+	add.u32 	%r3204, %r67, %r3203;
+	sub.u32 	%r3205, %r3204, 2054922799;
+	shr.u32 	%r3206, %r3205, 11;
+	shl.b32 	%r3207, %r3205, 21;
+	add.u32 	%r3208, %r3206, %r3207;
+	add.u32 	%r3209, %r3208, %r3199;
+	.loc	3	235	0
+	not.b32 	%r3210, %r3189;
+	or.b32 	%r3211, %r3209, %r3210;
+	xor.b32 	%r3212, %r3199, %r3211;
+	add.u32 	%r3213, %r3179, %r3212;
+	add.u32 	%r3214, %r151, %r3213;
+	add.u32 	%r3215, %r3214, 1873313359;
+	shr.u32 	%r3216, %r3215, 26;
+	shl.b32 	%r3217, %r3215, 6;
+	add.u32 	%r3218, %r3216, %r3217;
+	add.u32 	%r3219, %r3218, %r3209;
+	.loc	3	236	0
+	not.b32 	%r3220, %r3199;
+	or.b32 	%r3221, %r3219, %r3220;
+	xor.b32 	%r3222, %r3209, %r3221;
+	add.u32 	%r3223, %r3189, %r3222;
+	add.u32 	%r3224, %r235, %r3223;
+	sub.u32 	%r3225, %r3224, 30611744;
+	shr.u32 	%r3226, %r3225, 22;
+	shl.b32 	%r3227, %r3225, 10;
+	add.u32 	%r3228, %r3226, %r3227;
+	add.u32 	%r3229, %r3228, %r3219;
+	.loc	3	237	0
+	not.b32 	%r3230, %r3209;
+	or.b32 	%r3231, %r3229, %r3230;
+	xor.b32 	%r3232, %r3219, %r3231;
+	add.u32 	%r3233, %r3199, %r3232;
+	add.u32 	%r3234, %r127, %r3233;
+	sub.u32 	%r3235, %r3234, 1560198380;
+	shr.u32 	%r3236, %r3235, 17;
+	shl.b32 	%r3237, %r3235, 15;
+	add.u32 	%r3238, %r3236, %r3237;
+	add.u32 	%r3239, %r3238, %r3229;
+	.loc	3	238	0
+	not.b32 	%r3240, %r3219;
+	or.b32 	%r3241, %r3239, %r3240;
+	xor.b32 	%r3242, %r3229, %r3241;
+	add.u32 	%r3243, %r3209, %r3242;
+	add.u32 	%r3244, %r211, %r3243;
+	add.u32 	%r3245, %r3244, 1309151649;
+	shr.u32 	%r681, %r3245, 11;
+	shl.b32 	%r682, %r3245, 21;
+	add.u32 	%r683, %r681, %r682;
+	add.u32 	%r3246, %r683, %r3239;
+	.loc	3	239	0
+	not.b32 	%r3247, %r3229;
+	or.b32 	%r3248, %r3246, %r3247;
+	xor.b32 	%r3249, %r3239, %r3248;
+	add.u32 	%r3250, %r3219, %r3249;
+	add.u32 	%r3251, %r103, %r3250;
+	sub.u32 	%r3252, %r3251, 145523070;
+	shr.u32 	%r691, %r3252, 26;
+	shl.b32 	%r692, %r3252, 6;
+	add.u32 	%r693, %r691, %r692;
+	add.u32 	%r3253, %r693, %r3246;
+	.loc	3	240	0
+	not.b32 	%r3254, %r3239;
+	or.b32 	%r3255, %r3253, %r3254;
+	xor.b32 	%r3256, %r3246, %r3255;
+	add.u32 	%r3257, %r3229, %r3256;
+	add.u32 	%r3258, %r187, %r3257;
+	sub.u32 	%r3259, %r3258, 1120210379;
+	shr.u32 	%r701, %r3259, 22;
+	shl.b32 	%r702, %r3259, 10;
+	add.u32 	%r703, %r701, %r702;
+	add.u32 	%r3260, %r703, %r3253;
+	.loc	3	241	0
+	not.b32 	%r3261, %r3246;
+	or.b32 	%r3262, %r3260, %r3261;
+	xor.b32 	%r3263, %r3253, %r3262;
+	add.u32 	%r3264, %r3239, %r3263;
+	add.u32 	%r3265, %r79, %r3264;
+	add.u32 	%r3266, %r3265, 718787259;
+	shr.u32 	%r711, %r3266, 17;
+	shl.b32 	%r712, %r3266, 15;
+	add.u32 	%r713, %r711, %r712;
+	add.u32 	%r3267, %r713, %r3260;
+	.loc	3	242	0
+	not.b32 	%r3268, %r3253;
+	or.b32 	%r3269, %r3267, %r3268;
+	xor.b32 	%r3270, %r3260, %r3269;
+	add.u32 	%r3271, %r3246, %r3270;
+	add.u32 	%r3272, %r163, %r3271;
+	sub.u32 	%r720, %r3272, 343485551;
+	.loc	3	248	0
+	add.u32 	%r3273, %r3253, %r14;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+8], %r3273;
+	.loc	3	249	0
+	add.u32 	%r3274, %r3267, %r15;
+	shr.u32 	%r3275, %r720, 11;
+	shl.b32 	%r3276, %r720, 21;
+	add.u32 	%r3277, %r3275, %r3276;
+	add.u32 	%r3278, %r3274, %r3277;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+12], %r3278;
+	.loc	3	250	0
+	add.u32 	%r3279, %r3267, %r16;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+16], %r3279;
+	.loc	3	251	0
+	add.u32 	%r3280, %r3260, %r17;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+20], %r3280;
+	.loc	3	293	0
+	bra.uni 	$Lt_0_56066;
+$Lt_0_56322:
+	mov.s32 	%r38, 8;
+	mov.u32 	%r36, __cuda___cuda_local_var_38728_20_non_const_data_1284;
+$Lt_0_56066:
+	mov.u32 	%r3281, 63;
+	setp.le.s32 	%p44, %r38, %r3281;
+	@%p44 bra 	$Lt_0_59650;
+	shr.s32 	%r3282, %r38, 31;
+	mov.s32 	%r3283, 63;
+	and.b32 	%r3284, %r3282, %r3283;
+	add.s32 	%r3285, %r3284, %r38;
+	shr.s32 	%r3286, %r3285, 6;
+	ld.local.u32 	%r17, [__cuda___cuda_local_var_38708_15_non_const_state_4072+20];
+	ld.local.u32 	%r16, [__cuda___cuda_local_var_38708_15_non_const_state_4072+16];
+	ld.local.u32 	%r15, [__cuda___cuda_local_var_38708_15_non_const_state_4072+12];
+	ld.local.u32 	%r14, [__cuda___cuda_local_var_38708_15_non_const_state_4072+8];
+	mov.s32 	%r3287, %r3286;
+$Lt_0_60162:
+ //<loop> Loop body line 293, nesting depth: 4, estimated iterations: unknown
+	.loc	3	108	0
+	mov.s32 	%r39, %r14;
+	mov.s32 	%r40, %r15;
+	mov.s32 	%r41, %r16;
+	mov.s32 	%r42, %r17;
+	mov.s32 	%r3288, 1;
+	mov.u32 	%r3289, 1;
+	mov.u32 	%r3290, 0;
+	setp.eq.u32 	%p45, %r3289, %r3290;
+	@%p45 bra 	$Lt_0_60674;
+	and.b32 	%r3291, %r36, 3;
+	mov.u32 	%r3292, 0;
+	setp.ne.s32 	%p46, %r3291, %r3292;
+	@%p46 bra 	$Lt_0_61186;
+	.loc	3	130	0
+	mov.s32 	%r49, %r36;
+	mov.s32 	%r50, %r49;
+	bra.uni 	$Lt_0_60418;
+$Lt_0_61186:
+	.loc	3	133	0
+	mov.s32 	%r3293, %r36;
+	mov.u32 	%r3294, __cuda___cuda_local_var_38410_14_non_const_xbuf_140160;
+	mov.s32 	%r3295, 64;
+$Lt_0_61954:
+ //<loop> Loop body line 133, nesting depth: 5, iterations: 64
+	ld.local.u8 	%rh114, [%r3293+0];
+	st.local.u8 	[%r3294+0], %rh114;
+	add.u32 	%r3293, %r3293, 1;
+	add.u32 	%r3294, %r3294, 1;
+	sub.s32 	%r3295, %r3295, 1;
+	mov.u32 	%r3296, 0;
+	setp.ne.s32 	%p47, %r3295, %r3296;
+	@%p47 bra 	$Lt_0_61954;
+	.loc	3	134	0
+	mov.u32 	%r49, __cuda___cuda_local_var_38410_14_non_const_xbuf_140160;
+	mov.s32 	%r50, %r49;
+	ld.local.u32 	%r17, [__cuda___cuda_local_var_38708_15_non_const_state_4072+20];
+	ld.local.u32 	%r16, [__cuda___cuda_local_var_38708_15_non_const_state_4072+16];
+	ld.local.u32 	%r15, [__cuda___cuda_local_var_38708_15_non_const_state_4072+12];
+	ld.local.u32 	%r14, [__cuda___cuda_local_var_38708_15_non_const_state_4072+8];
+	bra.uni 	$Lt_0_60418;
+$Lt_0_60674:
+	mov.s32 	%r49, %r50;
+$Lt_0_60418:
+	.loc	3	149	0
+	ld.global.u32 	%r55, [%r49+0];
+	and.b32 	%r3297, %r40, %r41;
+	not.b32 	%r3298, %r40;
+	and.b32 	%r3299, %r42, %r3298;
+	or.b32 	%r3300, %r3297, %r3299;
+	add.u32 	%r3301, %r39, %r3300;
+	add.u32 	%r3302, %r55, %r3301;
+	sub.u32 	%r3303, %r3302, 680876936;
+	shr.u32 	%r3304, %r3303, 25;
+	shl.b32 	%r3305, %r3303, 7;
+	add.u32 	%r3306, %r3304, %r3305;
+	add.u32 	%r3307, %r3306, %r40;
+	.loc	3	150	0
+	ld.global.u32 	%r67, [%r49+4];
+	and.b32 	%r3308, %r3307, %r40;
+	not.b32 	%r3309, %r3307;
+	and.b32 	%r3310, %r41, %r3309;
+	or.b32 	%r3311, %r3308, %r3310;
+	add.u32 	%r3312, %r42, %r3311;
+	add.u32 	%r3313, %r67, %r3312;
+	sub.u32 	%r3314, %r3313, 389564586;
+	shr.u32 	%r3315, %r3314, 20;
+	shl.b32 	%r3316, %r3314, 12;
+	add.u32 	%r3317, %r3315, %r3316;
+	add.u32 	%r3318, %r3317, %r3307;
+	.loc	3	151	0
+	ld.global.u32 	%r79, [%r49+8];
+	and.b32 	%r3319, %r3318, %r3307;
+	not.b32 	%r3320, %r3318;
+	and.b32 	%r3321, %r40, %r3320;
+	or.b32 	%r3322, %r3319, %r3321;
+	add.u32 	%r3323, %r41, %r3322;
+	add.u32 	%r3324, %r79, %r3323;
+	add.u32 	%r3325, %r3324, 606105819;
+	shr.u32 	%r3326, %r3325, 15;
+	shl.b32 	%r3327, %r3325, 17;
+	add.u32 	%r3328, %r3326, %r3327;
+	add.u32 	%r3329, %r3328, %r3318;
+	.loc	3	152	0
+	ld.global.u32 	%r91, [%r49+12];
+	and.b32 	%r3330, %r3329, %r3318;
+	not.b32 	%r3331, %r3329;
+	and.b32 	%r3332, %r3307, %r3331;
+	or.b32 	%r3333, %r3330, %r3332;
+	add.u32 	%r3334, %r40, %r3333;
+	add.u32 	%r3335, %r91, %r3334;
+	sub.u32 	%r3336, %r3335, 1044525330;
+	shr.u32 	%r3337, %r3336, 10;
+	shl.b32 	%r3338, %r3336, 22;
+	add.u32 	%r3339, %r3337, %r3338;
+	add.u32 	%r3340, %r3339, %r3329;
+	.loc	3	153	0
+	ld.global.u32 	%r103, [%r49+16];
+	and.b32 	%r3341, %r3340, %r3329;
+	not.b32 	%r3342, %r3340;
+	and.b32 	%r3343, %r3318, %r3342;
+	or.b32 	%r3344, %r3341, %r3343;
+	add.u32 	%r3345, %r3307, %r3344;
+	add.u32 	%r3346, %r103, %r3345;
+	sub.u32 	%r3347, %r3346, 176418897;
+	shr.u32 	%r3348, %r3347, 25;
+	shl.b32 	%r3349, %r3347, 7;
+	add.u32 	%r3350, %r3348, %r3349;
+	add.u32 	%r3351, %r3350, %r3340;
+	.loc	3	154	0
+	ld.global.u32 	%r115, [%r49+20];
+	and.b32 	%r3352, %r3351, %r3340;
+	not.b32 	%r3353, %r3351;
+	and.b32 	%r3354, %r3329, %r3353;
+	or.b32 	%r3355, %r3352, %r3354;
+	add.u32 	%r3356, %r3318, %r3355;
+	add.u32 	%r3357, %r115, %r3356;
+	add.u32 	%r3358, %r3357, 1200080426;
+	shr.u32 	%r3359, %r3358, 20;
+	shl.b32 	%r3360, %r3358, 12;
+	add.u32 	%r3361, %r3359, %r3360;
+	add.u32 	%r3362, %r3361, %r3351;
+	.loc	3	155	0
+	ld.global.u32 	%r127, [%r49+24];
+	and.b32 	%r3363, %r3362, %r3351;
+	not.b32 	%r3364, %r3362;
+	and.b32 	%r3365, %r3340, %r3364;
+	or.b32 	%r3366, %r3363, %r3365;
+	add.u32 	%r3367, %r3329, %r3366;
+	add.u32 	%r3368, %r127, %r3367;
+	sub.u32 	%r3369, %r3368, 1473231341;
+	shr.u32 	%r3370, %r3369, 15;
+	shl.b32 	%r3371, %r3369, 17;
+	add.u32 	%r3372, %r3370, %r3371;
+	add.u32 	%r3373, %r3372, %r3362;
+	.loc	3	156	0
+	ld.global.u32 	%r139, [%r49+28];
+	and.b32 	%r3374, %r3373, %r3362;
+	not.b32 	%r3375, %r3373;
+	and.b32 	%r3376, %r3351, %r3375;
+	or.b32 	%r3377, %r3374, %r3376;
+	add.u32 	%r3378, %r3340, %r3377;
+	add.u32 	%r3379, %r139, %r3378;
+	sub.u32 	%r3380, %r3379, 45705983;
+	shr.u32 	%r3381, %r3380, 10;
+	shl.b32 	%r3382, %r3380, 22;
+	add.u32 	%r3383, %r3381, %r3382;
+	add.u32 	%r3384, %r3383, %r3373;
+	.loc	3	157	0
+	ld.global.u32 	%r151, [%r49+32];
+	and.b32 	%r3385, %r3384, %r3373;
+	not.b32 	%r3386, %r3384;
+	and.b32 	%r3387, %r3362, %r3386;
+	or.b32 	%r3388, %r3385, %r3387;
+	add.u32 	%r3389, %r3351, %r3388;
+	add.u32 	%r3390, %r151, %r3389;
+	add.u32 	%r3391, %r3390, 1770035416;
+	shr.u32 	%r3392, %r3391, 25;
+	shl.b32 	%r3393, %r3391, 7;
+	add.u32 	%r3394, %r3392, %r3393;
+	add.u32 	%r3395, %r3394, %r3384;
+	.loc	3	158	0
+	ld.global.u32 	%r163, [%r49+36];
+	and.b32 	%r3396, %r3395, %r3384;
+	not.b32 	%r3397, %r3395;
+	and.b32 	%r3398, %r3373, %r3397;
+	or.b32 	%r3399, %r3396, %r3398;
+	add.u32 	%r3400, %r3362, %r3399;
+	add.u32 	%r3401, %r163, %r3400;
+	sub.u32 	%r3402, %r3401, 1958414417;
+	shr.u32 	%r3403, %r3402, 20;
+	shl.b32 	%r3404, %r3402, 12;
+	add.u32 	%r3405, %r3403, %r3404;
+	add.u32 	%r3406, %r3405, %r3395;
+	.loc	3	159	0
+	ld.global.u32 	%r175, [%r49+40];
+	and.b32 	%r3407, %r3406, %r3395;
+	not.b32 	%r3408, %r3406;
+	and.b32 	%r3409, %r3384, %r3408;
+	or.b32 	%r3410, %r3407, %r3409;
+	add.u32 	%r3411, %r3373, %r3410;
+	add.u32 	%r3412, %r175, %r3411;
+	sub.u32 	%r3413, %r3412, 42063;
+	shr.u32 	%r3414, %r3413, 15;
+	shl.b32 	%r3415, %r3413, 17;
+	add.u32 	%r3416, %r3414, %r3415;
+	add.u32 	%r3417, %r3416, %r3406;
+	.loc	3	160	0
+	ld.global.u32 	%r187, [%r49+44];
+	and.b32 	%r3418, %r3417, %r3406;
+	not.b32 	%r3419, %r3417;
+	and.b32 	%r3420, %r3395, %r3419;
+	or.b32 	%r3421, %r3418, %r3420;
+	add.u32 	%r3422, %r3384, %r3421;
+	add.u32 	%r3423, %r187, %r3422;
+	sub.u32 	%r3424, %r3423, 1990404162;
+	shr.u32 	%r3425, %r3424, 10;
+	shl.b32 	%r3426, %r3424, 22;
+	add.u32 	%r3427, %r3425, %r3426;
+	add.u32 	%r3428, %r3427, %r3417;
+	.loc	3	161	0
+	ld.global.u32 	%r199, [%r49+48];
+	and.b32 	%r3429, %r3428, %r3417;
+	not.b32 	%r3430, %r3428;
+	and.b32 	%r3431, %r3406, %r3430;
+	or.b32 	%r3432, %r3429, %r3431;
+	add.u32 	%r3433, %r3395, %r3432;
+	add.u32 	%r3434, %r199, %r3433;
+	add.u32 	%r3435, %r3434, 1804603682;
+	shr.u32 	%r207, %r3435, 25;
+	shl.b32 	%r208, %r3435, 7;
+	add.u32 	%r209, %r207, %r208;
+	add.u32 	%r3436, %r209, %r3428;
+	.loc	3	162	0
+	ld.global.u32 	%r211, [%r49+52];
+	and.b32 	%r3437, %r3436, %r3428;
+	not.b32 	%r3438, %r3436;
+	and.b32 	%r3439, %r3417, %r3438;
+	or.b32 	%r3440, %r3437, %r3439;
+	add.u32 	%r3441, %r3406, %r3440;
+	add.u32 	%r3442, %r211, %r3441;
+	sub.u32 	%r3443, %r3442, 40341101;
+	shr.u32 	%r219, %r3443, 20;
+	shl.b32 	%r220, %r3443, 12;
+	add.u32 	%r221, %r219, %r220;
+	add.u32 	%r3444, %r221, %r3436;
+	.loc	3	163	0
+	ld.global.u32 	%r223, [%r49+56];
+	not.b32 	%r3445, %r3444;
+	and.b32 	%r3446, %r3445, %r3428;
+	and.b32 	%r3447, %r3444, %r3436;
+	or.b32 	%r3448, %r3446, %r3447;
+	add.u32 	%r3449, %r3417, %r3448;
+	add.u32 	%r3450, %r223, %r3449;
+	sub.u32 	%r3451, %r3450, 1502002290;
+	shr.u32 	%r231, %r3451, 15;
+	shl.b32 	%r232, %r3451, 17;
+	add.u32 	%r233, %r231, %r232;
+	add.u32 	%r3452, %r233, %r3444;
+	.loc	3	164	0
+	ld.global.u32 	%r235, [%r49+60];
+	not.b32 	%r3453, %r3452;
+	and.b32 	%r3454, %r3453, %r3436;
+	and.b32 	%r3455, %r3452, %r3444;
+	or.b32 	%r3456, %r3454, %r3455;
+	add.u32 	%r3457, %r3428, %r3456;
+	add.u32 	%r3458, %r235, %r3457;
+	add.u32 	%r3459, %r3458, 1236535329;
+	shr.u32 	%r243, %r3459, 10;
+	shl.b32 	%r244, %r3459, 22;
+	add.u32 	%r245, %r243, %r244;
+	add.u32 	%r3460, %r245, %r3452;
+	.loc	3	175	0
+	and.b32 	%r3461, %r3460, %r3444;
+	and.b32 	%r3462, %r3452, %r3445;
+	or.b32 	%r3463, %r3461, %r3462;
+	add.u32 	%r3464, %r3436, %r3463;
+	add.u32 	%r3465, %r67, %r3464;
+	sub.u32 	%r3466, %r3465, 165796510;
+	shr.u32 	%r3467, %r3466, 27;
+	shl.b32 	%r3468, %r3466, 5;
+	add.u32 	%r3469, %r3467, %r3468;
+	add.u32 	%r3470, %r3469, %r3460;
+	.loc	3	176	0
+	and.b32 	%r3471, %r3470, %r3452;
+	and.b32 	%r3472, %r3460, %r3453;
+	or.b32 	%r3473, %r3471, %r3472;
+	add.u32 	%r3474, %r3444, %r3473;
+	add.u32 	%r3475, %r127, %r3474;
+	sub.u32 	%r3476, %r3475, 1069501632;
+	shr.u32 	%r3477, %r3476, 23;
+	shl.b32 	%r3478, %r3476, 9;
+	add.u32 	%r3479, %r3477, %r3478;
+	add.u32 	%r3480, %r3479, %r3470;
+	.loc	3	177	0
+	and.b32 	%r3481, %r3480, %r3460;
+	not.b32 	%r3482, %r3460;
+	and.b32 	%r3483, %r3470, %r3482;
+	or.b32 	%r3484, %r3481, %r3483;
+	add.u32 	%r3485, %r3452, %r3484;
+	add.u32 	%r3486, %r187, %r3485;
+	add.u32 	%r3487, %r3486, 643717713;
+	shr.u32 	%r3488, %r3487, 18;
+	shl.b32 	%r3489, %r3487, 14;
+	add.u32 	%r3490, %r3488, %r3489;
+	add.u32 	%r3491, %r3490, %r3480;
+	.loc	3	178	0
+	and.b32 	%r3492, %r3491, %r3470;
+	not.b32 	%r3493, %r3470;
+	and.b32 	%r3494, %r3480, %r3493;
+	or.b32 	%r3495, %r3492, %r3494;
+	add.u32 	%r3496, %r3460, %r3495;
+	add.u32 	%r3497, %r55, %r3496;
+	sub.u32 	%r3498, %r3497, 373897302;
+	shr.u32 	%r3499, %r3498, 12;
+	shl.b32 	%r3500, %r3498, 20;
+	add.u32 	%r3501, %r3499, %r3500;
+	add.u32 	%r3502, %r3501, %r3491;
+	.loc	3	179	0
+	and.b32 	%r3503, %r3502, %r3480;
+	not.b32 	%r3504, %r3480;
+	and.b32 	%r3505, %r3491, %r3504;
+	or.b32 	%r3506, %r3503, %r3505;
+	add.u32 	%r3507, %r3470, %r3506;
+	add.u32 	%r3508, %r115, %r3507;
+	sub.u32 	%r3509, %r3508, 701558691;
+	shr.u32 	%r3510, %r3509, 27;
+	shl.b32 	%r3511, %r3509, 5;
+	add.u32 	%r3512, %r3510, %r3511;
+	add.u32 	%r3513, %r3512, %r3502;
+	.loc	3	180	0
+	and.b32 	%r3514, %r3513, %r3491;
+	not.b32 	%r3515, %r3491;
+	and.b32 	%r3516, %r3502, %r3515;
+	or.b32 	%r3517, %r3514, %r3516;
+	add.u32 	%r3518, %r3480, %r3517;
+	add.u32 	%r3519, %r175, %r3518;
+	add.u32 	%r3520, %r3519, 38016083;
+	shr.u32 	%r3521, %r3520, 23;
+	shl.b32 	%r3522, %r3520, 9;
+	add.u32 	%r3523, %r3521, %r3522;
+	add.u32 	%r3524, %r3523, %r3513;
+	.loc	3	181	0
+	and.b32 	%r3525, %r3524, %r3502;
+	not.b32 	%r3526, %r3502;
+	and.b32 	%r3527, %r3513, %r3526;
+	or.b32 	%r3528, %r3525, %r3527;
+	add.u32 	%r3529, %r3491, %r3528;
+	add.u32 	%r3530, %r235, %r3529;
+	sub.u32 	%r3531, %r3530, 660478335;
+	shr.u32 	%r3532, %r3531, 18;
+	shl.b32 	%r3533, %r3531, 14;
+	add.u32 	%r3534, %r3532, %r3533;
+	add.u32 	%r3535, %r3534, %r3524;
+	.loc	3	182	0
+	and.b32 	%r3536, %r3535, %r3513;
+	not.b32 	%r3537, %r3513;
+	and.b32 	%r3538, %r3524, %r3537;
+	or.b32 	%r3539, %r3536, %r3538;
+	add.u32 	%r3540, %r3502, %r3539;
+	add.u32 	%r3541, %r103, %r3540;
+	sub.u32 	%r3542, %r3541, 405537848;
+	shr.u32 	%r3543, %r3542, 12;
+	shl.b32 	%r3544, %r3542, 20;
+	add.u32 	%r3545, %r3543, %r3544;
+	add.u32 	%r3546, %r3545, %r3535;
+	.loc	3	183	0
+	and.b32 	%r3547, %r3546, %r3524;
+	not.b32 	%r3548, %r3524;
+	and.b32 	%r3549, %r3535, %r3548;
+	or.b32 	%r3550, %r3547, %r3549;
+	add.u32 	%r3551, %r3513, %r3550;
+	add.u32 	%r3552, %r163, %r3551;
+	add.u32 	%r3553, %r3552, 568446438;
+	shr.u32 	%r3554, %r3553, 27;
+	shl.b32 	%r3555, %r3553, 5;
+	add.u32 	%r3556, %r3554, %r3555;
+	add.u32 	%r3557, %r3556, %r3546;
+	.loc	3	184	0
+	and.b32 	%r3558, %r3557, %r3535;
+	not.b32 	%r3559, %r3535;
+	and.b32 	%r3560, %r3546, %r3559;
+	or.b32 	%r3561, %r3558, %r3560;
+	add.u32 	%r3562, %r3524, %r3561;
+	add.u32 	%r3563, %r223, %r3562;
+	sub.u32 	%r3564, %r3563, 1019803690;
+	shr.u32 	%r3565, %r3564, 23;
+	shl.b32 	%r3566, %r3564, 9;
+	add.u32 	%r3567, %r3565, %r3566;
+	add.u32 	%r3568, %r3567, %r3557;
+	.loc	3	185	0
+	and.b32 	%r3569, %r3568, %r3546;
+	not.b32 	%r3570, %r3546;
+	and.b32 	%r3571, %r3557, %r3570;
+	or.b32 	%r3572, %r3569, %r3571;
+	add.u32 	%r3573, %r3535, %r3572;
+	add.u32 	%r3574, %r91, %r3573;
+	sub.u32 	%r3575, %r3574, 187363961;
+	shr.u32 	%r3576, %r3575, 18;
+	shl.b32 	%r3577, %r3575, 14;
+	add.u32 	%r3578, %r3576, %r3577;
+	add.u32 	%r3579, %r3578, %r3568;
+	.loc	3	186	0
+	and.b32 	%r3580, %r3579, %r3557;
+	not.b32 	%r3581, %r3557;
+	and.b32 	%r3582, %r3568, %r3581;
+	or.b32 	%r3583, %r3580, %r3582;
+	add.u32 	%r3584, %r3546, %r3583;
+	add.u32 	%r3585, %r151, %r3584;
+	add.u32 	%r3586, %r3585, 1163531501;
+	shr.u32 	%r3587, %r3586, 12;
+	shl.b32 	%r3588, %r3586, 20;
+	add.u32 	%r3589, %r3587, %r3588;
+	add.u32 	%r3590, %r3589, %r3579;
+	.loc	3	187	0
+	and.b32 	%r3591, %r3590, %r3568;
+	not.b32 	%r3592, %r3568;
+	and.b32 	%r3593, %r3579, %r3592;
+	or.b32 	%r3594, %r3591, %r3593;
+	add.u32 	%r3595, %r3557, %r3594;
+	add.u32 	%r3596, %r211, %r3595;
+	sub.u32 	%r3597, %r3596, 1444681467;
+	shr.u32 	%r384, %r3597, 27;
+	shl.b32 	%r385, %r3597, 5;
+	add.u32 	%r386, %r384, %r385;
+	add.u32 	%r3598, %r386, %r3590;
+	.loc	3	188	0
+	and.b32 	%r3599, %r3598, %r3579;
+	not.b32 	%r3600, %r3579;
+	and.b32 	%r3601, %r3590, %r3600;
+	or.b32 	%r3602, %r3599, %r3601;
+	add.u32 	%r3603, %r3568, %r3602;
+	add.u32 	%r3604, %r79, %r3603;
+	sub.u32 	%r3605, %r3604, 51403784;
+	shr.u32 	%r395, %r3605, 23;
+	shl.b32 	%r396, %r3605, 9;
+	add.u32 	%r397, %r395, %r396;
+	add.u32 	%r3606, %r397, %r3598;
+	.loc	3	189	0
+	and.b32 	%r3607, %r3606, %r3590;
+	not.b32 	%r3608, %r3590;
+	and.b32 	%r3609, %r3598, %r3608;
+	or.b32 	%r3610, %r3607, %r3609;
+	add.u32 	%r3611, %r3579, %r3610;
+	add.u32 	%r3612, %r139, %r3611;
+	add.u32 	%r3613, %r3612, 1735328473;
+	shr.u32 	%r406, %r3613, 18;
+	shl.b32 	%r407, %r3613, 14;
+	add.u32 	%r408, %r406, %r407;
+	add.u32 	%r3614, %r408, %r3606;
+	.loc	3	190	0
+	and.b32 	%r3615, %r3614, %r3598;
+	not.b32 	%r3616, %r3598;
+	and.b32 	%r3617, %r3606, %r3616;
+	or.b32 	%r3618, %r3615, %r3617;
+	add.u32 	%r3619, %r3590, %r3618;
+	add.u32 	%r3620, %r199, %r3619;
+	sub.u32 	%r3621, %r3620, 1926607734;
+	shr.u32 	%r417, %r3621, 12;
+	shl.b32 	%r418, %r3621, 20;
+	add.u32 	%r419, %r417, %r418;
+	add.u32 	%r3622, %r419, %r3614;
+	.loc	3	201	0
+	xor.b32 	%r3623, %r3622, %r3614;
+	xor.b32 	%r3624, %r3606, %r3623;
+	add.u32 	%r3625, %r3598, %r3624;
+	add.u32 	%r3626, %r115, %r3625;
+	sub.u32 	%r3627, %r3626, 378558;
+	shr.u32 	%r3628, %r3627, 28;
+	shl.b32 	%r3629, %r3627, 4;
+	add.u32 	%r3630, %r3628, %r3629;
+	add.u32 	%r3631, %r3630, %r3622;
+	.loc	3	202	0
+	xor.b32 	%r3632, %r3631, %r3622;
+	xor.b32 	%r3633, %r3614, %r3632;
+	add.u32 	%r3634, %r3606, %r3633;
+	add.u32 	%r3635, %r151, %r3634;
+	sub.u32 	%r3636, %r3635, 2022574463;
+	shr.u32 	%r3637, %r3636, 21;
+	shl.b32 	%r3638, %r3636, 11;
+	add.u32 	%r3639, %r3637, %r3638;
+	add.u32 	%r3640, %r3639, %r3631;
+	.loc	3	203	0
+	xor.b32 	%r3641, %r3640, %r3631;
+	xor.b32 	%r3642, %r3622, %r3641;
+	add.u32 	%r3643, %r3614, %r3642;
+	add.u32 	%r3644, %r187, %r3643;
+	add.u32 	%r3645, %r3644, 1839030562;
+	shr.u32 	%r3646, %r3645, 16;
+	shl.b32 	%r3647, %r3645, 16;
+	add.u32 	%r3648, %r3646, %r3647;
+	add.u32 	%r3649, %r3648, %r3640;
+	.loc	3	204	0
+	xor.b32 	%r3650, %r3649, %r3640;
+	xor.b32 	%r3651, %r3631, %r3650;
+	add.u32 	%r3652, %r3622, %r3651;
+	add.u32 	%r3653, %r223, %r3652;
+	sub.u32 	%r3654, %r3653, 35309556;
+	shr.u32 	%r3655, %r3654, 9;
+	shl.b32 	%r3656, %r3654, 23;
+	add.u32 	%r3657, %r3655, %r3656;
+	add.u32 	%r3658, %r3657, %r3649;
+	.loc	3	205	0
+	xor.b32 	%r3659, %r3658, %r3649;
+	xor.b32 	%r3660, %r3640, %r3659;
+	add.u32 	%r3661, %r3631, %r3660;
+	add.u32 	%r3662, %r67, %r3661;
+	sub.u32 	%r3663, %r3662, 1530992060;
+	shr.u32 	%r3664, %r3663, 28;
+	shl.b32 	%r3665, %r3663, 4;
+	add.u32 	%r3666, %r3664, %r3665;
+	add.u32 	%r3667, %r3666, %r3658;
+	.loc	3	206	0
+	xor.b32 	%r3668, %r3667, %r3658;
+	xor.b32 	%r3669, %r3649, %r3668;
+	add.u32 	%r3670, %r3640, %r3669;
+	add.u32 	%r3671, %r103, %r3670;
+	add.u32 	%r3672, %r3671, 1272893353;
+	shr.u32 	%r3673, %r3672, 21;
+	shl.b32 	%r3674, %r3672, 11;
+	add.u32 	%r3675, %r3673, %r3674;
+	add.u32 	%r3676, %r3675, %r3667;
+	.loc	3	207	0
+	xor.b32 	%r3677, %r3676, %r3667;
+	xor.b32 	%r3678, %r3658, %r3677;
+	add.u32 	%r3679, %r3649, %r3678;
+	add.u32 	%r3680, %r139, %r3679;
+	sub.u32 	%r3681, %r3680, 155497632;
+	shr.u32 	%r3682, %r3681, 16;
+	shl.b32 	%r3683, %r3681, 16;
+	add.u32 	%r3684, %r3682, %r3683;
+	add.u32 	%r3685, %r3684, %r3676;
+	.loc	3	208	0
+	xor.b32 	%r3686, %r3685, %r3676;
+	xor.b32 	%r3687, %r3667, %r3686;
+	add.u32 	%r3688, %r3658, %r3687;
+	add.u32 	%r3689, %r175, %r3688;
+	sub.u32 	%r3690, %r3689, 1094730640;
+	shr.u32 	%r3691, %r3690, 9;
+	shl.b32 	%r3692, %r3690, 23;
+	add.u32 	%r3693, %r3691, %r3692;
+	add.u32 	%r3694, %r3693, %r3685;
+	.loc	3	209	0
+	xor.b32 	%r3695, %r3694, %r3685;
+	xor.b32 	%r3696, %r3676, %r3695;
+	add.u32 	%r3697, %r3667, %r3696;
+	add.u32 	%r3698, %r211, %r3697;
+	add.u32 	%r3699, %r3698, 681279174;
+	shr.u32 	%r3700, %r3699, 28;
+	shl.b32 	%r3701, %r3699, 4;
+	add.u32 	%r3702, %r3700, %r3701;
+	add.u32 	%r3703, %r3702, %r3694;
+	.loc	3	210	0
+	xor.b32 	%r3704, %r3703, %r3694;
+	xor.b32 	%r3705, %r3685, %r3704;
+	add.u32 	%r3706, %r3676, %r3705;
+	add.u32 	%r3707, %r55, %r3706;
+	sub.u32 	%r3708, %r3707, 358537222;
+	shr.u32 	%r3709, %r3708, 21;
+	shl.b32 	%r3710, %r3708, 11;
+	add.u32 	%r3711, %r3709, %r3710;
+	add.u32 	%r3712, %r3711, %r3703;
+	.loc	3	211	0
+	xor.b32 	%r3713, %r3712, %r3703;
+	xor.b32 	%r3714, %r3694, %r3713;
+	add.u32 	%r3715, %r3685, %r3714;
+	add.u32 	%r3716, %r91, %r3715;
+	sub.u32 	%r3717, %r3716, 722521979;
+	shr.u32 	%r3718, %r3717, 16;
+	shl.b32 	%r3719, %r3717, 16;
+	add.u32 	%r3720, %r3718, %r3719;
+	add.u32 	%r3721, %r3720, %r3712;
+	.loc	3	212	0
+	xor.b32 	%r3722, %r3721, %r3712;
+	xor.b32 	%r3723, %r3703, %r3722;
+	add.u32 	%r3724, %r3694, %r3723;
+	add.u32 	%r3725, %r127, %r3724;
+	add.u32 	%r3726, %r3725, 76029189;
+	shr.u32 	%r3727, %r3726, 9;
+	shl.b32 	%r3728, %r3726, 23;
+	add.u32 	%r3729, %r3727, %r3728;
+	add.u32 	%r3730, %r3729, %r3721;
+	.loc	3	213	0
+	xor.b32 	%r3731, %r3730, %r3721;
+	xor.b32 	%r3732, %r3712, %r3731;
+	add.u32 	%r3733, %r3703, %r3732;
+	add.u32 	%r3734, %r163, %r3733;
+	sub.u32 	%r3735, %r3734, 640364487;
+	shr.u32 	%r534, %r3735, 28;
+	shl.b32 	%r535, %r3735, 4;
+	add.u32 	%r536, %r534, %r535;
+	add.u32 	%r3736, %r536, %r3730;
+	.loc	3	214	0
+	xor.b32 	%r3737, %r3736, %r3730;
+	xor.b32 	%r3738, %r3721, %r3737;
+	add.u32 	%r3739, %r3712, %r3738;
+	add.u32 	%r3740, %r199, %r3739;
+	sub.u32 	%r3741, %r3740, 421815835;
+	shr.u32 	%r543, %r3741, 21;
+	shl.b32 	%r544, %r3741, 11;
+	add.u32 	%r545, %r543, %r544;
+	add.u32 	%r3742, %r545, %r3736;
+	.loc	3	215	0
+	xor.b32 	%r3743, %r3742, %r3736;
+	xor.b32 	%r3744, %r3730, %r3743;
+	add.u32 	%r3745, %r3721, %r3744;
+	add.u32 	%r3746, %r235, %r3745;
+	add.u32 	%r3747, %r3746, 530742520;
+	shr.u32 	%r552, %r3747, 16;
+	shl.b32 	%r553, %r3747, 16;
+	add.u32 	%r554, %r552, %r553;
+	add.u32 	%r3748, %r554, %r3742;
+	.loc	3	216	0
+	xor.b32 	%r3749, %r3748, %r3742;
+	xor.b32 	%r3750, %r3736, %r3749;
+	add.u32 	%r3751, %r3730, %r3750;
+	add.u32 	%r3752, %r79, %r3751;
+	sub.u32 	%r3753, %r3752, 995338651;
+	shr.u32 	%r561, %r3753, 9;
+	shl.b32 	%r562, %r3753, 23;
+	add.u32 	%r563, %r561, %r562;
+	add.u32 	%r3754, %r563, %r3748;
+	.loc	3	227	0
+	not.b32 	%r3755, %r3742;
+	or.b32 	%r3756, %r3754, %r3755;
+	xor.b32 	%r3757, %r3748, %r3756;
+	add.u32 	%r3758, %r3736, %r3757;
+	add.u32 	%r3759, %r55, %r3758;
+	sub.u32 	%r3760, %r3759, 198630844;
+	shr.u32 	%r3761, %r3760, 26;
+	shl.b32 	%r3762, %r3760, 6;
+	add.u32 	%r3763, %r3761, %r3762;
+	add.u32 	%r3764, %r3763, %r3754;
+	.loc	3	228	0
+	not.b32 	%r3765, %r3748;
+	or.b32 	%r3766, %r3764, %r3765;
+	xor.b32 	%r3767, %r3754, %r3766;
+	add.u32 	%r3768, %r3742, %r3767;
+	add.u32 	%r3769, %r139, %r3768;
+	add.u32 	%r3770, %r3769, 1126891415;
+	shr.u32 	%r3771, %r3770, 22;
+	shl.b32 	%r3772, %r3770, 10;
+	add.u32 	%r3773, %r3771, %r3772;
+	add.u32 	%r3774, %r3773, %r3764;
+	.loc	3	229	0
+	not.b32 	%r3775, %r3754;
+	or.b32 	%r3776, %r3774, %r3775;
+	xor.b32 	%r3777, %r3764, %r3776;
+	add.u32 	%r3778, %r3748, %r3777;
+	add.u32 	%r3779, %r223, %r3778;
+	sub.u32 	%r3780, %r3779, 1416354905;
+	shr.u32 	%r3781, %r3780, 17;
+	shl.b32 	%r3782, %r3780, 15;
+	add.u32 	%r3783, %r3781, %r3782;
+	add.u32 	%r3784, %r3783, %r3774;
+	.loc	3	230	0
+	not.b32 	%r3785, %r3764;
+	or.b32 	%r3786, %r3784, %r3785;
+	xor.b32 	%r3787, %r3774, %r3786;
+	add.u32 	%r3788, %r3754, %r3787;
+	add.u32 	%r3789, %r115, %r3788;
+	sub.u32 	%r3790, %r3789, 57434055;
+	shr.u32 	%r3791, %r3790, 11;
+	shl.b32 	%r3792, %r3790, 21;
+	add.u32 	%r3793, %r3791, %r3792;
+	add.u32 	%r3794, %r3793, %r3784;
+	.loc	3	231	0
+	not.b32 	%r3795, %r3774;
+	or.b32 	%r3796, %r3794, %r3795;
+	xor.b32 	%r3797, %r3784, %r3796;
+	add.u32 	%r3798, %r3764, %r3797;
+	add.u32 	%r3799, %r199, %r3798;
+	add.u32 	%r3800, %r3799, 1700485571;
+	shr.u32 	%r3801, %r3800, 26;
+	shl.b32 	%r3802, %r3800, 6;
+	add.u32 	%r3803, %r3801, %r3802;
+	add.u32 	%r3804, %r3803, %r3794;
+	.loc	3	232	0
+	not.b32 	%r3805, %r3784;
+	or.b32 	%r3806, %r3804, %r3805;
+	xor.b32 	%r3807, %r3794, %r3806;
+	add.u32 	%r3808, %r3774, %r3807;
+	add.u32 	%r3809, %r91, %r3808;
+	sub.u32 	%r3810, %r3809, 1894986606;
+	shr.u32 	%r3811, %r3810, 22;
+	shl.b32 	%r3812, %r3810, 10;
+	add.u32 	%r3813, %r3811, %r3812;
+	add.u32 	%r3814, %r3813, %r3804;
+	.loc	3	233	0
+	not.b32 	%r3815, %r3794;
+	or.b32 	%r3816, %r3814, %r3815;
+	xor.b32 	%r3817, %r3804, %r3816;
+	add.u32 	%r3818, %r3784, %r3817;
+	add.u32 	%r3819, %r175, %r3818;
+	sub.u32 	%r3820, %r3819, 1051523;
+	shr.u32 	%r3821, %r3820, 17;
+	shl.b32 	%r3822, %r3820, 15;
+	add.u32 	%r3823, %r3821, %r3822;
+	add.u32 	%r3824, %r3823, %r3814;
+	.loc	3	234	0
+	not.b32 	%r3825, %r3804;
+	or.b32 	%r3826, %r3824, %r3825;
+	xor.b32 	%r3827, %r3814, %r3826;
+	add.u32 	%r3828, %r3794, %r3827;
+	add.u32 	%r3829, %r67, %r3828;
+	sub.u32 	%r3830, %r3829, 2054922799;
+	shr.u32 	%r3831, %r3830, 11;
+	shl.b32 	%r3832, %r3830, 21;
+	add.u32 	%r3833, %r3831, %r3832;
+	add.u32 	%r3834, %r3833, %r3824;
+	.loc	3	235	0
+	not.b32 	%r3835, %r3814;
+	or.b32 	%r3836, %r3834, %r3835;
+	xor.b32 	%r3837, %r3824, %r3836;
+	add.u32 	%r3838, %r3804, %r3837;
+	add.u32 	%r3839, %r151, %r3838;
+	add.u32 	%r3840, %r3839, 1873313359;
+	shr.u32 	%r3841, %r3840, 26;
+	shl.b32 	%r3842, %r3840, 6;
+	add.u32 	%r3843, %r3841, %r3842;
+	add.u32 	%r3844, %r3843, %r3834;
+	.loc	3	236	0
+	not.b32 	%r3845, %r3824;
+	or.b32 	%r3846, %r3844, %r3845;
+	xor.b32 	%r3847, %r3834, %r3846;
+	add.u32 	%r3848, %r3814, %r3847;
+	add.u32 	%r3849, %r235, %r3848;
+	sub.u32 	%r3850, %r3849, 30611744;
+	shr.u32 	%r3851, %r3850, 22;
+	shl.b32 	%r3852, %r3850, 10;
+	add.u32 	%r3853, %r3851, %r3852;
+	add.u32 	%r3854, %r3853, %r3844;
+	.loc	3	237	0
+	not.b32 	%r3855, %r3834;
+	or.b32 	%r3856, %r3854, %r3855;
+	xor.b32 	%r3857, %r3844, %r3856;
+	add.u32 	%r3858, %r3824, %r3857;
+	add.u32 	%r3859, %r127, %r3858;
+	sub.u32 	%r3860, %r3859, 1560198380;
+	shr.u32 	%r3861, %r3860, 17;
+	shl.b32 	%r3862, %r3860, 15;
+	add.u32 	%r3863, %r3861, %r3862;
+	add.u32 	%r3864, %r3863, %r3854;
+	.loc	3	238	0
+	not.b32 	%r3865, %r3844;
+	or.b32 	%r3866, %r3864, %r3865;
+	xor.b32 	%r3867, %r3854, %r3866;
+	add.u32 	%r3868, %r3834, %r3867;
+	add.u32 	%r3869, %r211, %r3868;
+	add.u32 	%r3870, %r3869, 1309151649;
+	shr.u32 	%r681, %r3870, 11;
+	shl.b32 	%r682, %r3870, 21;
+	add.u32 	%r683, %r681, %r682;
+	add.u32 	%r3871, %r683, %r3864;
+	.loc	3	239	0
+	not.b32 	%r3872, %r3854;
+	or.b32 	%r3873, %r3871, %r3872;
+	xor.b32 	%r3874, %r3864, %r3873;
+	add.u32 	%r3875, %r3844, %r3874;
+	add.u32 	%r3876, %r103, %r3875;
+	sub.u32 	%r3877, %r3876, 145523070;
+	shr.u32 	%r691, %r3877, 26;
+	shl.b32 	%r692, %r3877, 6;
+	add.u32 	%r693, %r691, %r692;
+	add.u32 	%r3878, %r693, %r3871;
+	.loc	3	240	0
+	not.b32 	%r3879, %r3864;
+	or.b32 	%r3880, %r3878, %r3879;
+	xor.b32 	%r3881, %r3871, %r3880;
+	add.u32 	%r3882, %r3854, %r3881;
+	add.u32 	%r3883, %r187, %r3882;
+	sub.u32 	%r3884, %r3883, 1120210379;
+	shr.u32 	%r701, %r3884, 22;
+	shl.b32 	%r702, %r3884, 10;
+	add.u32 	%r703, %r701, %r702;
+	add.u32 	%r3885, %r703, %r3878;
+	.loc	3	241	0
+	not.b32 	%r3886, %r3871;
+	or.b32 	%r3887, %r3885, %r3886;
+	xor.b32 	%r3888, %r3878, %r3887;
+	add.u32 	%r3889, %r3864, %r3888;
+	add.u32 	%r3890, %r79, %r3889;
+	add.u32 	%r3891, %r3890, 718787259;
+	shr.u32 	%r711, %r3891, 17;
+	shl.b32 	%r712, %r3891, 15;
+	add.u32 	%r713, %r711, %r712;
+	add.u32 	%r3892, %r713, %r3885;
+	.loc	3	242	0
+	not.b32 	%r3893, %r3878;
+	or.b32 	%r3894, %r3892, %r3893;
+	xor.b32 	%r3895, %r3885, %r3894;
+	add.u32 	%r3896, %r3871, %r3895;
+	add.u32 	%r3897, %r163, %r3896;
+	sub.u32 	%r720, %r3897, 343485551;
+	.loc	3	248	0
+	add.u32 	%r14, %r3878, %r14;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+8], %r14;
+	.loc	3	249	0
+	add.u32 	%r3898, %r3892, %r15;
+	shr.u32 	%r3899, %r720, 11;
+	shl.b32 	%r3900, %r720, 21;
+	add.u32 	%r3901, %r3899, %r3900;
+	add.u32 	%r15, %r3898, %r3901;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+12], %r15;
+	.loc	3	250	0
+	add.u32 	%r16, %r3892, %r16;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+16], %r16;
+	.loc	3	251	0
+	add.u32 	%r17, %r3885, %r17;
+	st.local.u32 	[__cuda___cuda_local_var_38708_15_non_const_state_4072+20], %r17;
+	.loc	3	297	0
+	add.u32 	%r36, %r36, 64;
+	sub.s32 	%r38, %r38, 64;
+	mov.u32 	%r3902, 63;
+	setp.gt.s32 	%p48, %r38, %r3902;
+	@%p48 bra 	$Lt_0_60162;
+$Lt_0_59650:
+	mov.u32 	%r3903, 0;
+	setp.eq.s32 	%p49, %r38, %r3903;
+	@%p49 bra 	$Lt_0_63234;
+	mov.u32 	%r3904, 0;
+	setp.le.s32 	%p50, %r38, %r3904;
+	@%p50 bra 	$Lt_0_63234;
+	mov.s32 	%r3905, %r38;
+	mov.s32 	%r3906, %r36;
+	add.s32 	%r3907, %r38, %r36;
+	mov.u32 	%r3908, __cuda___cuda_local_var_38708_15_non_const_state_4072;
+	mov.s32 	%r3909, %r3905;
+$Lt_0_63746:
+ //<loop> Loop body line 297, nesting depth: 4, estimated iterations: unknown
+	ld.local.u8 	%rh115, [%r3906+0];
+	st.local.u8 	[%r3908+24], %rh115;
+	add.s32 	%r3908, %r3908, 1;
+	add.s32 	%r3906, %r3906, 1;
+	setp.ne.s32 	%p51, %r3906, %r3907;
+	@%p51 bra 	$Lt_0_63746;
+$Lt_0_63234:
+$Lt_0_62722:
+$LDWendi__Z11md5_processP11md5_state_sPKh_248_1:
+	.loc	3	504	0
+	ld.local.u32 	%r14, [__cuda___cuda_local_var_38708_15_non_const_state_4072+8];
+	cvt.u8.u32 	%r3910, %r14;
+	cvt.u8.u32 	%rh116, %r3910;
+	shr.u32 	%r3911, %r14, 8;
+	cvt.u8.u32 	%r3912, %r3911;
+	cvt.u8.u32 	%rh117, %r3912;
+	shr.u32 	%r3913, %r14, 16;
+	cvt.u8.u32 	%r3914, %r3913;
+	cvt.u8.u32 	%rh118, %r3914;
+	shr.u32 	%r3915, %r14, 24;
+	cvt.u8.u32 	%r3916, %r3915;
+	cvt.u8.u32 	%rh119, %r3916;
+	ld.local.u32 	%r15, [__cuda___cuda_local_var_38708_15_non_const_state_4072+12];
+	cvt.u8.u32 	%r3917, %r15;
+	cvt.u8.u32 	%rh120, %r3917;
+	shr.u32 	%r3918, %r15, 8;
+	cvt.u8.u32 	%r3919, %r3918;
+	cvt.u8.u32 	%rh121, %r3919;
+	shr.u32 	%r3920, %r15, 16;
+	cvt.u8.u32 	%r3921, %r3920;
+	cvt.u8.u32 	%rh122, %r3921;
+	shr.u32 	%r3922, %r15, 24;
+	cvt.u8.u32 	%r3923, %r3922;
+	cvt.u8.u32 	%rh123, %r3923;
+	ld.local.u32 	%r16, [__cuda___cuda_local_var_38708_15_non_const_state_4072+16];
+	cvt.u8.u32 	%r3924, %r16;
+	cvt.u8.u32 	%rh124, %r3924;
+	shr.u32 	%r3925, %r16, 8;
+	cvt.u8.u32 	%r3926, %r3925;
+	cvt.u8.u32 	%rh125, %r3926;
+	shr.u32 	%r3927, %r16, 16;
+	cvt.u8.u32 	%r3928, %r3927;
+	cvt.u8.u32 	%rh126, %r3928;
+	shr.u32 	%r3929, %r16, 24;
+	cvt.u8.u32 	%r3930, %r3929;
+	cvt.u8.u32 	%rh127, %r3930;
+	ld.local.u32 	%r17, [__cuda___cuda_local_var_38708_15_non_const_state_4072+20];
+	cvt.u8.u32 	%r3931, %r17;
+	cvt.u8.u32 	%rh128, %r3931;
+	shr.u32 	%r3932, %r17, 8;
+	cvt.u8.u32 	%r3933, %r3932;
+	cvt.u8.u32 	%rh129, %r3933;
+	shr.u32 	%r3934, %r17, 16;
+	cvt.u8.u32 	%r3935, %r3934;
+	cvt.u8.u32 	%rh130, %r3935;
+	shr.u32 	%r3936, %r17, 24;
+	cvt.u8.u32 	%r3937, %r3936;
+	cvt.u8.u32 	%rh131, %r3937;
+	cvt.u32.u8 	%r3938, %rh2;
+	setp.ne.u32 	%p52, %r3938, %r3910;
+	@%p52 bra 	$Lt_0_64514;
+	mov.s32 	%r3939, 1;
+	bra.uni 	$Lt_0_64258;
+$Lt_0_64514:
+	mov.s32 	%r3939, 0;
+$Lt_0_64258:
+	cvt.u32.u8 	%r3940, %rh4;
+	setp.ne.u32 	%p53, %r3940, %r3912;
+	@%p53 bra 	$Lt_0_64770;
+	.loc	3	511	0
+	add.s32 	%r3941, %r3939, 1;
+	cvt.s8.s32 	%r3939, %r3941;
+$Lt_0_64770:
+	cvt.u32.u8 	%r3942, %rh6;
+	setp.ne.u32 	%p54, %r3942, %r3914;
+	@%p54 bra 	$Lt_0_65282;
+	add.s32 	%r3943, %r3939, 1;
+	cvt.s8.s32 	%r3939, %r3943;
+$Lt_0_65282:
+	cvt.u32.u8 	%r3944, %rh8;
+	setp.ne.u32 	%p55, %r3944, %r3916;
+	@%p55 bra 	$Lt_0_65794;
+	add.s32 	%r3945, %r3939, 1;
+	cvt.s8.s32 	%r3939, %r3945;
+$Lt_0_65794:
+	cvt.u32.u8 	%r3946, %rh10;
+	setp.ne.u32 	%p56, %r3946, %r3917;
+	@%p56 bra 	$Lt_0_66306;
+	add.s32 	%r3947, %r3939, 1;
+	cvt.s8.s32 	%r3939, %r3947;
+$Lt_0_66306:
+	cvt.u32.u8 	%r3948, %rh12;
+	setp.ne.u32 	%p57, %r3948, %r3919;
+	@%p57 bra 	$Lt_0_66818;
+	add.s32 	%r3949, %r3939, 1;
+	cvt.s8.s32 	%r3939, %r3949;
+$Lt_0_66818:
+	cvt.u32.u8 	%r3950, %rh14;
+	setp.ne.u32 	%p58, %r3950, %r3921;
+	@%p58 bra 	$Lt_0_67330;
+	add.s32 	%r3951, %r3939, 1;
+	cvt.s8.s32 	%r3939, %r3951;
+$Lt_0_67330:
+	cvt.u32.u8 	%r3952, %rh16;
+	setp.ne.u32 	%p59, %r3952, %r3923;
+	@%p59 bra 	$Lt_0_67842;
+	add.s32 	%r3953, %r3939, 1;
+	cvt.s8.s32 	%r3939, %r3953;
+$Lt_0_67842:
+	cvt.u32.u8 	%r3954, %rh18;
+	setp.ne.u32 	%p60, %r3954, %r3924;
+	@%p60 bra 	$Lt_0_68354;
+	add.s32 	%r3955, %r3939, 1;
+	cvt.s8.s32 	%r3939, %r3955;
+$Lt_0_68354:
+	cvt.u32.u8 	%r3956, %rh20;
+	setp.ne.u32 	%p61, %r3956, %r3926;
+	@%p61 bra 	$Lt_0_68866;
+	add.s32 	%r3957, %r3939, 1;
+	cvt.s8.s32 	%r3939, %r3957;
+$Lt_0_68866:
+	cvt.u32.u8 	%r3958, %rh22;
+	setp.ne.u32 	%p62, %r3958, %r3928;
+	@%p62 bra 	$Lt_0_69378;
+	add.s32 	%r3959, %r3939, 1;
+	cvt.s8.s32 	%r3939, %r3959;
+$Lt_0_69378:
+	cvt.u32.u8 	%r3960, %rh24;
+	setp.ne.u32 	%p63, %r3960, %r3930;
+	@%p63 bra 	$Lt_0_69890;
+	add.s32 	%r3961, %r3939, 1;
+	cvt.s8.s32 	%r3939, %r3961;
+$Lt_0_69890:
+	cvt.u32.u8 	%r3962, %rh26;
+	setp.ne.u32 	%p64, %r3962, %r3931;
+	@%p64 bra 	$Lt_0_70402;
+	add.s32 	%r3963, %r3939, 1;
+	cvt.s8.s32 	%r3939, %r3963;
+$Lt_0_70402:
+	cvt.u32.u8 	%r3964, %rh28;
+	setp.ne.u32 	%p65, %r3964, %r3933;
+	@%p65 bra 	$Lt_0_70914;
+	add.s32 	%r3965, %r3939, 1;
+	cvt.s8.s32 	%r3939, %r3965;
+$Lt_0_70914:
+	cvt.u32.u8 	%r3966, %rh30;
+	setp.ne.u32 	%p66, %r3966, %r3935;
+	@%p66 bra 	$Lt_0_71426;
+	add.s32 	%r3967, %r3939, 1;
+	cvt.s8.s32 	%r3939, %r3967;
+$Lt_0_71426:
+	cvt.u32.u8 	%r3968, %rh32;
+	setp.ne.u32 	%p67, %r3968, %r3937;
+	@%p67 bra 	$Lt_0_71938;
+	add.s32 	%r3969, %r3939, 1;
+	cvt.s8.s32 	%r3939, %r3969;
+$Lt_0_71938:
+	mov.u32 	%r3970, 16;
+	setp.ne.s32 	%p68, %r3939, %r3970;
+	@%p68 bra 	$Lt_0_72450;
+	.loc	3	516	0
+	ld.local.s8 	%rh132, [__cuda___cuda_local_var_38693_8_non_const_word_320+0];
+	mov.s16 	%rh103, %rh132;
+	ld.local.s8 	%rh133, [__cuda___cuda_local_var_38693_8_non_const_word_320+1];
+	mov.s16 	%rh134, %rh133;
+	ld.local.s8 	%rh135, [__cuda___cuda_local_var_38693_8_non_const_word_320+2];
+	mov.s16 	%rh136, %rh135;
+	ld.local.s8 	%rh137, [__cuda___cuda_local_var_38693_8_non_const_word_320+3];
+	mov.s16 	%rh138, %rh137;
+$Lt_0_72450:
+	add.s32 	%r3971, %r11, 1;
+	cvt.s8.s32 	%r11, %r3971;
+	mov.u32 	%r3972, 42;
+	setp.ne.s32 	%p69, %r11, %r3972;
+	@%p69 bra 	$Lt_0_39426;
+	add.s32 	%r3973, %r10, 1;
+	cvt.s8.s32 	%r10, %r3973;
+	mov.u32 	%r3974, 42;
+	setp.ne.s32 	%p70, %r10, %r3974;
+	@%p70 bra 	$Lt_0_38658;
+	add.s32 	%r3975, %r5, 1;
+	cvt.s8.s32 	%r5, %r3975;
+	mov.u32 	%r3976, 42;
+	setp.ne.s32 	%p71, %r5, %r3976;
+	@%p71 bra 	$Lt_0_37890;
+	cvt.s32.s8 	%r3977, %rh103;
+	mov.u32 	%r3978, 0;
+	setp.eq.s32 	%p72, %r3977, %r3978;
+	@%p72 bra 	$Lt_0_73730;
+	.loc	3	524	0
+	ld.param.u32 	%r3979, [__cudaparm__Z10testKernelPhPc_hash_word];
+	st.global.s8 	[%r3979+0], %r3977;
+	mov.s16 	%rh139, %rh134;
+	st.global.s8 	[%r3979+1], %rh139;
+	mov.s16 	%rh140, %rh136;
+	st.global.s8 	[%r3979+2], %rh140;
+	mov.s16 	%rh141, %rh138;
+	st.global.s8 	[%r3979+3], %rh141;
+$Lt_0_73730:
+	.loc	3	527	0
+	exit;
+$LDWend__Z10testKernelPhPc:
+	} // _Z10testKernelPhPc
+

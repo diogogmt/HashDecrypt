@@ -1,0 +1,824 @@
+# 18 "test-kernel-words.cu"
+struct md5_state_s;
+# 214 "/usr/llvm-gcc-4.2/bin/../lib/gcc/i686-apple-darwin11/4.2.1/include/stddef.h" 3
+typedef unsigned long size_t;
+#include "crt/device_runtime.h"
+# 14 "test-kernel-words.cu"
+typedef unsigned char md5_byte_t;
+# 15 "test-kernel-words.cu"
+typedef unsigned md5_word_t;
+# 18 "test-kernel-words.cu"
+struct md5_state_s {
+# 19 "test-kernel-words.cu"
+md5_word_t count[2];
+# 20 "test-kernel-words.cu"
+md5_word_t abcd[4];
+# 21 "test-kernel-words.cu"
+md5_byte_t buf[64];};
+# 22 "test-kernel-words.cu"
+typedef struct md5_state_s md5_state_t;
+#if !defined(__CUDABE__)
+# 71 "/Developer/NVIDIA/CUDA-5.0/bin/../include/common_functions.h"
+ __device_builtin__ ___device__(extern  __no_sc__) void *memcpy(void *, const void *, size_t);
+#endif
+# 107 "test-kernel-words.cu"
+___device__(static  __no_sc__) void _Z11md5_processP11md5_state_sPKh(md5_state_t *, const md5_byte_t *);
+# 256 "test-kernel-words.cu"
+___device__(extern  __no_sc__) void _Z8md5_initP11md5_state_s(md5_state_t *);
+# 266 "test-kernel-words.cu"
+___device__(extern  __no_sc__) void _Z10md5_appendP11md5_state_sPKhi(md5_state_t *, const md5_byte_t *, int);
+# 308 "test-kernel-words.cu"
+___device__(extern  __no_sc__) void _Z10md5_finishP11md5_state_sPh(md5_state_t *, md5_byte_t *);
+# 428 "test-kernel-words.cu"
+__global__ __var_used__ extern void _Z10testKernelPhPc(md5_byte_t *, char *);
+#include "common_functions.h"
+#if !defined(__CUDABE__)
+#endif
+# 107 "test-kernel-words.cu"
+___device__(static  __no_sc__) void _Z11md5_processP11md5_state_sPKh(
+# 107 "test-kernel-words.cu"
+md5_state_t *pms, 
+# 107 "test-kernel-words.cu"
+const md5_byte_t *data){
+# 107 "test-kernel-words.cu"
+{
+# 107 "test-kernel-words.cu"
+{
+# 108 "test-kernel-words.cu"
+ md5_word_t __cuda_local_var_38406_14_non_const_a;
+# 108 "test-kernel-words.cu"
+ md5_word_t __cuda_local_var_38406_32_non_const_b;
+# 108 "test-kernel-words.cu"
+ md5_word_t __cuda_local_var_38406_50_non_const_c;
+# 108 "test-kernel-words.cu"
+ md5_word_t __cuda_local_var_38406_68_non_const_d;
+# 109 "test-kernel-words.cu"
+ md5_word_t __cuda_local_var_38407_14_non_const_t;
+# 112 "test-kernel-words.cu"
+ md5_word_t __cuda_local_var_38410_14_non_const_xbuf[16];
+# 113 "test-kernel-words.cu"
+ const md5_word_t *__cuda_local_var_38411_21_non_const_X;
+# 108 "test-kernel-words.cu"
+__cuda_local_var_38406_14_non_const_a = (((pms->abcd))[0]);
+# 108 "test-kernel-words.cu"
+__cuda_local_var_38406_32_non_const_b = (((pms->abcd))[1]);
+# 108 "test-kernel-words.cu"
+__cuda_local_var_38406_50_non_const_c = (((pms->abcd))[2]);
+# 108 "test-kernel-words.cu"
+__cuda_local_var_38406_68_non_const_d = (((pms->abcd))[3]);
+# 115 "test-kernel-words.cu"
+{
+# 121 "test-kernel-words.cu"
+ int __cuda_local_var_38419_15_const_w;
+# 121 "test-kernel-words.cu"
+__cuda_local_var_38419_15_const_w = 1;
+# 123 "test-kernel-words.cu"
+if (*((const md5_byte_t *)(&__cuda_local_var_38419_15_const_w)))
+# 123 "test-kernel-words.cu"
+{
+# 128 "test-kernel-words.cu"
+if (!((data - ((const md5_byte_t *)0L)) & 3))
+# 128 "test-kernel-words.cu"
+{
+# 130 "test-kernel-words.cu"
+__cuda_local_var_38411_21_non_const_X = ((const md5_word_t *)data);
+# 131 "test-kernel-words.cu"
+}
+# 131 "test-kernel-words.cu"
+else 
+# 131 "test-kernel-words.cu"
+{
+# 133 "test-kernel-words.cu"
+memcpy(((void *)(__cuda_local_var_38410_14_non_const_xbuf)), ((const void *)data), 64UL);
+# 134 "test-kernel-words.cu"
+__cuda_local_var_38411_21_non_const_X = ((const md5_word_t *)(__cuda_local_var_38410_14_non_const_xbuf));
+# 135 "test-kernel-words.cu"
+}
+# 136 "test-kernel-words.cu"
+}
+# 137 "test-kernel-words.cu"
+}
+# 149 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_14_non_const_a + ((__cuda_local_var_38406_32_non_const_b & __cuda_local_var_38406_50_non_const_c) | ((~__cuda_local_var_38406_32_non_const_b) & __cuda_local_var_38406_68_non_const_d))) + (__cuda_local_var_38411_21_non_const_X[0])) + 3614090360U);
+# 149 "test-kernel-words.cu"
+__cuda_local_var_38406_14_non_const_a = (((__cuda_local_var_38407_14_non_const_t << 7) | (__cuda_local_var_38407_14_non_const_t >> 25)) + __cuda_local_var_38406_32_non_const_b);
+# 150 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_68_non_const_d + ((__cuda_local_var_38406_14_non_const_a & __cuda_local_var_38406_32_non_const_b) | ((~__cuda_local_var_38406_14_non_const_a) & __cuda_local_var_38406_50_non_const_c))) + (__cuda_local_var_38411_21_non_const_X[1])) + 3905402710U);
+# 150 "test-kernel-words.cu"
+__cuda_local_var_38406_68_non_const_d = (((__cuda_local_var_38407_14_non_const_t << 12) | (__cuda_local_var_38407_14_non_const_t >> 20)) + __cuda_local_var_38406_14_non_const_a);
+# 151 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_50_non_const_c + ((__cuda_local_var_38406_68_non_const_d & __cuda_local_var_38406_14_non_const_a) | ((~__cuda_local_var_38406_68_non_const_d) & __cuda_local_var_38406_32_non_const_b))) + (__cuda_local_var_38411_21_non_const_X[2])) + 606105819U);
+# 151 "test-kernel-words.cu"
+__cuda_local_var_38406_50_non_const_c = (((__cuda_local_var_38407_14_non_const_t << 17) | (__cuda_local_var_38407_14_non_const_t >> 15)) + __cuda_local_var_38406_68_non_const_d);
+# 152 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_32_non_const_b + ((__cuda_local_var_38406_50_non_const_c & __cuda_local_var_38406_68_non_const_d) | ((~__cuda_local_var_38406_50_non_const_c) & __cuda_local_var_38406_14_non_const_a))) + (__cuda_local_var_38411_21_non_const_X[3])) + 3250441966U);
+# 152 "test-kernel-words.cu"
+__cuda_local_var_38406_32_non_const_b = (((__cuda_local_var_38407_14_non_const_t << 22) | (__cuda_local_var_38407_14_non_const_t >> 10)) + __cuda_local_var_38406_50_non_const_c);
+# 153 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_14_non_const_a + ((__cuda_local_var_38406_32_non_const_b & __cuda_local_var_38406_50_non_const_c) | ((~__cuda_local_var_38406_32_non_const_b) & __cuda_local_var_38406_68_non_const_d))) + (__cuda_local_var_38411_21_non_const_X[4])) + 4118548399U);
+# 153 "test-kernel-words.cu"
+__cuda_local_var_38406_14_non_const_a = (((__cuda_local_var_38407_14_non_const_t << 7) | (__cuda_local_var_38407_14_non_const_t >> 25)) + __cuda_local_var_38406_32_non_const_b);
+# 154 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_68_non_const_d + ((__cuda_local_var_38406_14_non_const_a & __cuda_local_var_38406_32_non_const_b) | ((~__cuda_local_var_38406_14_non_const_a) & __cuda_local_var_38406_50_non_const_c))) + (__cuda_local_var_38411_21_non_const_X[5])) + 1200080426U);
+# 154 "test-kernel-words.cu"
+__cuda_local_var_38406_68_non_const_d = (((__cuda_local_var_38407_14_non_const_t << 12) | (__cuda_local_var_38407_14_non_const_t >> 20)) + __cuda_local_var_38406_14_non_const_a);
+# 155 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_50_non_const_c + ((__cuda_local_var_38406_68_non_const_d & __cuda_local_var_38406_14_non_const_a) | ((~__cuda_local_var_38406_68_non_const_d) & __cuda_local_var_38406_32_non_const_b))) + (__cuda_local_var_38411_21_non_const_X[6])) + 2821735955U);
+# 155 "test-kernel-words.cu"
+__cuda_local_var_38406_50_non_const_c = (((__cuda_local_var_38407_14_non_const_t << 17) | (__cuda_local_var_38407_14_non_const_t >> 15)) + __cuda_local_var_38406_68_non_const_d);
+# 156 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_32_non_const_b + ((__cuda_local_var_38406_50_non_const_c & __cuda_local_var_38406_68_non_const_d) | ((~__cuda_local_var_38406_50_non_const_c) & __cuda_local_var_38406_14_non_const_a))) + (__cuda_local_var_38411_21_non_const_X[7])) + 4249261313U);
+# 156 "test-kernel-words.cu"
+__cuda_local_var_38406_32_non_const_b = (((__cuda_local_var_38407_14_non_const_t << 22) | (__cuda_local_var_38407_14_non_const_t >> 10)) + __cuda_local_var_38406_50_non_const_c);
+# 157 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_14_non_const_a + ((__cuda_local_var_38406_32_non_const_b & __cuda_local_var_38406_50_non_const_c) | ((~__cuda_local_var_38406_32_non_const_b) & __cuda_local_var_38406_68_non_const_d))) + (__cuda_local_var_38411_21_non_const_X[8])) + 1770035416U);
+# 157 "test-kernel-words.cu"
+__cuda_local_var_38406_14_non_const_a = (((__cuda_local_var_38407_14_non_const_t << 7) | (__cuda_local_var_38407_14_non_const_t >> 25)) + __cuda_local_var_38406_32_non_const_b);
+# 158 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_68_non_const_d + ((__cuda_local_var_38406_14_non_const_a & __cuda_local_var_38406_32_non_const_b) | ((~__cuda_local_var_38406_14_non_const_a) & __cuda_local_var_38406_50_non_const_c))) + (__cuda_local_var_38411_21_non_const_X[9])) + 2336552879U);
+# 158 "test-kernel-words.cu"
+__cuda_local_var_38406_68_non_const_d = (((__cuda_local_var_38407_14_non_const_t << 12) | (__cuda_local_var_38407_14_non_const_t >> 20)) + __cuda_local_var_38406_14_non_const_a);
+# 159 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_50_non_const_c + ((__cuda_local_var_38406_68_non_const_d & __cuda_local_var_38406_14_non_const_a) | ((~__cuda_local_var_38406_68_non_const_d) & __cuda_local_var_38406_32_non_const_b))) + (__cuda_local_var_38411_21_non_const_X[10])) + 4294925233U);
+# 159 "test-kernel-words.cu"
+__cuda_local_var_38406_50_non_const_c = (((__cuda_local_var_38407_14_non_const_t << 17) | (__cuda_local_var_38407_14_non_const_t >> 15)) + __cuda_local_var_38406_68_non_const_d);
+# 160 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_32_non_const_b + ((__cuda_local_var_38406_50_non_const_c & __cuda_local_var_38406_68_non_const_d) | ((~__cuda_local_var_38406_50_non_const_c) & __cuda_local_var_38406_14_non_const_a))) + (__cuda_local_var_38411_21_non_const_X[11])) + 2304563134U);
+# 160 "test-kernel-words.cu"
+__cuda_local_var_38406_32_non_const_b = (((__cuda_local_var_38407_14_non_const_t << 22) | (__cuda_local_var_38407_14_non_const_t >> 10)) + __cuda_local_var_38406_50_non_const_c);
+# 161 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_14_non_const_a + ((__cuda_local_var_38406_32_non_const_b & __cuda_local_var_38406_50_non_const_c) | ((~__cuda_local_var_38406_32_non_const_b) & __cuda_local_var_38406_68_non_const_d))) + (__cuda_local_var_38411_21_non_const_X[12])) + 1804603682U);
+# 161 "test-kernel-words.cu"
+__cuda_local_var_38406_14_non_const_a = (((__cuda_local_var_38407_14_non_const_t << 7) | (__cuda_local_var_38407_14_non_const_t >> 25)) + __cuda_local_var_38406_32_non_const_b);
+# 162 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_68_non_const_d + ((__cuda_local_var_38406_14_non_const_a & __cuda_local_var_38406_32_non_const_b) | ((~__cuda_local_var_38406_14_non_const_a) & __cuda_local_var_38406_50_non_const_c))) + (__cuda_local_var_38411_21_non_const_X[13])) + 4254626195U);
+# 162 "test-kernel-words.cu"
+__cuda_local_var_38406_68_non_const_d = (((__cuda_local_var_38407_14_non_const_t << 12) | (__cuda_local_var_38407_14_non_const_t >> 20)) + __cuda_local_var_38406_14_non_const_a);
+# 163 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_50_non_const_c + ((__cuda_local_var_38406_68_non_const_d & __cuda_local_var_38406_14_non_const_a) | ((~__cuda_local_var_38406_68_non_const_d) & __cuda_local_var_38406_32_non_const_b))) + (__cuda_local_var_38411_21_non_const_X[14])) + 2792965006U);
+# 163 "test-kernel-words.cu"
+__cuda_local_var_38406_50_non_const_c = (((__cuda_local_var_38407_14_non_const_t << 17) | (__cuda_local_var_38407_14_non_const_t >> 15)) + __cuda_local_var_38406_68_non_const_d);
+# 164 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_32_non_const_b + ((__cuda_local_var_38406_50_non_const_c & __cuda_local_var_38406_68_non_const_d) | ((~__cuda_local_var_38406_50_non_const_c) & __cuda_local_var_38406_14_non_const_a))) + (__cuda_local_var_38411_21_non_const_X[15])) + 1236535329U);
+# 164 "test-kernel-words.cu"
+__cuda_local_var_38406_32_non_const_b = (((__cuda_local_var_38407_14_non_const_t << 22) | (__cuda_local_var_38407_14_non_const_t >> 10)) + __cuda_local_var_38406_50_non_const_c);
+# 175 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_14_non_const_a + ((__cuda_local_var_38406_32_non_const_b & __cuda_local_var_38406_68_non_const_d) | (__cuda_local_var_38406_50_non_const_c & (~__cuda_local_var_38406_68_non_const_d)))) + (__cuda_local_var_38411_21_non_const_X[1])) + 4129170786U);
+# 175 "test-kernel-words.cu"
+__cuda_local_var_38406_14_non_const_a = (((__cuda_local_var_38407_14_non_const_t << 5) | (__cuda_local_var_38407_14_non_const_t >> 27)) + __cuda_local_var_38406_32_non_const_b);
+# 176 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_68_non_const_d + ((__cuda_local_var_38406_14_non_const_a & __cuda_local_var_38406_50_non_const_c) | (__cuda_local_var_38406_32_non_const_b & (~__cuda_local_var_38406_50_non_const_c)))) + (__cuda_local_var_38411_21_non_const_X[6])) + 3225465664U);
+# 176 "test-kernel-words.cu"
+__cuda_local_var_38406_68_non_const_d = (((__cuda_local_var_38407_14_non_const_t << 9) | (__cuda_local_var_38407_14_non_const_t >> 23)) + __cuda_local_var_38406_14_non_const_a);
+# 177 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_50_non_const_c + ((__cuda_local_var_38406_68_non_const_d & __cuda_local_var_38406_32_non_const_b) | (__cuda_local_var_38406_14_non_const_a & (~__cuda_local_var_38406_32_non_const_b)))) + (__cuda_local_var_38411_21_non_const_X[11])) + 643717713U);
+# 177 "test-kernel-words.cu"
+__cuda_local_var_38406_50_non_const_c = (((__cuda_local_var_38407_14_non_const_t << 14) | (__cuda_local_var_38407_14_non_const_t >> 18)) + __cuda_local_var_38406_68_non_const_d);
+# 178 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_32_non_const_b + ((__cuda_local_var_38406_50_non_const_c & __cuda_local_var_38406_14_non_const_a) | (__cuda_local_var_38406_68_non_const_d & (~__cuda_local_var_38406_14_non_const_a)))) + (__cuda_local_var_38411_21_non_const_X[0])) + 3921069994U);
+# 178 "test-kernel-words.cu"
+__cuda_local_var_38406_32_non_const_b = (((__cuda_local_var_38407_14_non_const_t << 20) | (__cuda_local_var_38407_14_non_const_t >> 12)) + __cuda_local_var_38406_50_non_const_c);
+# 179 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_14_non_const_a + ((__cuda_local_var_38406_32_non_const_b & __cuda_local_var_38406_68_non_const_d) | (__cuda_local_var_38406_50_non_const_c & (~__cuda_local_var_38406_68_non_const_d)))) + (__cuda_local_var_38411_21_non_const_X[5])) + 3593408605U);
+# 179 "test-kernel-words.cu"
+__cuda_local_var_38406_14_non_const_a = (((__cuda_local_var_38407_14_non_const_t << 5) | (__cuda_local_var_38407_14_non_const_t >> 27)) + __cuda_local_var_38406_32_non_const_b);
+# 180 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_68_non_const_d + ((__cuda_local_var_38406_14_non_const_a & __cuda_local_var_38406_50_non_const_c) | (__cuda_local_var_38406_32_non_const_b & (~__cuda_local_var_38406_50_non_const_c)))) + (__cuda_local_var_38411_21_non_const_X[10])) + 38016083U);
+# 180 "test-kernel-words.cu"
+__cuda_local_var_38406_68_non_const_d = (((__cuda_local_var_38407_14_non_const_t << 9) | (__cuda_local_var_38407_14_non_const_t >> 23)) + __cuda_local_var_38406_14_non_const_a);
+# 181 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_50_non_const_c + ((__cuda_local_var_38406_68_non_const_d & __cuda_local_var_38406_32_non_const_b) | (__cuda_local_var_38406_14_non_const_a & (~__cuda_local_var_38406_32_non_const_b)))) + (__cuda_local_var_38411_21_non_const_X[15])) + 3634488961U);
+# 181 "test-kernel-words.cu"
+__cuda_local_var_38406_50_non_const_c = (((__cuda_local_var_38407_14_non_const_t << 14) | (__cuda_local_var_38407_14_non_const_t >> 18)) + __cuda_local_var_38406_68_non_const_d);
+# 182 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_32_non_const_b + ((__cuda_local_var_38406_50_non_const_c & __cuda_local_var_38406_14_non_const_a) | (__cuda_local_var_38406_68_non_const_d & (~__cuda_local_var_38406_14_non_const_a)))) + (__cuda_local_var_38411_21_non_const_X[4])) + 3889429448U);
+# 182 "test-kernel-words.cu"
+__cuda_local_var_38406_32_non_const_b = (((__cuda_local_var_38407_14_non_const_t << 20) | (__cuda_local_var_38407_14_non_const_t >> 12)) + __cuda_local_var_38406_50_non_const_c);
+# 183 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_14_non_const_a + ((__cuda_local_var_38406_32_non_const_b & __cuda_local_var_38406_68_non_const_d) | (__cuda_local_var_38406_50_non_const_c & (~__cuda_local_var_38406_68_non_const_d)))) + (__cuda_local_var_38411_21_non_const_X[9])) + 568446438U);
+# 183 "test-kernel-words.cu"
+__cuda_local_var_38406_14_non_const_a = (((__cuda_local_var_38407_14_non_const_t << 5) | (__cuda_local_var_38407_14_non_const_t >> 27)) + __cuda_local_var_38406_32_non_const_b);
+# 184 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_68_non_const_d + ((__cuda_local_var_38406_14_non_const_a & __cuda_local_var_38406_50_non_const_c) | (__cuda_local_var_38406_32_non_const_b & (~__cuda_local_var_38406_50_non_const_c)))) + (__cuda_local_var_38411_21_non_const_X[14])) + 3275163606U);
+# 184 "test-kernel-words.cu"
+__cuda_local_var_38406_68_non_const_d = (((__cuda_local_var_38407_14_non_const_t << 9) | (__cuda_local_var_38407_14_non_const_t >> 23)) + __cuda_local_var_38406_14_non_const_a);
+# 185 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_50_non_const_c + ((__cuda_local_var_38406_68_non_const_d & __cuda_local_var_38406_32_non_const_b) | (__cuda_local_var_38406_14_non_const_a & (~__cuda_local_var_38406_32_non_const_b)))) + (__cuda_local_var_38411_21_non_const_X[3])) + 4107603335U);
+# 185 "test-kernel-words.cu"
+__cuda_local_var_38406_50_non_const_c = (((__cuda_local_var_38407_14_non_const_t << 14) | (__cuda_local_var_38407_14_non_const_t >> 18)) + __cuda_local_var_38406_68_non_const_d);
+# 186 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_32_non_const_b + ((__cuda_local_var_38406_50_non_const_c & __cuda_local_var_38406_14_non_const_a) | (__cuda_local_var_38406_68_non_const_d & (~__cuda_local_var_38406_14_non_const_a)))) + (__cuda_local_var_38411_21_non_const_X[8])) + 1163531501U);
+# 186 "test-kernel-words.cu"
+__cuda_local_var_38406_32_non_const_b = (((__cuda_local_var_38407_14_non_const_t << 20) | (__cuda_local_var_38407_14_non_const_t >> 12)) + __cuda_local_var_38406_50_non_const_c);
+# 187 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_14_non_const_a + ((__cuda_local_var_38406_32_non_const_b & __cuda_local_var_38406_68_non_const_d) | (__cuda_local_var_38406_50_non_const_c & (~__cuda_local_var_38406_68_non_const_d)))) + (__cuda_local_var_38411_21_non_const_X[13])) + 2850285829U);
+# 187 "test-kernel-words.cu"
+__cuda_local_var_38406_14_non_const_a = (((__cuda_local_var_38407_14_non_const_t << 5) | (__cuda_local_var_38407_14_non_const_t >> 27)) + __cuda_local_var_38406_32_non_const_b);
+# 188 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_68_non_const_d + ((__cuda_local_var_38406_14_non_const_a & __cuda_local_var_38406_50_non_const_c) | (__cuda_local_var_38406_32_non_const_b & (~__cuda_local_var_38406_50_non_const_c)))) + (__cuda_local_var_38411_21_non_const_X[2])) + 4243563512U);
+# 188 "test-kernel-words.cu"
+__cuda_local_var_38406_68_non_const_d = (((__cuda_local_var_38407_14_non_const_t << 9) | (__cuda_local_var_38407_14_non_const_t >> 23)) + __cuda_local_var_38406_14_non_const_a);
+# 189 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_50_non_const_c + ((__cuda_local_var_38406_68_non_const_d & __cuda_local_var_38406_32_non_const_b) | (__cuda_local_var_38406_14_non_const_a & (~__cuda_local_var_38406_32_non_const_b)))) + (__cuda_local_var_38411_21_non_const_X[7])) + 1735328473U);
+# 189 "test-kernel-words.cu"
+__cuda_local_var_38406_50_non_const_c = (((__cuda_local_var_38407_14_non_const_t << 14) | (__cuda_local_var_38407_14_non_const_t >> 18)) + __cuda_local_var_38406_68_non_const_d);
+# 190 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_32_non_const_b + ((__cuda_local_var_38406_50_non_const_c & __cuda_local_var_38406_14_non_const_a) | (__cuda_local_var_38406_68_non_const_d & (~__cuda_local_var_38406_14_non_const_a)))) + (__cuda_local_var_38411_21_non_const_X[12])) + 2368359562U);
+# 190 "test-kernel-words.cu"
+__cuda_local_var_38406_32_non_const_b = (((__cuda_local_var_38407_14_non_const_t << 20) | (__cuda_local_var_38407_14_non_const_t >> 12)) + __cuda_local_var_38406_50_non_const_c);
+# 201 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_14_non_const_a + ((__cuda_local_var_38406_32_non_const_b ^ __cuda_local_var_38406_50_non_const_c) ^ __cuda_local_var_38406_68_non_const_d)) + (__cuda_local_var_38411_21_non_const_X[5])) + 4294588738U);
+# 201 "test-kernel-words.cu"
+__cuda_local_var_38406_14_non_const_a = (((__cuda_local_var_38407_14_non_const_t << 4) | (__cuda_local_var_38407_14_non_const_t >> 28)) + __cuda_local_var_38406_32_non_const_b);
+# 202 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_68_non_const_d + ((__cuda_local_var_38406_14_non_const_a ^ __cuda_local_var_38406_32_non_const_b) ^ __cuda_local_var_38406_50_non_const_c)) + (__cuda_local_var_38411_21_non_const_X[8])) + 2272392833U);
+# 202 "test-kernel-words.cu"
+__cuda_local_var_38406_68_non_const_d = (((__cuda_local_var_38407_14_non_const_t << 11) | (__cuda_local_var_38407_14_non_const_t >> 21)) + __cuda_local_var_38406_14_non_const_a);
+# 203 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_50_non_const_c + ((__cuda_local_var_38406_68_non_const_d ^ __cuda_local_var_38406_14_non_const_a) ^ __cuda_local_var_38406_32_non_const_b)) + (__cuda_local_var_38411_21_non_const_X[11])) + 1839030562U);
+# 203 "test-kernel-words.cu"
+__cuda_local_var_38406_50_non_const_c = (((__cuda_local_var_38407_14_non_const_t << 16) | (__cuda_local_var_38407_14_non_const_t >> 16)) + __cuda_local_var_38406_68_non_const_d);
+# 204 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_32_non_const_b + ((__cuda_local_var_38406_50_non_const_c ^ __cuda_local_var_38406_68_non_const_d) ^ __cuda_local_var_38406_14_non_const_a)) + (__cuda_local_var_38411_21_non_const_X[14])) + 4259657740U);
+# 204 "test-kernel-words.cu"
+__cuda_local_var_38406_32_non_const_b = (((__cuda_local_var_38407_14_non_const_t << 23) | (__cuda_local_var_38407_14_non_const_t >> 9)) + __cuda_local_var_38406_50_non_const_c);
+# 205 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_14_non_const_a + ((__cuda_local_var_38406_32_non_const_b ^ __cuda_local_var_38406_50_non_const_c) ^ __cuda_local_var_38406_68_non_const_d)) + (__cuda_local_var_38411_21_non_const_X[1])) + 2763975236U);
+# 205 "test-kernel-words.cu"
+__cuda_local_var_38406_14_non_const_a = (((__cuda_local_var_38407_14_non_const_t << 4) | (__cuda_local_var_38407_14_non_const_t >> 28)) + __cuda_local_var_38406_32_non_const_b);
+# 206 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_68_non_const_d + ((__cuda_local_var_38406_14_non_const_a ^ __cuda_local_var_38406_32_non_const_b) ^ __cuda_local_var_38406_50_non_const_c)) + (__cuda_local_var_38411_21_non_const_X[4])) + 1272893353U);
+# 206 "test-kernel-words.cu"
+__cuda_local_var_38406_68_non_const_d = (((__cuda_local_var_38407_14_non_const_t << 11) | (__cuda_local_var_38407_14_non_const_t >> 21)) + __cuda_local_var_38406_14_non_const_a);
+# 207 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_50_non_const_c + ((__cuda_local_var_38406_68_non_const_d ^ __cuda_local_var_38406_14_non_const_a) ^ __cuda_local_var_38406_32_non_const_b)) + (__cuda_local_var_38411_21_non_const_X[7])) + 4139469664U);
+# 207 "test-kernel-words.cu"
+__cuda_local_var_38406_50_non_const_c = (((__cuda_local_var_38407_14_non_const_t << 16) | (__cuda_local_var_38407_14_non_const_t >> 16)) + __cuda_local_var_38406_68_non_const_d);
+# 208 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_32_non_const_b + ((__cuda_local_var_38406_50_non_const_c ^ __cuda_local_var_38406_68_non_const_d) ^ __cuda_local_var_38406_14_non_const_a)) + (__cuda_local_var_38411_21_non_const_X[10])) + 3200236656U);
+# 208 "test-kernel-words.cu"
+__cuda_local_var_38406_32_non_const_b = (((__cuda_local_var_38407_14_non_const_t << 23) | (__cuda_local_var_38407_14_non_const_t >> 9)) + __cuda_local_var_38406_50_non_const_c);
+# 209 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_14_non_const_a + ((__cuda_local_var_38406_32_non_const_b ^ __cuda_local_var_38406_50_non_const_c) ^ __cuda_local_var_38406_68_non_const_d)) + (__cuda_local_var_38411_21_non_const_X[13])) + 681279174U);
+# 209 "test-kernel-words.cu"
+__cuda_local_var_38406_14_non_const_a = (((__cuda_local_var_38407_14_non_const_t << 4) | (__cuda_local_var_38407_14_non_const_t >> 28)) + __cuda_local_var_38406_32_non_const_b);
+# 210 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_68_non_const_d + ((__cuda_local_var_38406_14_non_const_a ^ __cuda_local_var_38406_32_non_const_b) ^ __cuda_local_var_38406_50_non_const_c)) + (__cuda_local_var_38411_21_non_const_X[0])) + 3936430074U);
+# 210 "test-kernel-words.cu"
+__cuda_local_var_38406_68_non_const_d = (((__cuda_local_var_38407_14_non_const_t << 11) | (__cuda_local_var_38407_14_non_const_t >> 21)) + __cuda_local_var_38406_14_non_const_a);
+# 211 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_50_non_const_c + ((__cuda_local_var_38406_68_non_const_d ^ __cuda_local_var_38406_14_non_const_a) ^ __cuda_local_var_38406_32_non_const_b)) + (__cuda_local_var_38411_21_non_const_X[3])) + 3572445317U);
+# 211 "test-kernel-words.cu"
+__cuda_local_var_38406_50_non_const_c = (((__cuda_local_var_38407_14_non_const_t << 16) | (__cuda_local_var_38407_14_non_const_t >> 16)) + __cuda_local_var_38406_68_non_const_d);
+# 212 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_32_non_const_b + ((__cuda_local_var_38406_50_non_const_c ^ __cuda_local_var_38406_68_non_const_d) ^ __cuda_local_var_38406_14_non_const_a)) + (__cuda_local_var_38411_21_non_const_X[6])) + 76029189U);
+# 212 "test-kernel-words.cu"
+__cuda_local_var_38406_32_non_const_b = (((__cuda_local_var_38407_14_non_const_t << 23) | (__cuda_local_var_38407_14_non_const_t >> 9)) + __cuda_local_var_38406_50_non_const_c);
+# 213 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_14_non_const_a + ((__cuda_local_var_38406_32_non_const_b ^ __cuda_local_var_38406_50_non_const_c) ^ __cuda_local_var_38406_68_non_const_d)) + (__cuda_local_var_38411_21_non_const_X[9])) + 3654602809U);
+# 213 "test-kernel-words.cu"
+__cuda_local_var_38406_14_non_const_a = (((__cuda_local_var_38407_14_non_const_t << 4) | (__cuda_local_var_38407_14_non_const_t >> 28)) + __cuda_local_var_38406_32_non_const_b);
+# 214 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_68_non_const_d + ((__cuda_local_var_38406_14_non_const_a ^ __cuda_local_var_38406_32_non_const_b) ^ __cuda_local_var_38406_50_non_const_c)) + (__cuda_local_var_38411_21_non_const_X[12])) + 3873151461U);
+# 214 "test-kernel-words.cu"
+__cuda_local_var_38406_68_non_const_d = (((__cuda_local_var_38407_14_non_const_t << 11) | (__cuda_local_var_38407_14_non_const_t >> 21)) + __cuda_local_var_38406_14_non_const_a);
+# 215 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_50_non_const_c + ((__cuda_local_var_38406_68_non_const_d ^ __cuda_local_var_38406_14_non_const_a) ^ __cuda_local_var_38406_32_non_const_b)) + (__cuda_local_var_38411_21_non_const_X[15])) + 530742520U);
+# 215 "test-kernel-words.cu"
+__cuda_local_var_38406_50_non_const_c = (((__cuda_local_var_38407_14_non_const_t << 16) | (__cuda_local_var_38407_14_non_const_t >> 16)) + __cuda_local_var_38406_68_non_const_d);
+# 216 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_32_non_const_b + ((__cuda_local_var_38406_50_non_const_c ^ __cuda_local_var_38406_68_non_const_d) ^ __cuda_local_var_38406_14_non_const_a)) + (__cuda_local_var_38411_21_non_const_X[2])) + 3299628645U);
+# 216 "test-kernel-words.cu"
+__cuda_local_var_38406_32_non_const_b = (((__cuda_local_var_38407_14_non_const_t << 23) | (__cuda_local_var_38407_14_non_const_t >> 9)) + __cuda_local_var_38406_50_non_const_c);
+# 227 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_14_non_const_a + (__cuda_local_var_38406_50_non_const_c ^ (__cuda_local_var_38406_32_non_const_b | (~__cuda_local_var_38406_68_non_const_d)))) + (__cuda_local_var_38411_21_non_const_X[0])) + 4096336452U);
+# 227 "test-kernel-words.cu"
+__cuda_local_var_38406_14_non_const_a = (((__cuda_local_var_38407_14_non_const_t << 6) | (__cuda_local_var_38407_14_non_const_t >> 26)) + __cuda_local_var_38406_32_non_const_b);
+# 228 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_68_non_const_d + (__cuda_local_var_38406_32_non_const_b ^ (__cuda_local_var_38406_14_non_const_a | (~__cuda_local_var_38406_50_non_const_c)))) + (__cuda_local_var_38411_21_non_const_X[7])) + 1126891415U);
+# 228 "test-kernel-words.cu"
+__cuda_local_var_38406_68_non_const_d = (((__cuda_local_var_38407_14_non_const_t << 10) | (__cuda_local_var_38407_14_non_const_t >> 22)) + __cuda_local_var_38406_14_non_const_a);
+# 229 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_50_non_const_c + (__cuda_local_var_38406_14_non_const_a ^ (__cuda_local_var_38406_68_non_const_d | (~__cuda_local_var_38406_32_non_const_b)))) + (__cuda_local_var_38411_21_non_const_X[14])) + 2878612391U);
+# 229 "test-kernel-words.cu"
+__cuda_local_var_38406_50_non_const_c = (((__cuda_local_var_38407_14_non_const_t << 15) | (__cuda_local_var_38407_14_non_const_t >> 17)) + __cuda_local_var_38406_68_non_const_d);
+# 230 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_32_non_const_b + (__cuda_local_var_38406_68_non_const_d ^ (__cuda_local_var_38406_50_non_const_c | (~__cuda_local_var_38406_14_non_const_a)))) + (__cuda_local_var_38411_21_non_const_X[5])) + 4237533241U);
+# 230 "test-kernel-words.cu"
+__cuda_local_var_38406_32_non_const_b = (((__cuda_local_var_38407_14_non_const_t << 21) | (__cuda_local_var_38407_14_non_const_t >> 11)) + __cuda_local_var_38406_50_non_const_c);
+# 231 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_14_non_const_a + (__cuda_local_var_38406_50_non_const_c ^ (__cuda_local_var_38406_32_non_const_b | (~__cuda_local_var_38406_68_non_const_d)))) + (__cuda_local_var_38411_21_non_const_X[12])) + 1700485571U);
+# 231 "test-kernel-words.cu"
+__cuda_local_var_38406_14_non_const_a = (((__cuda_local_var_38407_14_non_const_t << 6) | (__cuda_local_var_38407_14_non_const_t >> 26)) + __cuda_local_var_38406_32_non_const_b);
+# 232 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_68_non_const_d + (__cuda_local_var_38406_32_non_const_b ^ (__cuda_local_var_38406_14_non_const_a | (~__cuda_local_var_38406_50_non_const_c)))) + (__cuda_local_var_38411_21_non_const_X[3])) + 2399980690U);
+# 232 "test-kernel-words.cu"
+__cuda_local_var_38406_68_non_const_d = (((__cuda_local_var_38407_14_non_const_t << 10) | (__cuda_local_var_38407_14_non_const_t >> 22)) + __cuda_local_var_38406_14_non_const_a);
+# 233 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_50_non_const_c + (__cuda_local_var_38406_14_non_const_a ^ (__cuda_local_var_38406_68_non_const_d | (~__cuda_local_var_38406_32_non_const_b)))) + (__cuda_local_var_38411_21_non_const_X[10])) + 4293915773U);
+# 233 "test-kernel-words.cu"
+__cuda_local_var_38406_50_non_const_c = (((__cuda_local_var_38407_14_non_const_t << 15) | (__cuda_local_var_38407_14_non_const_t >> 17)) + __cuda_local_var_38406_68_non_const_d);
+# 234 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_32_non_const_b + (__cuda_local_var_38406_68_non_const_d ^ (__cuda_local_var_38406_50_non_const_c | (~__cuda_local_var_38406_14_non_const_a)))) + (__cuda_local_var_38411_21_non_const_X[1])) + 2240044497U);
+# 234 "test-kernel-words.cu"
+__cuda_local_var_38406_32_non_const_b = (((__cuda_local_var_38407_14_non_const_t << 21) | (__cuda_local_var_38407_14_non_const_t >> 11)) + __cuda_local_var_38406_50_non_const_c);
+# 235 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_14_non_const_a + (__cuda_local_var_38406_50_non_const_c ^ (__cuda_local_var_38406_32_non_const_b | (~__cuda_local_var_38406_68_non_const_d)))) + (__cuda_local_var_38411_21_non_const_X[8])) + 1873313359U);
+# 235 "test-kernel-words.cu"
+__cuda_local_var_38406_14_non_const_a = (((__cuda_local_var_38407_14_non_const_t << 6) | (__cuda_local_var_38407_14_non_const_t >> 26)) + __cuda_local_var_38406_32_non_const_b);
+# 236 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_68_non_const_d + (__cuda_local_var_38406_32_non_const_b ^ (__cuda_local_var_38406_14_non_const_a | (~__cuda_local_var_38406_50_non_const_c)))) + (__cuda_local_var_38411_21_non_const_X[15])) + 4264355552U);
+# 236 "test-kernel-words.cu"
+__cuda_local_var_38406_68_non_const_d = (((__cuda_local_var_38407_14_non_const_t << 10) | (__cuda_local_var_38407_14_non_const_t >> 22)) + __cuda_local_var_38406_14_non_const_a);
+# 237 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_50_non_const_c + (__cuda_local_var_38406_14_non_const_a ^ (__cuda_local_var_38406_68_non_const_d | (~__cuda_local_var_38406_32_non_const_b)))) + (__cuda_local_var_38411_21_non_const_X[6])) + 2734768916U);
+# 237 "test-kernel-words.cu"
+__cuda_local_var_38406_50_non_const_c = (((__cuda_local_var_38407_14_non_const_t << 15) | (__cuda_local_var_38407_14_non_const_t >> 17)) + __cuda_local_var_38406_68_non_const_d);
+# 238 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_32_non_const_b + (__cuda_local_var_38406_68_non_const_d ^ (__cuda_local_var_38406_50_non_const_c | (~__cuda_local_var_38406_14_non_const_a)))) + (__cuda_local_var_38411_21_non_const_X[13])) + 1309151649U);
+# 238 "test-kernel-words.cu"
+__cuda_local_var_38406_32_non_const_b = (((__cuda_local_var_38407_14_non_const_t << 21) | (__cuda_local_var_38407_14_non_const_t >> 11)) + __cuda_local_var_38406_50_non_const_c);
+# 239 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_14_non_const_a + (__cuda_local_var_38406_50_non_const_c ^ (__cuda_local_var_38406_32_non_const_b | (~__cuda_local_var_38406_68_non_const_d)))) + (__cuda_local_var_38411_21_non_const_X[4])) + 4149444226U);
+# 239 "test-kernel-words.cu"
+__cuda_local_var_38406_14_non_const_a = (((__cuda_local_var_38407_14_non_const_t << 6) | (__cuda_local_var_38407_14_non_const_t >> 26)) + __cuda_local_var_38406_32_non_const_b);
+# 240 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_68_non_const_d + (__cuda_local_var_38406_32_non_const_b ^ (__cuda_local_var_38406_14_non_const_a | (~__cuda_local_var_38406_50_non_const_c)))) + (__cuda_local_var_38411_21_non_const_X[11])) + 3174756917U);
+# 240 "test-kernel-words.cu"
+__cuda_local_var_38406_68_non_const_d = (((__cuda_local_var_38407_14_non_const_t << 10) | (__cuda_local_var_38407_14_non_const_t >> 22)) + __cuda_local_var_38406_14_non_const_a);
+# 241 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_50_non_const_c + (__cuda_local_var_38406_14_non_const_a ^ (__cuda_local_var_38406_68_non_const_d | (~__cuda_local_var_38406_32_non_const_b)))) + (__cuda_local_var_38411_21_non_const_X[2])) + 718787259U);
+# 241 "test-kernel-words.cu"
+__cuda_local_var_38406_50_non_const_c = (((__cuda_local_var_38407_14_non_const_t << 15) | (__cuda_local_var_38407_14_non_const_t >> 17)) + __cuda_local_var_38406_68_non_const_d);
+# 242 "test-kernel-words.cu"
+__cuda_local_var_38407_14_non_const_t = (((__cuda_local_var_38406_32_non_const_b + (__cuda_local_var_38406_68_non_const_d ^ (__cuda_local_var_38406_50_non_const_c | (~__cuda_local_var_38406_14_non_const_a)))) + (__cuda_local_var_38411_21_non_const_X[9])) + 3951481745U);
+# 242 "test-kernel-words.cu"
+__cuda_local_var_38406_32_non_const_b = (((__cuda_local_var_38407_14_non_const_t << 21) | (__cuda_local_var_38407_14_non_const_t >> 11)) + __cuda_local_var_38406_50_non_const_c);
+# 248 "test-kernel-words.cu"
+(((pms->abcd))[0]) += __cuda_local_var_38406_14_non_const_a;
+# 249 "test-kernel-words.cu"
+(((pms->abcd))[1]) += __cuda_local_var_38406_32_non_const_b;
+# 250 "test-kernel-words.cu"
+(((pms->abcd))[2]) += __cuda_local_var_38406_50_non_const_c;
+# 251 "test-kernel-words.cu"
+(((pms->abcd))[3]) += __cuda_local_var_38406_68_non_const_d;
+# 252 "test-kernel-words.cu"
+} 
+# 252 "test-kernel-words.cu"
+}}
+# 256 "test-kernel-words.cu"
+___device__( __no_sc__) void _Z8md5_initP11md5_state_s(
+# 256 "test-kernel-words.cu"
+md5_state_t *pms){
+# 256 "test-kernel-words.cu"
+{
+# 256 "test-kernel-words.cu"
+{
+# 257 "test-kernel-words.cu"
+(((pms->count))[0]) = ((((pms->count))[1]) = 0U);
+# 258 "test-kernel-words.cu"
+(((pms->abcd))[0]) = 1732584193U;
+# 259 "test-kernel-words.cu"
+(((pms->abcd))[1]) = 4023233417U;
+# 260 "test-kernel-words.cu"
+(((pms->abcd))[2]) = 2562383102U;
+# 261 "test-kernel-words.cu"
+(((pms->abcd))[3]) = 271733878U;
+# 262 "test-kernel-words.cu"
+} 
+# 262 "test-kernel-words.cu"
+}}
+# 266 "test-kernel-words.cu"
+___device__( __no_sc__) void _Z10md5_appendP11md5_state_sPKhi(
+# 266 "test-kernel-words.cu"
+md5_state_t *pms, 
+# 266 "test-kernel-words.cu"
+const md5_byte_t *data, 
+# 266 "test-kernel-words.cu"
+int nbytes){
+# 266 "test-kernel-words.cu"
+{
+# 266 "test-kernel-words.cu"
+{
+# 267 "test-kernel-words.cu"
+ const md5_byte_t *__cuda_local_var_38528_21_non_const_p;
+# 268 "test-kernel-words.cu"
+ int __cuda_local_var_38529_7_non_const_left;
+# 269 "test-kernel-words.cu"
+ int __cuda_local_var_38530_7_non_const_offset;
+# 270 "test-kernel-words.cu"
+ md5_word_t __cuda_local_var_38531_14_non_const_nbits;
+# 267 "test-kernel-words.cu"
+__cuda_local_var_38528_21_non_const_p = data;
+# 268 "test-kernel-words.cu"
+__cuda_local_var_38529_7_non_const_left = nbytes;
+# 269 "test-kernel-words.cu"
+__cuda_local_var_38530_7_non_const_offset = ((int)(((((pms->count))[0]) >> 3) & 63U));
+# 270 "test-kernel-words.cu"
+__cuda_local_var_38531_14_non_const_nbits = ((md5_word_t)(nbytes << 3));
+# 272 "test-kernel-words.cu"
+if (nbytes <= 0)
+# 272 "test-kernel-words.cu"
+{
+# 273 "test-kernel-words.cu"
+return;
+# 274 "test-kernel-words.cu"
+}
+# 277 "test-kernel-words.cu"
+(((pms->count))[1]) += ((unsigned)(nbytes >> 29));
+# 278 "test-kernel-words.cu"
+(((pms->count))[0]) += __cuda_local_var_38531_14_non_const_nbits;
+# 279 "test-kernel-words.cu"
+if ((((pms->count))[0]) < __cuda_local_var_38531_14_non_const_nbits)
+# 279 "test-kernel-words.cu"
+{
+# 280 "test-kernel-words.cu"
+(((pms->count))[1])++;
+# 281 "test-kernel-words.cu"
+}
+# 284 "test-kernel-words.cu"
+if (__cuda_local_var_38530_7_non_const_offset)
+# 284 "test-kernel-words.cu"
+{
+# 285 "test-kernel-words.cu"
+ int __cuda_local_var_38546_9_non_const_copy;
+# 285 "test-kernel-words.cu"
+__cuda_local_var_38546_9_non_const_copy = (((__cuda_local_var_38530_7_non_const_offset + nbytes) > 64) ? (64 - __cuda_local_var_38530_7_non_const_offset) : nbytes);
+# 287 "test-kernel-words.cu"
+memcpy(((void *)(((pms->buf)) + __cuda_local_var_38530_7_non_const_offset)), ((const void *)__cuda_local_var_38528_21_non_const_p), ((size_t)__cuda_local_var_38546_9_non_const_copy));
+# 288 "test-kernel-words.cu"
+if ((__cuda_local_var_38530_7_non_const_offset + __cuda_local_var_38546_9_non_const_copy) < 64)
+# 288 "test-kernel-words.cu"
+{
+# 289 "test-kernel-words.cu"
+return;
+# 290 "test-kernel-words.cu"
+}
+# 291 "test-kernel-words.cu"
+__cuda_local_var_38528_21_non_const_p += __cuda_local_var_38546_9_non_const_copy;
+# 292 "test-kernel-words.cu"
+__cuda_local_var_38529_7_non_const_left -= __cuda_local_var_38546_9_non_const_copy;
+# 293 "test-kernel-words.cu"
+_Z11md5_processP11md5_state_sPKh(pms, ((const md5_byte_t *)((pms->buf))));
+# 294 "test-kernel-words.cu"
+}
+# 297 "test-kernel-words.cu"
+for (; (__cuda_local_var_38529_7_non_const_left >= 64); (__cuda_local_var_38528_21_non_const_p += 64) , ((void)(__cuda_local_var_38529_7_non_const_left -= 64)))
+# 297 "test-kernel-words.cu"
+{
+# 298 "test-kernel-words.cu"
+_Z11md5_processP11md5_state_sPKh(pms, __cuda_local_var_38528_21_non_const_p);
+# 299 "test-kernel-words.cu"
+}
+# 302 "test-kernel-words.cu"
+if (__cuda_local_var_38529_7_non_const_left)
+# 302 "test-kernel-words.cu"
+{
+# 303 "test-kernel-words.cu"
+memcpy(((void *)((pms->buf))), ((const void *)__cuda_local_var_38528_21_non_const_p), ((size_t)__cuda_local_var_38529_7_non_const_left));
+# 304 "test-kernel-words.cu"
+}
+# 305 "test-kernel-words.cu"
+} 
+# 305 "test-kernel-words.cu"
+}}
+# 308 "test-kernel-words.cu"
+___device__( __no_sc__) void _Z10md5_finishP11md5_state_sPh(
+# 308 "test-kernel-words.cu"
+md5_state_t *pms, 
+# 308 "test-kernel-words.cu"
+md5_byte_t *digest){
+# 308 "test-kernel-words.cu"
+{
+# 308 "test-kernel-words.cu"
+{
+# 310 "test-kernel-words.cu"
+ md5_byte_t __cuda_local_var_38571_20_const_pad[64];
+# 316 "test-kernel-words.cu"
+ md5_byte_t __cuda_local_var_38577_14_non_const_data[8];
+# 317 "test-kernel-words.cu"
+ int __cuda_local_var_38578_7_non_const_i;
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[0]) = ((md5_byte_t)128U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[1]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[2]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[3]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[4]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[5]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[6]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[7]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[8]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[9]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[10]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[11]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[12]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[13]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[14]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[15]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[16]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[17]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[18]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[19]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[20]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[21]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[22]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[23]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[24]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[25]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[26]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[27]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[28]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[29]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[30]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[31]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[32]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[33]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[34]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[35]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[36]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[37]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[38]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[39]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[40]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[41]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[42]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[43]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[44]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[45]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[46]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[47]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[48]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[49]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[50]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[51]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[52]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[53]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[54]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[55]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[56]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[57]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[58]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[59]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[60]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[61]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[62]) = ((md5_byte_t)0U);
+# 310 "test-kernel-words.cu"
+((__cuda_local_var_38571_20_const_pad)[63]) = ((md5_byte_t)0U);
+# 320 "test-kernel-words.cu"
+for (__cuda_local_var_38578_7_non_const_i = 0; (__cuda_local_var_38578_7_non_const_i < 8); ++__cuda_local_var_38578_7_non_const_i)
+# 320 "test-kernel-words.cu"
+{
+# 321 "test-kernel-words.cu"
+((__cuda_local_var_38577_14_non_const_data)[__cuda_local_var_38578_7_non_const_i]) = ((md5_byte_t)((((pms->count))[(__cuda_local_var_38578_7_non_const_i >> 2)]) >> ((__cuda_local_var_38578_7_non_const_i & 3) << 3)));
+# 322 "test-kernel-words.cu"
+}
+# 324 "test-kernel-words.cu"
+_Z10md5_appendP11md5_state_sPKhi(pms, ((const md5_byte_t *)(__cuda_local_var_38571_20_const_pad)), ((int)(((55U - ((((pms->count))[0]) >> 3)) & 63U) + 1U)));
+# 326 "test-kernel-words.cu"
+_Z10md5_appendP11md5_state_sPKhi(pms, ((const md5_byte_t *)(__cuda_local_var_38577_14_non_const_data)), 8);
+# 327 "test-kernel-words.cu"
+for (__cuda_local_var_38578_7_non_const_i = 0; (__cuda_local_var_38578_7_non_const_i < 16); ++__cuda_local_var_38578_7_non_const_i)
+# 327 "test-kernel-words.cu"
+{
+# 328 "test-kernel-words.cu"
+(digest[__cuda_local_var_38578_7_non_const_i]) = ((md5_byte_t)((((pms->abcd))[(__cuda_local_var_38578_7_non_const_i >> 2)]) >> ((__cuda_local_var_38578_7_non_const_i & 3) << 3)));
+# 329 "test-kernel-words.cu"
+}
+# 330 "test-kernel-words.cu"
+} 
+# 330 "test-kernel-words.cu"
+}}
+# 428 "test-kernel-words.cu"
+__global__ __var_used__ void _Z10testKernelPhPc(
+# 428 "test-kernel-words.cu"
+md5_byte_t *hash_to_break, 
+# 428 "test-kernel-words.cu"
+char *hash_word){
+# 428 "test-kernel-words.cu"
+{
+# 428 "test-kernel-words.cu"
+{
+# 430 "test-kernel-words.cu"
+ char __cuda_local_var_38681_7_non_const_di;
+# 431 "test-kernel-words.cu"
+ md5_byte_t __cuda_local_var_38682_14_non_const_cached_hash[16];
+# 443 "test-kernel-words.cu"
+static  __shared__  __var_used__ md5_byte_t __cuda_local_var_38687_40_non_const_pad[64];
+# 449 "test-kernel-words.cu"
+ char __cuda_local_var_38693_8_non_const_word[4];
+# 459 "test-kernel-words.cu"
+ char __cuda_local_var_38703_8_non_const_i_1;
+# 459 "test-kernel-words.cu"
+ char __cuda_local_var_38703_13_non_const_i_2;
+# 459 "test-kernel-words.cu"
+ char __cuda_local_var_38703_18_non_const_i_3;
+# 461 "test-kernel-words.cu"
+ char __cuda_local_var_38705_8_non_const_cached_hash_word[4];
+# 464 "test-kernel-words.cu"
+ md5_state_t __cuda_local_var_38708_15_non_const_state;
+# 465 "test-kernel-words.cu"
+ md5_byte_t __cuda_local_var_38709_14_non_const_digest[16];
+# 466 "test-kernel-words.cu"
+ char __cuda_local_var_38710_8_non_const_counter;
+# 430 "test-kernel-words.cu"
+__cuda_local_var_38681_7_non_const_di = ((char)0);
+# 432 "test-kernel-words.cu"
+for (__cuda_local_var_38681_7_non_const_di = ((char)0); (((int)__cuda_local_var_38681_7_non_const_di) < 16); __cuda_local_var_38681_7_non_const_di++)
+# 432 "test-kernel-words.cu"
+{
+# 433 "test-kernel-words.cu"
+((__cuda_local_var_38682_14_non_const_cached_hash)[__cuda_local_var_38681_7_non_const_di]) = (hash_to_break[__cuda_local_var_38681_7_non_const_di]);
+# 434 "test-kernel-words.cu"
+}
+# 444 "test-kernel-words.cu"
+((__cuda_local_var_38687_40_non_const_pad)[0]) = ((md5_byte_t)128U);
+# 445 "test-kernel-words.cu"
+for (__cuda_local_var_38681_7_non_const_di = ((char)1); (((int)__cuda_local_var_38681_7_non_const_di) < 64); __cuda_local_var_38681_7_non_const_di++)
+# 445 "test-kernel-words.cu"
+{
+# 446 "test-kernel-words.cu"
+((__cuda_local_var_38687_40_non_const_pad)[__cuda_local_var_38681_7_non_const_di]) = ((md5_byte_t)0U);
+# 447 "test-kernel-words.cu"
+}
+# 450 "test-kernel-words.cu"
+((__cuda_local_var_38693_8_non_const_word)[0]) = ((char)(((int)((char)(threadIdx.x))) + 32));
+# 451 "test-kernel-words.cu"
+((__cuda_local_var_38693_8_non_const_word)[1]) = ((char)32);
+# 452 "test-kernel-words.cu"
+((__cuda_local_var_38693_8_non_const_word)[2]) = ((char)32);
+# 453 "test-kernel-words.cu"
+((__cuda_local_var_38693_8_non_const_word)[3]) = ((char)32);
+# 462 "test-kernel-words.cu"
+((__cuda_local_var_38705_8_non_const_cached_hash_word)[0]) = ((char)0);
+# 466 "test-kernel-words.cu"
+__cuda_local_var_38710_8_non_const_counter = ((char)0);
+# 468 "test-kernel-words.cu"
+for (__cuda_local_var_38703_8_non_const_i_1 = ((char)32); (((int)__cuda_local_var_38703_8_non_const_i_1) < 42); __cuda_local_var_38703_8_non_const_i_1++)
+# 468 "test-kernel-words.cu"
+{
+# 469 "test-kernel-words.cu"
+((__cuda_local_var_38693_8_non_const_word)[1]) = ((char)__cuda_local_var_38703_8_non_const_i_1);
+# 470 "test-kernel-words.cu"
+for (__cuda_local_var_38703_13_non_const_i_2 = ((char)32); (((int)__cuda_local_var_38703_13_non_const_i_2) < 42); __cuda_local_var_38703_13_non_const_i_2++)
+# 470 "test-kernel-words.cu"
+{
+# 471 "test-kernel-words.cu"
+((__cuda_local_var_38693_8_non_const_word)[2]) = ((char)__cuda_local_var_38703_13_non_const_i_2);
+# 472 "test-kernel-words.cu"
+for (__cuda_local_var_38703_18_non_const_i_3 = ((char)32); (((int)__cuda_local_var_38703_18_non_const_i_3) < 42); __cuda_local_var_38703_18_non_const_i_3++)
+# 472 "test-kernel-words.cu"
+{
+# 492 "test-kernel-words.cu"
+ md5_byte_t __cuda_local_var_38728_20_non_const_data[8];
+# 493 "test-kernel-words.cu"
+ int __cuda_local_var_38729_13_non_const_i;
+# 473 "test-kernel-words.cu"
+((__cuda_local_var_38693_8_non_const_word)[3]) = ((char)__cuda_local_var_38703_18_non_const_i_3);
+# 475 "test-kernel-words.cu"
+(((__cuda_local_var_38708_15_non_const_state.count))[0]) = ((((__cuda_local_var_38708_15_non_const_state.count))[1]) = 0U);
+# 476 "test-kernel-words.cu"
+(((__cuda_local_var_38708_15_non_const_state.abcd))[0]) = 1732584193U;
+# 477 "test-kernel-words.cu"
+(((__cuda_local_var_38708_15_non_const_state.abcd))[1]) = 4023233417U;
+# 478 "test-kernel-words.cu"
+(((__cuda_local_var_38708_15_non_const_state.abcd))[2]) = 2562383102U;
+# 479 "test-kernel-words.cu"
+(((__cuda_local_var_38708_15_non_const_state.abcd))[3]) = 271733878U;
+# 482 "test-kernel-words.cu"
+_Z10md5_appendP11md5_state_sPKhi((&__cuda_local_var_38708_15_non_const_state), ((const md5_byte_t *)(__cuda_local_var_38693_8_non_const_word)), 4);
+# 496 "test-kernel-words.cu"
+for (__cuda_local_var_38729_13_non_const_i = 0; (__cuda_local_var_38729_13_non_const_i < 8); ++__cuda_local_var_38729_13_non_const_i)
+# 496 "test-kernel-words.cu"
+{
+# 497 "test-kernel-words.cu"
+((__cuda_local_var_38728_20_non_const_data)[__cuda_local_var_38729_13_non_const_i]) = ((md5_byte_t)((((__cuda_local_var_38708_15_non_const_state.count))[(__cuda_local_var_38729_13_non_const_i >> 2)]) >> ((__cuda_local_var_38729_13_non_const_i & 3) << 3)));
+# 498 "test-kernel-words.cu"
+}
+# 500 "test-kernel-words.cu"
+_Z10md5_appendP11md5_state_sPKhi((&__cuda_local_var_38708_15_non_const_state), ((const md5_byte_t *)(__cuda_local_var_38687_40_non_const_pad)), ((int)(((55U - ((((__cuda_local_var_38708_15_non_const_state.count))[0]) >> 3)) & 63U) + 1U)));
+# 502 "test-kernel-words.cu"
+_Z10md5_appendP11md5_state_sPKhi((&__cuda_local_var_38708_15_non_const_state), ((const md5_byte_t *)(__cuda_local_var_38728_20_non_const_data)), 8);
+# 503 "test-kernel-words.cu"
+for (__cuda_local_var_38729_13_non_const_i = 0; (__cuda_local_var_38729_13_non_const_i < 16); ++__cuda_local_var_38729_13_non_const_i)
+# 503 "test-kernel-words.cu"
+{
+# 504 "test-kernel-words.cu"
+((__cuda_local_var_38709_14_non_const_digest)[__cuda_local_var_38729_13_non_const_i]) = ((md5_byte_t)((((__cuda_local_var_38708_15_non_const_state.abcd))[(__cuda_local_var_38729_13_non_const_i >> 2)]) >> ((__cuda_local_var_38729_13_non_const_i & 3) << 3)));
+# 505 "test-kernel-words.cu"
+}
+# 508 "test-kernel-words.cu"
+__cuda_local_var_38710_8_non_const_counter = ((char)0);
+# 509 "test-kernel-words.cu"
+for (__cuda_local_var_38681_7_non_const_di = ((char)0); (((int)__cuda_local_var_38681_7_non_const_di) < 16); __cuda_local_var_38681_7_non_const_di++)
+# 509 "test-kernel-words.cu"
+{
+# 510 "test-kernel-words.cu"
+if (((int)((__cuda_local_var_38709_14_non_const_digest)[__cuda_local_var_38681_7_non_const_di])) == ((int)((__cuda_local_var_38682_14_non_const_cached_hash)[__cuda_local_var_38681_7_non_const_di])))
+# 510 "test-kernel-words.cu"
+{
+# 511 "test-kernel-words.cu"
+__cuda_local_var_38710_8_non_const_counter++;
+# 512 "test-kernel-words.cu"
+}
+# 513 "test-kernel-words.cu"
+}
+# 514 "test-kernel-words.cu"
+if (((int)__cuda_local_var_38710_8_non_const_counter) == 16)
+# 514 "test-kernel-words.cu"
+{
+# 515 "test-kernel-words.cu"
+for (__cuda_local_var_38681_7_non_const_di = ((char)0); (((int)__cuda_local_var_38681_7_non_const_di) < 4); __cuda_local_var_38681_7_non_const_di++)
+# 515 "test-kernel-words.cu"
+{
+# 516 "test-kernel-words.cu"
+((__cuda_local_var_38705_8_non_const_cached_hash_word)[__cuda_local_var_38681_7_non_const_di]) = ((__cuda_local_var_38693_8_non_const_word)[__cuda_local_var_38681_7_non_const_di]);
+# 517 "test-kernel-words.cu"
+}
+# 518 "test-kernel-words.cu"
+}
+# 519 "test-kernel-words.cu"
+}
+# 520 "test-kernel-words.cu"
+}
+# 521 "test-kernel-words.cu"
+}
+# 522 "test-kernel-words.cu"
+if (((int)((__cuda_local_var_38705_8_non_const_cached_hash_word)[0])) != 0)
+# 522 "test-kernel-words.cu"
+{
+# 523 "test-kernel-words.cu"
+for (__cuda_local_var_38681_7_non_const_di = ((char)0); (((int)__cuda_local_var_38681_7_non_const_di) < 4); __cuda_local_var_38681_7_non_const_di++)
+# 523 "test-kernel-words.cu"
+{
+# 524 "test-kernel-words.cu"
+(hash_word[__cuda_local_var_38681_7_non_const_di]) = ((__cuda_local_var_38705_8_non_const_cached_hash_word)[__cuda_local_var_38681_7_non_const_di]);
+# 525 "test-kernel-words.cu"
+}
+# 526 "test-kernel-words.cu"
+}
+# 527 "test-kernel-words.cu"
+} 
+# 527 "test-kernel-words.cu"
+}}
