@@ -1,11 +1,11 @@
 #include "md5.h"
-#include "main.h"
 #include <iostream>
 #include <cmath>
 #include <cstring>
 #include <cstdlib>
 #include <ctime>
 
+static char hash_str[32];
 static char hash[32];
 
 
@@ -61,8 +61,8 @@ void break_down_hash () {
   int dec1 = 0;
   int dec2 = 0;
   for (i = 0, j = 0; i < 32; i += 2, j++) {
-    dec1 = hex_to_decimal(hash[i]);
-    dec2 = hex_to_decimal(hash[i+1]);
+    dec1 = hex_to_decimal(hash_str[i]);
+    dec2 = hex_to_decimal(hash_str[i+1]);
     // fprintf(stdout, "dec1: %d\n", dec1);
     // fprintf(stdout, "dec2: %d\n", dec2);
     digest =  dec1 * 16 + dec2;
@@ -72,6 +72,9 @@ void break_down_hash () {
 }
 
 
+// Generate MD5 hash for |word|
+// Comparae the newly generated hash with the orginal hash we are trying to break
+// We do a memcmp to check if the hashes are equal
 int do_md5(const char* word) {
   char hex_output[16*2 + 1];
   int di;
@@ -83,14 +86,14 @@ int do_md5(const char* word) {
   md5_append(&state, (const md5_byte_t *)word, strlen(word));
   md5_finish(&state, digest);
   
-  if (!memcmp(digest, hash, sizeof(md5_byte_t) * 16)) {
-    return 1;
-  } else {
-    return 0;
-  }
+  return !memcmp(digest, hash, sizeof(md5_byte_t) * 16);
 }
 
-void create_md5_hash_str(const char* word, char* output) {
+
+// Create hash string for |word|
+// This is the hash string to the original hash we are trying to break
+// We use the hash string to create the 16 8bit hexadecinal chunks
+void create_md5_hash_str(const char* word) {
   char hex_output[16*2 + 1];
   int di;
 
@@ -102,7 +105,7 @@ void create_md5_hash_str(const char* word, char* output) {
   md5_finish(&state, digest);
   
   for (di = 0; di < 16; di++) {
-    sprintf(output + di * 2, "%02x", digest[di]); 
+    sprintf(hash_str + di * 2, "%02x", digest[di]); 
   }
 }
 
@@ -240,12 +243,22 @@ int main (int argc, char *argv[]) {
     printf("**invalid number of arguments**\n");
     return 1;
   }
-  char original_word[20];
-  strcpy(original_word, argv[1]);
 
-  create_md5_hash_str(original_word, hash);
-  fprintf(stdout, "original_word: %s\n", original_word);
-  fprintf(stdout, "hash to break: %s\n", hash);
+  // Generate a MD5 hash string for the word passed in as an arg
+  // The generated hash is the one we'll try to break
+  create_md5_hash_str(argv[1]);
+
+  fprintf(stdout, "original_word: %s\n", argv[1]);
+  fprintf(stdout, "hash to break: %s\n", hash_str);
+
+  // Split the MD5 hash into 16 8bit char chunks
+  // The idea is split the 32 bit char string into 16 chunks of 2 chars each
+  // Then convert the ASCII value of the pair of chars to their hexadecimal
+  // The reason being because when the MD5 hash is generated instead of creting a string
+  // the hash is outputed in 16 chunks of hexadecimal value
+  // So to increase the speed during comparasion we convert the hash we are trying to break to 16 chunks of hexadecimal
+  // values so when it comes the time to compare the generated hashes with the hash that we are tying to break
+  // we only need to issue a memcmp insetad of converting the bytes to a string and doing a strcmp
   break_down_hash();
   // fprintf(stdout, "hash to break: %s\n", hash);
 
