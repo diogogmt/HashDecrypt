@@ -1,0 +1,347 @@
+typedef struct md5_state_s {
+    md5_word_t count[2];	/* message length in bits, lsw first */
+    md5_word_t abcd[4];		/* digest buffer */
+    md5_byte_t buf[64];		/* accumulate block */
+} md5_state_t;
+
+
+
+
+First time md5_append is call the values are initialized
+
+
+Second time:
+count[0]
+-how many bits the string has( the word that it is being hashed)
+
+offset
+-how many bytes the string has
+
+nbytes
+-56 minus offset
+
+
+
+
+
+
+
+Some findings:
+
+The first time append is called process isn't run.
+first time append is call the offset is always going to be zero since pms->count[0] is initialized to 0, and the operation
+to get the offset is:
+int offset = (pms->count[0] >> 3) & 63;
+
+The other way md5_process could be call is if nbytes is bigger or equal 64
+nbytes equals to the number of bytes of the string that is being hash.
+so as long the string is less than 64 bytes md5_process won't be called.
+
+with that being said the first time append is called
+
+const md5_byte_t *p = data;
+int left = nbytes;
+int offset = (pms->count[0] >> 3) & 63;
+md5_word_t nbits = (md5_word_t)(nbytes << 3);
+
+// We don't need this check but we can keep it just for safety
+if (nbytes <= 0) {
+	return;
+}
+
+/* Update the message length. */
+pms->count[1] += nbytes >> 29;
+pms->count[0] += nbits;
+// this will only be true if count is negative
+// count can't be negative the first time since count is 0
+// so this statement is not needed
+if (pms->count[0] < nbits) {
+	pms->count[1]++;
+}
+
+// this wil always run since left equals to nbytes and nbytes will never be zero
+/* Process a final partial block. */
+if (left) {
+	memcpy(pms->buf, p, left);
+}
+
+Everything else can be removed only for the first time md5_apend is called
+AGAIN, ONLY FOR THE FIRST TIME
+
+
+
+
+
+
+Moving to the second time md5_append is called.
+md5_append is called from whitin md5_finish
+md5_append(pms, pad, ((55 - (pms->count[0] >> 3)) & 63) + 1);
+
+
+
+
+
+OK
+some mind fuck:
+
+Remeber that count[0] equals to number of bits in the string
+Assuming that the string had only 1 bytes, 8 bits
+
+the second time append is called:
+(55 - (pms->count[0] >> 3)) & 63) + 1
+
+count[0] = 8
+8 >> 3 = 1
+1 & 63 = 1
+55 - 1 = 54
+54 + 1 = 55
+
+With that being said, if the string had 2 bytes
+count[0] = 16
+16 >> 3 = 2
+2 & 63 = 2
+55 - 2 = 53
+54 + 1 = 54
+
+the  nbytes is 56 minues the length of the string
+
+OK, getting back to the md5_append:
+
+lets look at the values that will be initialized:
+int left = nbytes;
+int offset = (pms->count[0] >> 3) & 63;
+md5_word_t nbits = (md5_word_t)(nbytes << 3);
+
+left will be equal to 56 minues the length of the string
+offset will be equal to the length of the string
+nbits will be equal to 56 minues the length of the string times 8
+
+Lets check the code that will run:
+
+// this will never be true since nbytes will always be greater than zero
+// assuming the string alwasy have a value greater than zero
+if (nbytes <= 0) {
+return;
+}
+
+/* Update the message length. */
+pms->count[1] += nbytes >> 29;
+pms->count[0] += nbits;
+// since count is not negative count += nbits will not be less than nbits
+if (pms->count[0] < nbits) {
+pms->count[1]++;
+}
+
+
+// offset will always be true in this scenario, since it reflects how many chars the string has
+/* Process an initial partial block. */
+if (offset) {
+
+	// copy will awlays be less than 64 as long the string has 55 or less chars
+	// so copy will be equal to 56 minus the length of the string
+	int copy = (offset + nbytes > 64 ? 64 - offset : nbytes);
+	printf("copy: %d\n", copy);
+
+	memcpy(pms->buf + offset, p, copy);
+
+	// offset + copy is the same as offset + nbytes, which will always be 56 minus the string length
+	// so since offset is the string length, and copy is 56 minus the string length
+	// offst + copy will wlays be less than 64
+	// AGAIN, only if the string has less or equal 55 chars
+	if (offset + copy < 64) {
+	  return; 
+	}
+	// we can remove this code since it will return in the if above
+	p += copy;
+	left -= copy;
+	md5_process(pms, pms->buf);
+}
+
+// code will never reach here since it returned right above
+printf("left: %d\n", left);
+/* Process full blocks. */
+// left equals to nbytes, which is equal 56 minues the length od the string
+// this loop will never be entered
+for (; left >= 64; p += 64, left -= 64) {
+	md5_process(pms, p);
+}
+
+// code will never reach here since it returned right above
+/* Process a final partial block. */
+if (left) {
+memcpy(pms->buf, p, left);
+}
+
+
+Summarizing the code for the second md5_append call:
+
+const md5_byte_t *p = data;
+int left = nbytes;
+int offset = (pms->count[0] >> 3) & 63;
+md5_word_t nbits = (md5_word_t)(nbytes << 3);
+
+printf("nbytes: %d - nbits: %u - offest: %d - count[0]: %u - count[1]: %u\n",
+nbytes, nbits, offset, pms->count[0], pms->count[1]);
+
+/* Update the message length. */
+pms->count[1] += nbytes >> 29;
+pms->count[0] += nbits;
+
+/* Process an initial partial block. */
+int copy = (offset + nbytes > 64 ? 64 - offset : nbytes);
+// or
+int copy = nbytes
+
+memcpy(pms->buf + offset, p, copy);
+// or
+memcpy(pms->buf + offset, p, nbytes);
+
+
+
+
+Now moving to the last md5_append call
+
+md5_append(pms, data, 8);
+
+so looking at the value  that will be initialized:
+
+int left = nbytes;
+int offset = (pms->count[0] >> 3) & 63;
+md5_word_t nbits = (md5_word_t)(nbytes << 3);
+
+
+left will be equal to 8, since that's is set staticly
+
+to calculate offset we need to look at the first append iteration
+
+count[0] equals to the number of bits in the string
+
+the second time count[0] is added to nbits
+nbits equals to 56 minus the string length times 8
+
+if the string lenfth is 1
+56 - 1 = 55
+55 * 8 = 440
+
+so count[0] after the first append call is equal to 8
+after the second is equal to 448
+
+so offset will be equal to 448 / 8 = 56
+a bit and is performce with 56:
+56 & 63
+which will keep all the 56 bits on, so we actually don't need this.
+
+OK, gettgin back to the initializtion part:
+
+left equals to 8
+offset equals to ((string length * 8) / 8) + ((56 - string length) * 8) / 8
+-which looks like will always evalute to 56
+nbits equals to 8 times 8 equals 64
+
+
+
+Now looking at the code we can remove:
+
+// it will never be 0 since we set staticaly to 8, so literally we can remove this
+if (nbytes <= 0) {
+	return;
+}
+
+/* Update the message length. */
+pms->count[1] += nbytes >> 29;
+pms->count[0] += nbits;
+// again, count[0] is not negative so count[0] + nbits will not be less than nbits
+if (pms->count[0] < nbits) {
+	pms->count[1]++;
+}
+
+
+// offset will be true so this will alwasy run
+// it looks like offset will wlays be 56 as loing as the string length is equal or less to 55
+// so we can safely assume that this if will always evalute to true
+/* Process an initial partial block. */
+if (offset) {
+	// offset is always 56 and nbytes is staticly set to 8
+	// so 56 + 8 will not be more than 64
+	// so copy equals to nbytes which is equal to 64
+	int copy = (offset + nbytes > 64 ? 64 - offset : nbytes);
+	printf("copy: %d\n", copy);
+
+	memcpy(pms->buf + offset, p, copy);
+	// offset is 56 and copy is 64 so their addition it is biffer than 64
+	// we don't return
+	if (offset + copy < 64) {
+	  return; 
+	}
+
+	p += copy;
+	// left equals to 8 (we set staticaly)
+	// copy equals to 64
+	// left minus copy will be equal to -56
+	left -= copy;
+	md5_process(pms, pms->buf);
+}
+
+printf("left: %d\n", left);
+/* Process full blocks. */
+// left will be equals to -56
+// look at the code above
+// the loop will not run
+for (; left >= 64; p += 64, left -= 64) {
+md5_process(pms, p);
+}
+
+// left will be equal to -56
+// so the if will evaluate to true
+/* Process a final partial block. */
+if (left) {
+memcpy(pms->buf, p, left);
+}
+
+
+
+Sumarizing the code for the third md5_append run:
+
+
+
+const md5_byte_t *p = data;
+int left = nbytes;
+int offset = (pms->count[0] >> 3) & 63;
+md5_word_t nbits = (md5_word_t)(nbytes << 3);
+
+printf("nbytes: %d - nbits: %u - offest: %d - count[0]: %u - count[1]: %u\n",
+nbytes, nbits, offset, pms->count[0], pms->count[1]);
+
+
+/* Update the message length. */
+pms->count[1] += nbytes >> 29;
+pms->count[0] += nbits;
+
+/* Process an initial partial block. */
+int copy = nbytes);
+printf("copy: %d\n", copy);
+
+memcpy(pms->buf + offset, p, copy);
+
+p += copy;
+left -= copy;
+md5_process(pms, pms->buf);
+
+/* Process a final partial block. */
+memcpy(pms->buf, p, left);
+
+
+
+
+We'll definitely need tests for this
+
+We only need to test strings with a length up tp 32 just to be safe even though we are focusing
+in generate hashes of strings of up to 8 chars to get started
+
+
+
+
+
+
+
+

@@ -1,0 +1,345 @@
+
+Logs from 56 and 55
+
+Diogos-MacBook-Pro:profile diogogmt$ nvcc md5-cmp-mem.cpp md5.cpp 
+Diogos-MacBook-Pro:profile diogogmt$ 
+Diogos-MacBook-Pro:profile diogogmt$ time ./a.out %%%%
+main
+*md5_init
+*md5_append
+nbytes: 56 - offest: 0 - count[0]: 0 - count[1]: 0
+left: 56
+*md5_finish
+*md5_append
+nbytes: 64 - offest: 56 - count[0]: 448 - count[1]: 0
+copy: 8
+*md5_process
+left: 56
+*md5_append
+nbytes: 8 - offest: 56 - count[0]: 960 - count[1]: 0
+copy: 8
+*md5_process
+left: 0
+original_word: |12345678901234567890123456789012345678901234567890123456|
+hash to break: 49f193adce178490e34d1b3a4ec0064c
+
+real	0m0.011s
+user	0m0.008s
+sys	0m0.002s
+Diogos-MacBook-Pro:profile diogogmt$ nvcc md5-cmp-mem.cpp md5.cpp 
+Diogos-MacBook-Pro:profile diogogmt$ time ./a.out %%%%
+main
+*md5_init
+*md5_append
+nbytes: 55 - offest: 0 - count[0]: 0 - count[1]: 0
+left: 55
+*md5_finish
+*md5_append
+nbytes: 1 - offest: 55 - count[0]: 440 - count[1]: 0
+copy: 1
+*md5_append
+nbytes: 8 - offest: 56 - count[0]: 448 - count[1]: 0
+copy: 8
+*md5_process
+left: 0
+original_word: |1234567890123456789012345678901234567890123456789012345|
+hash to break: c9ccf168914a1bcfc3229f1948e67da0
+
+real	0m0.010s
+user	0m0.007s
+sys	0m0.002s
+Diogos-MacBook-Pro:profile diogogmt$ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Logs of 100 and 60
+======================================
+
+Diogos-MacBook-Pro:profile diogogmt$ nvcc md5-cmp-mem.cpp md5.cpp 
+Diogos-MacBook-Pro:profile diogogmt$ time ./a.out %%%%
+main
+*md5_init
+*md5_append
+nbytes: 90 - offest: 0 - count[0]: 0 - count[1]: 0
+left: 90
+*md5_process
+*md5_finish
+*md5_append
+nbytes: 30 - offest: 26 - count[0]: 720 - count[1]: 0
+*md5_append
+nbytes: 8 - offest: 56 - count[0]: 960 - count[1]: 0
+*md5_process
+left: 0
+original_word: |123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890|
+hash to break: ee7b685ab0788a2ae7be068ca39f114e
+
+real	0m0.012s
+user	0m0.008s
+sys	0m0.003s
+Diogos-MacBook-Pro:profile diogogmt$ nvcc md5-cmp-mem.cpp md5.cpp 
+Diogos-MacBook-Pro:profile diogogmt$ time ./a.out %%%%
+main
+*md5_init
+*md5_append
+nbytes: 60 - offest: 0 - count[0]: 0 - count[1]: 0
+left: 60
+*md5_finish
+*md5_append
+nbytes: 60 - offest: 60 - count[0]: 480 - count[1]: 0
+*md5_process
+left: 56
+*md5_append
+nbytes: 8 - offest: 56 - count[0]: 960 - count[1]: 0
+*md5_process
+left: 0
+original_word: |123456789012345678901234567890123456789012345678901234567890|
+hash to break: c5b549377c826cc3712418b064fc417e
+
+real	0m0.011s
+user	0m0.008s
+sys	0m0.002s
+Diogos-MacBook-Pro:profile diogogmt$ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+md5_append(pms, pad, ((55 - (pms->count[0] >> 3)) & 63) + 1);
+
+
+
+
+
+
+Logs from 1 - 9
+======================================================================
+
+Diogos-MacBook-Pro:profile diogogmt$ time ./a.out 1
+main
+*md5_init
+*md5_append
+nbytes: 1 - nbits: 8 - offest: 0 - count[0]: 0 - count[1]: 0
+left: 1
+*md5_finish
+*md5_append
+nbytes: 55 - nbits: 440 - offest: 1 - count[0]: 8 - count[1]: 0
+copy: 55
+*md5_append
+nbytes: 8 - nbits: 64 - offest: 56 - count[0]: 448 - count[1]: 0
+copy: 8
+*md5_process
+left: 0
+original_word: |1|
+hash to break: c4ca4238a0b923820dcc509a6f75849b
+
+real	0m0.009s
+user	0m0.006s
+sys	0m0.002s
+Diogos-MacBook-Pro:profile diogogmt$ time ./a.out 12
+main
+*md5_init
+*md5_append
+nbytes: 2 - nbits: 16 - offest: 0 - count[0]: 0 - count[1]: 0
+left: 2
+*md5_finish
+*md5_append
+nbytes: 54 - nbits: 432 - offest: 2 - count[0]: 16 - count[1]: 0
+copy: 54
+*md5_append
+nbytes: 8 - nbits: 64 - offest: 56 - count[0]: 448 - count[1]: 0
+copy: 8
+*md5_process
+left: 0
+original_word: |12|
+hash to break: c20ad4d76fe97759aa27a0c99bff6710
+
+real	0m0.010s
+user	0m0.007s
+sys	0m0.002s
+Diogos-MacBook-Pro:profile diogogmt$ time ./a.out 123
+main
+*md5_init
+*md5_append
+nbytes: 3 - nbits: 24 - offest: 0 - count[0]: 0 - count[1]: 0
+left: 3
+*md5_finish
+*md5_append
+nbytes: 53 - nbits: 424 - offest: 3 - count[0]: 24 - count[1]: 0
+copy: 53
+*md5_append
+nbytes: 8 - nbits: 64 - offest: 56 - count[0]: 448 - count[1]: 0
+copy: 8
+*md5_process
+left: 0
+original_word: |123|
+hash to break: 202cb962ac59075b964b07152d234b70
+
+real	0m0.010s
+user	0m0.007s
+sys	0m0.002s
+Diogos-MacBook-Pro:profile diogogmt$ time ./a.out 1234
+main
+*md5_init
+*md5_append
+nbytes: 4 - nbits: 32 - offest: 0 - count[0]: 0 - count[1]: 0
+left: 4
+*md5_finish
+*md5_append
+nbytes: 52 - nbits: 416 - offest: 4 - count[0]: 32 - count[1]: 0
+copy: 52
+*md5_append
+nbytes: 8 - nbits: 64 - offest: 56 - count[0]: 448 - count[1]: 0
+copy: 8
+*md5_process
+left: 0
+original_word: |1234|
+hash to break: 81dc9bdb52d04dc20036dbd8313ed055
+
+real	0m0.010s
+user	0m0.007s
+sys	0m0.002s
+Diogos-MacBook-Pro:profile diogogmt$ time ./a.out 12345
+main
+*md5_init
+*md5_append
+nbytes: 5 - nbits: 40 - offest: 0 - count[0]: 0 - count[1]: 0
+left: 5
+*md5_finish
+*md5_append
+nbytes: 51 - nbits: 408 - offest: 5 - count[0]: 40 - count[1]: 0
+copy: 51
+*md5_append
+nbytes: 8 - nbits: 64 - offest: 56 - count[0]: 448 - count[1]: 0
+copy: 8
+*md5_process
+left: 0
+original_word: |12345|
+hash to break: 827ccb0eea8a706c4c34a16891f84e7b
+
+real	0m0.008s
+user	0m0.006s
+sys	0m0.002s
+Diogos-MacBook-Pro:profile diogogmt$ time ./a.out 123456
+main
+*md5_init
+*md5_append
+nbytes: 6 - nbits: 48 - offest: 0 - count[0]: 0 - count[1]: 0
+left: 6
+*md5_finish
+*md5_append
+nbytes: 50 - nbits: 400 - offest: 6 - count[0]: 48 - count[1]: 0
+copy: 50
+*md5_append
+nbytes: 8 - nbits: 64 - offest: 56 - count[0]: 448 - count[1]: 0
+copy: 8
+*md5_process
+left: 0
+original_word: |123456|
+hash to break: e10adc3949ba59abbe56e057f20f883e
+
+real	0m0.011s
+user	0m0.008s
+sys	0m0.002s
+Diogos-MacBook-Pro:profile diogogmt$ time ./a.out 1234567
+main
+*md5_init
+*md5_append
+nbytes: 7 - nbits: 56 - offest: 0 - count[0]: 0 - count[1]: 0
+left: 7
+*md5_finish
+*md5_append
+nbytes: 49 - nbits: 392 - offest: 7 - count[0]: 56 - count[1]: 0
+copy: 49
+*md5_append
+nbytes: 8 - nbits: 64 - offest: 56 - count[0]: 448 - count[1]: 0
+copy: 8
+*md5_process
+left: 0
+original_word: |1234567|
+hash to break: fcea920f7412b5da7be0cf42b8c93759
+
+real	0m0.008s
+user	0m0.006s
+sys	0m0.002s
+Diogos-MacBook-Pro:profile diogogmt$ time ./a.out 12345678
+main
+*md5_init
+*md5_append
+nbytes: 8 - nbits: 64 - offest: 0 - count[0]: 0 - count[1]: 0
+left: 8
+*md5_finish
+*md5_append
+nbytes: 48 - nbits: 384 - offest: 8 - count[0]: 64 - count[1]: 0
+copy: 48
+*md5_append
+nbytes: 8 - nbits: 64 - offest: 56 - count[0]: 448 - count[1]: 0
+copy: 8
+*md5_process
+left: 0
+original_word: |12345678|
+hash to break: 25d55ad283aa400af464c76d713c07ad
+
+real	0m0.009s
+user	0m0.006s
+sys	0m0.002s
+Diogos-MacBook-Pro:profile diogogmt$ time ./a.out 123456789
+main
+*md5_init
+*md5_append
+nbytes: 9 - nbits: 72 - offest: 0 - count[0]: 0 - count[1]: 0
+left: 9
+*md5_finish
+*md5_append
+nbytes: 47 - nbits: 376 - offest: 9 - count[0]: 72 - count[1]: 0
+copy: 47
+*md5_append
+nbytes: 8 - nbits: 64 - offest: 56 - count[0]: 448 - count[1]: 0
+copy: 8
+*md5_process
+left: 0
+original_word: |123456789|
+hash to break: 25f9e794323b453885f5181f1b624d0b
+
+real	0m0.011s
+user	0m0.008s
+sys	0m0.002s
+Diogos-MacBook-Pro:profile diogogmt$ 
