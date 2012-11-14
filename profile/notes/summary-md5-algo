@@ -35,7 +35,7 @@ int offset = (pms->count[0] >> 3) & 63;
 
 The other way md5_process could be call is if nbytes is bigger or equal 64
 nbytes equals to the number of bytes of the string that is being hash.
-so as long the string is less than 64 bytes md5_process won't be called.
+so as long the string is less than 64 bytes md5_process wont be called.
 
 with that being said the first time append is called
 
@@ -67,6 +67,27 @@ if (left) {
 
 Everything else can be removed only for the first time md5_apend is called
 AGAIN, ONLY FOR THE FIRST TIME
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------
+
+
+
+
+
+
+
 
 
 
@@ -199,6 +220,25 @@ memcpy(pms->buf + offset, p, nbytes);
 
 
 
+
+
+
+
+
+---------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
 Now moving to the last md5_append call
 
 md5_append(pms, data, 8);
@@ -210,7 +250,7 @@ int offset = (pms->count[0] >> 3) & 63;
 md5_word_t nbits = (md5_word_t)(nbytes << 3);
 
 
-left will be equal to 8, since that's is set staticly
+left will be equal to 8, since thats is set staticly
 
 to calculate offset we need to look at the first append iteration
 
@@ -229,7 +269,7 @@ after the second is equal to 448
 so offset will be equal to 448 / 8 = 56
 a bit and is performce with 56:
 56 & 63
-which will keep all the 56 bits on, so we actually don't need this.
+which will keep all the 56 bits on, so we actually dont need this.
 
 OK, gettgin back to the initializtion part:
 
