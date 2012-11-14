@@ -18,6 +18,8 @@ int do_md5(const md5_byte_t* word, char* hash) {
   md5_byte_t digest[16];  
 
   md5_init(&state);
+
+
   // BEGIN md5_append 1
     // md5_append(&state, (const md5_byte_t *)word, strlen(word));
     md5_byte_t nbytes = strlen((char*)word);
@@ -31,6 +33,8 @@ int do_md5(const md5_byte_t* word, char* hash) {
     /* Process a final partial block. */
     memcpy(state.buf, word, nbytes);
   // END md5_append 1
+
+
 
   // BEGIN md5_finish  
     // md5_finish(&state, digest);
@@ -47,6 +51,8 @@ int do_md5(const md5_byte_t* word, char* hash) {
     for (i = 0; i < 8; ++i) {
       data[i] = (md5_byte_t)(state.count[i >> 2] >> ((i & 3) << 3));
     }
+
+
 
     /* Pad to 56 bytes mod 64. */
     // BEGIN md5_append 2
@@ -67,9 +73,34 @@ int do_md5(const md5_byte_t* word, char* hash) {
       memcpy(state.buf + offset, pad, copy);
     // END md5_append 2
 
-    /* Append the length. */
-    md5_append(&state, data, 8);
 
+
+    /* Append the length. */
+    // BEGIN md5_append 3
+      // md5_append(&state, data, 8);
+      const md5_byte_t *p = data;
+      nbytes = 8;
+      int left = nbytes;
+      offset = (state.count[0] >> 3) & 63; // equals to ((string length * 8) / 8) + ((56 - string length) * 8) / 8
+      nbits = (md5_word_t)(nbytes << 3);
+
+      /* Update the message length. */
+      state.count[1] += nbytes >> 29;
+      state.count[0] += nbits;
+
+      /* Process an initial partial block. */
+      copy = nbytes;
+
+      memcpy(state.buf + offset, p, copy);
+
+      p += copy;
+      left -= copy;
+      md5_process(&state, state.buf);
+
+      /* Process a final partial block. */
+      memcpy(state.buf, p, left);
+
+    // END md5_append 3
     for (i = 0; i < 16; ++i) {
       digest[i] = (md5_byte_t)(state.abcd[i >> 2] >> ((i & 3) << 3));
     }

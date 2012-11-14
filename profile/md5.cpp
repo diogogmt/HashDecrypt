@@ -129,9 +129,9 @@
 #define T64 /* 0xeb86d391 */ (T_MASK ^ 0x14792c6e)
 
 
-static void
+void
 md5_process(md5_state_t *pms, const md5_byte_t *data /*[64]*/) {
-  printf("*md5_process\n");
+  //printf("*md5_process\n");
   md5_word_t a = pms->abcd[0], b = pms->abcd[1], c = pms->abcd[2], d = pms->abcd[3];
   md5_word_t t;
 
@@ -290,7 +290,7 @@ md5_process(md5_state_t *pms, const md5_byte_t *data /*[64]*/) {
 
 void
 md5_init(md5_state_t *pms) {
-  printf("*md5_init\n");
+  //printf("*md5_init\n");
   pms->count[0] = pms->count[1] = 0;
   pms->abcd[0] = 0x67452301;
   pms->abcd[1] = /*0xefcdab89*/ T_MASK ^ 0x10325476;
@@ -300,14 +300,14 @@ md5_init(md5_state_t *pms) {
 
 void
 md5_append(md5_state_t *pms, const md5_byte_t *data, int nbytes) {
-  printf("*md5_append\n");
+  //printf("*md5_append\n");
   const md5_byte_t *p = data;
   int left = nbytes;
   int offset = (pms->count[0] >> 3) & 63;
   md5_word_t nbits = (md5_word_t)(nbytes << 3);
 
-  printf("nbytes: %d - nbits: %u - offest: %d - count[0]: %u - count[1]: %u\n",
-    nbytes, nbits, offset, pms->count[0], pms->count[1]);
+  //printf("nbytes: %d - nbits: %u - offest: %d - count[0]: %u - count[1]: %u\n",
+    // nbytes, nbits, offset, pms->count[0], pms->count[1]);
 
   if (nbytes <= 0) {
     return;
@@ -324,7 +324,7 @@ md5_append(md5_state_t *pms, const md5_byte_t *data, int nbytes) {
   /* Process an initial partial block. */
   if (offset) {
     int copy = (offset + nbytes > 64 ? 64 - offset : nbytes);
-    printf("copy: %d\n", copy);
+    //printf("copy: %d\n", copy);
 
     memcpy(pms->buf + offset, p, copy);
     if (offset + copy < 64) {
@@ -335,7 +335,7 @@ md5_append(md5_state_t *pms, const md5_byte_t *data, int nbytes) {
     md5_process(pms, pms->buf);
   }
 
-  printf("left: %d\n", left);
+  //printf("left: %d\n", left);
   /* Process full blocks. */
   for (; left >= 64; p += 64, left -= 64) {
     md5_process(pms, p);
@@ -349,7 +349,7 @@ md5_append(md5_state_t *pms, const md5_byte_t *data, int nbytes) {
 
 void
 md5_finish(md5_state_t *pms, md5_byte_t digest[16]) {
-  printf("*md5_finish\n");
+  //printf("*md5_finish\n");
   static const md5_byte_t pad[64] = {
     0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
