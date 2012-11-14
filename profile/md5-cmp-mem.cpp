@@ -26,6 +26,7 @@ int hex_to_decimal (char c);
 // Comparae the newly generated hash with the orginal hash we are trying to break
 // We do a memcmp to check if the hashes are equal
 int do_md5(const char* word, md5_byte_t* hash) {
+  printf("\n\n\ndo_md5\n");
   char hex_output[16*2 + 1];
   int di;
 
@@ -54,12 +55,23 @@ int main (int argc, char *argv[]) {
   char hash_str[32];
   md5_byte_t hash[16];
 
+  char tmp_word[5];
+  tmp_word[0] = (char) 33;
+  tmp_word[1] = (char) 33;
+  tmp_word[2] = (char) 33;
+  tmp_word[3] = (char) 33;
+  tmp_word[4] = (char) 0;
+
+
+  char tmp_word2[100];
+  strcpy(tmp_word2, argv[1]);
+
   // Generate a MD5 hash string for the word passed in as an arg
   // The generated hash is the one we'll try to break
-  create_md5_hash_str(argv[1], hash_str);
+  create_md5_hash_str(tmp_word2, hash_str);
 
 
-  fprintf(stdout, "original_word: %s\n", argv[1]);
+  fprintf(stdout, "original_word: |%s|\n", tmp_word2);
   fprintf(stdout, "hash to break: %s\n", hash_str);
 
   // Split the MD5 hash into 16 8bit char chunks
@@ -72,6 +84,7 @@ int main (int argc, char *argv[]) {
   // we only need to issue a memcmp insetad of converting the bytes to a string and doing a strcmp
   break_down_hash(hash, hash_str);
 
+  return 1;
 
   try_to_break_hash(hash);
 
@@ -109,7 +122,7 @@ void try_to_break_hash (md5_byte_t *hash) {
           word[3] = (char) i_3;
           if (do_md5(word, hash)) {
             printf("Broke hash!\n");
-            printf("word: %c%c%c%c\n", word[0], word[1], word[2], word[3]);
+            printf("word: |%c%c%c%c|\n", word[0], word[1], word[2], word[3]);
             return;
           }
         } // END Loop 3
