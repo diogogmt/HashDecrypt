@@ -95,6 +95,15 @@ int do_md5(const md5_byte_t* word, char* hash) {
 
       p += copy;
       left -= copy;
+      // Test new state.buf
+      md5_byte_t tmp_zero = 0;
+      memcpy(state.buf, word, strlen((char*)word));
+      memset(state.buf + strlen((char*)word), 0x80, 1);
+      memset(state.buf + strlen((char*)word) + 1, 0, 55 - strlen((char*) word));
+      // memcpy(state.buf + strlen((char*)word), pad, 56 - strlen((char*) word));
+
+
+      //
       md5_process(&state, state.buf);
 
       /* Process a final partial block. */
@@ -158,6 +167,7 @@ void gen_hashes (char** hash_table) {
       word[j] = (char) 97;
     }
     word[j] = (char) 0;
+    printf("i: %d - word: %s\n", i, word);
     if (!do_md5(word, hash_table[i])) {
       fails++;
     }
