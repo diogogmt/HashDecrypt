@@ -5,8 +5,18 @@
 #include <cstdlib>
 #include <ctime>
 
+int do_md5 (md5_byte_t* word, md5_byte_t* hash);
+
+
+
+void gen_hashes (md5_byte_t *hash);
+void create_md5_hash_str (const char *word, char *hash_str);
+void break_down_hash (md5_byte_t *hash, char *hash_str);
+int hex_to_decimal (char c);
+
 
 #define T_MASK ((md5_word_t)~0)
+
 #define T1 /* 0xd76aa478 */ (T_MASK ^ 0x28955b87)
 #define T2 /* 0xe8c7b756 */ (T_MASK ^ 0x173848a9)
 #define T3    0x242070db
@@ -72,13 +82,8 @@
 #define T63    0x2ad7d2bb
 #define T64 /* 0xeb86d391 */ (T_MASK ^ 0x14792c6e)
 
-int do_md5 (const md5_byte_t* word, int index);
-void gen_hashes (char** hash_table);
-void init (char** hash_table);
 
-#define STR_SIZE 4
-
-int do_md5(const md5_byte_t* word, char* hash) {
+int do_md5(md5_byte_t* word, md5_byte_t* hash) {
   char output[33];
   int di;
   int it;
@@ -285,20 +290,8 @@ int do_md5(const md5_byte_t* word, char* hash) {
   digest[13] = (md5_byte_t)(d >> 8);
   digest[14] = (md5_byte_t)(d >> 16);
   digest[15] = (md5_byte_t)(d >> 24);
-
-
-  // digest[i] = (md5_byte_t)(pms->abcd[i >> 2] >> ((i & 3) << 3));
-
-  for (di = 0; di < 16; di++) {
-    sprintf(output + di * 2, "%02x", digest[di]); 
-  }
-
-  if (strcmp(output, hash)) {
-    printf("hash for word(%d) |%s| should be %s but got %s\n\n", (int) strlen((char*) word), word, hash, output);
-    return 0;
-  }
-  // printf("hash: %s\n", output);
-  return 1;
+  
+  return !memcmp(digest, hash, sizeof(md5_byte_t) * 16);
 }
 
 
@@ -306,170 +299,153 @@ int do_md5(const md5_byte_t* word, char* hash) {
 
 
 int main (int argc, char *argv[]) {
-  printf("main\n");
+  fprintf(stdout, "main\n");
 
-  char** hash_table;
-  int i;
-  hash_table = (char**) malloc(sizeof(char*) * 60);
-
-  for (i = 0; i < 60; i++) {
-    hash_table[i] = (char*) malloc(sizeof(char) * 60 + 1);
-  } // END loop 0
-
-  init(hash_table);
-  gen_hashes(hash_table);
-
-  for (i = 0; i < 60; i++) { 
-    free(hash_table[i]);
+  if (argc != 2) {
+    printf("**invalid number of arguments**\n");
+    return 1;
   }
-  free(hash_table);
+
+  char hash_str[32];
+  md5_byte_t hash[16];
+
+  // Generate a MD5 hash string for the word passed in as an arg
+  // The generated hash is the one we'll try to break
+  create_md5_hash_str(argv[1], hash_str);
+
+
+  fprintf(stdout, "original_word: |%s|\n", argv[1]);
+  fprintf(stdout, "hash to break: %s\n", hash_str);
+
+  // Split the MD5 hash into 16 8bit char chunks
+  // The idea is split the 32 bit char string into 16 chunks of 2 chars each
+  // Then convert the ASCII value of the pair of chars to their hexadecimal
+  // The reason being because when the MD5 hash is generated instead of creting a string
+  // the hash is outputed in 16 chunks of hexadecimal value
+  // So to increase the speed during comparasion we convert the hash we are trying to break to 16 chunks of hexadecimal
+  // values so when it comes the time to compare the generated hashes with the hash that we are tying to break
+  // we only need to issue a memcmp insetad of converting the bytes to a string and doing a strcmp
+  break_down_hash(hash, hash_str);
+
+  gen_hashes(hash);
 
   return 1;
 }
 
 
 
-void gen_hashes (char** hash_table) {
+void gen_hashes (md5_byte_t *hash) {
   printf("gen_hashes\n");
 
-  md5_byte_t word[61];
-  int i, j;
-  int fails = 0;
+  md5_byte_t word[4];
+  word[0] = (char) 32;
+  word[1] = (char) 32;
+  word[2] = (char) 32;
+  word[3] = (char) 32;
+  int i_0, i_1, i_2, i_3;
 
-  for (i = 0; i < 60; i++) {
-    for (j = 0; j < i; j++) {
-      word[j] = (char) 97;
-    }
-    word[j] = (char) 0;
-    printf("\n\ni: %d - word: %s\n", i, word);
-    if (!do_md5(word, hash_table[i])) {
-      fails++;
-    }
+ for (i_0 = 32; i_0 < 127; i_0++) {
+    word[0] = (char) i_0;
+    for (i_1 = 32; i_1 < 127; i_1++) {
+      word[1] = (char) i_1;
+      for (i_2 = 32; i_2 < 127; i_2++) {
+        word[2] = (char) i_2;
+        for (i_3 = 32; i_3 < 127; i_3++) {
+          word[3] = (char) i_3;
+          if (do_md5(word, hash)) {
+            printf("Broke hash!\n");
+            printf("word: |%c%c%c%c|\n", word[0], word[1], word[2], word[3]);
+            return;
+          }
+        } // END Loop 3
+      } // END Loop 2
+    } // END Loop 1
   } // END loop 0
-  printf("total fails: %d\n", fails);
 }
 
 
-void init (char** hash_table) {
-  printf("init\n");
 
-  strcpy(hash_table[0], "d41d8cd98f00b204e9800998ecf8427e"); 
 
-  strcpy(hash_table[1], "0cc175b9c0f1b6a831c399e269772661"); 
 
-  strcpy(hash_table[2], "4124bc0a9335c27f086f24ba207a4912"); 
 
-  strcpy(hash_table[3], "47bce5c74f589f4867dbd57e9ca9f808"); 
 
-  strcpy(hash_table[4], "74b87337454200d4d33f80c4663dc5e5"); 
+// Create hash string for |word|
+// This is the hash string to the original hash we are trying to break
+// We use the hash string to create the 16 8bit hexadecinal chunks
+void create_md5_hash_str(const char* word, char* hash_str) {
+  char hex_output[16*2 + 1];
+  int di;
 
-  strcpy(hash_table[5], "594f803b380a41396ed63dca39503542"); 
+  md5_state_t state;
+  md5_byte_t digest[16];  
 
-  strcpy(hash_table[6], "0b4e7a0e5fe84ad35fb5f95b9ceeac79"); 
-
-  strcpy(hash_table[7], "5d793fc5b00a2348c3fb9ab59e5ca98a"); 
-
-  strcpy(hash_table[8], "3dbe00a167653a1aaee01d93e77e730e"); 
-
-  strcpy(hash_table[9], "552e6a97297c53e592208cf97fbb3b60"); 
-
-  strcpy(hash_table[10], "e09c80c42fda55f9d992e59ca6b3307d"); 
-
-  strcpy(hash_table[11], "d57f21e6a273781dbf8b7657940f3b03"); 
-
-  strcpy(hash_table[12], "45e4812014d83dde5666ebdf5a8ed1ed"); 
-
-  strcpy(hash_table[13], "c162de19c4c3731ca3428769d0cd593d"); 
-
-  strcpy(hash_table[14], "451599a5f9afa91a0f2097040a796f3d"); 
-
-  strcpy(hash_table[15], "12f9cf6998d52dbe773b06f848bb3608"); 
-
-  strcpy(hash_table[16], "23ca472302f49b3ea5592b146a312da0"); 
-
-  strcpy(hash_table[17], "88e42e96cc71151b6e1938a1699b0a27"); 
-
-  strcpy(hash_table[18], "2c60c24e7087e18e45055a33f9a5be91"); 
-
-  strcpy(hash_table[19], "639d76897485360b3147e66e0a8a3d6c"); 
-
-  strcpy(hash_table[20], "22d42eb002cefa81e9ad604ea57bc01d"); 
-
-  strcpy(hash_table[21], "bd049f221af82804c5a2826809337c9b"); 
-
-  strcpy(hash_table[22], "ff49cfac3968dbce26ebe7d4823e58bd"); 
-
-  strcpy(hash_table[23], "d95dbfee231e34cccb8c04444412ed7d"); 
-
-  strcpy(hash_table[24], "40edae4bad0e5bf6d6c2dc5615a86afb"); 
-
-  strcpy(hash_table[25], "a5a8bfa3962f49330227955e24a2e67c"); 
-
-  strcpy(hash_table[26], "ae791f19bdf77357ff10bb6b0e97e121"); 
-
-  strcpy(hash_table[27], "aaab9c59a88bf0bdfcb170546c5459d6"); 
-
-  strcpy(hash_table[28], "b0f0545856af1a340acdedce23c54b97"); 
-
-  strcpy(hash_table[29], "f7ce3d7d44f3342107d884bfa90c966a"); 
-
-  strcpy(hash_table[30], "59e794d45697b360e18ba972bada0123"); 
-
-  strcpy(hash_table[31], "3b0845db57c200be6052466f87b2198a"); 
-
-  strcpy(hash_table[32], "5eca9bd3eb07c006cd43ae48dfde7fd3"); 
-
-  strcpy(hash_table[33], "b4f13cb081e412f44e99742cb128a1a5"); 
-
-  strcpy(hash_table[34], "4c660346451b8cf91ef50f4634458d41"); 
-
-  strcpy(hash_table[35], "11db24dc3f6c2145701db08625dd6d76"); 
-
-  strcpy(hash_table[36], "80dad3aad8584778352c68ab06250327"); 
-
-  strcpy(hash_table[37], "1227fe415e79db47285cb2689c93963f"); 
-
-  strcpy(hash_table[38], "8e084f489f1bdf08c39f98ff6447ce6d"); 
-
-  strcpy(hash_table[39], "08b2f2b0864bac1ba1585043362cbec9"); 
-
-  strcpy(hash_table[40], "4697843037d962f62a5a429e611e0f5f"); 
-
-  strcpy(hash_table[41], "10c4da18575c092b486f8ab96c01c02f"); 
-
-  strcpy(hash_table[42], "af205d729450b663f48b11d839a1c8df"); 
-
-  strcpy(hash_table[43], "0d3f91798fac6ee279ec2485b25f1124"); 
-
-  strcpy(hash_table[44], "4c3c7c067634daec9716a80ea886d123"); 
-
-  strcpy(hash_table[45], "d1e358e6e3b707282cdd06e919f7e08c"); 
-
-  strcpy(hash_table[46], "8c6ded4f0af86e0a7e301f8a716c4363"); 
-
-  strcpy(hash_table[47], "4c2d8bcb02d982d7cb77f649c0a2dea8"); 
-
-  strcpy(hash_table[48], "bdb662f765cd310f2a547cab1cfecef6"); 
-
-  strcpy(hash_table[49], "08ff5f7301d30200ab89169f6afdb7af"); 
-
-  strcpy(hash_table[50], "6eb6a030bcce166534b95bc2ab45d9cf"); 
-
-  strcpy(hash_table[51], "1bb77918e5695c944be02c16ae29b25e"); 
-
-  strcpy(hash_table[52], "b6fe77c19f0f0f4946c761d62585bfea"); 
-
-  strcpy(hash_table[53], "e9e7e260dce84ffa6e0e7eb5fd9d37fc"); 
-
-  strcpy(hash_table[54], "eced9e0b81ef2bba605cbc5e2e76a1d0"); 
-
-  strcpy(hash_table[55], "ef1772b6dff9a122358552954ad0df65"); 
-
-  strcpy(hash_table[56], "3b0c8ac703f828b04c6c197006d17218"); 
-
-  strcpy(hash_table[57], "652b906d60af96844ebd21b674f35e93"); 
-
-  strcpy(hash_table[58], "dc2f2f2462a0d72358b2f99389458606"); 
-
-  strcpy(hash_table[59], "762fc2665994b217c52c3c2eb7d9f406");
+  md5_init(&state);
+  md5_append(&state, (const md5_byte_t *)word, strlen(word));
+  md5_finish(&state, digest);
+  
+  for (di = 0; di < 16; di++) {
+    sprintf(hash_str + di * 2, "%02x", digest[di]); 
+  }
 }
+
+void break_down_hash (md5_byte_t* hash, char* hash_str) {
+  int i, j;
+  int digest = 0;
+  int dec1 = 0;
+  int dec2 = 0;
+  for (i = 0, j = 0; i < 32; i += 2, j++) {
+    dec1 = hex_to_decimal(hash_str[i]);
+    dec2 = hex_to_decimal(hash_str[i+1]);
+    // fprintf(stdout, "dec1: %d\n", dec1);
+    // fprintf(stdout, "dec2: %d\n", dec2);
+    digest =  dec1 * 16 + dec2;
+    hash[j] = digest;
+    // fprintf(stdout, "i %d - digest: %d\n", i, digest);
+  }
+}
+
+int hex_to_decimal (char c) {
+  switch (c) {
+    case '0':
+      return 0;
+    case '1':
+      return 1;
+    case '2':
+      return 2;
+    case '3':
+      return 3;
+    case '4':
+      return 4;
+    case '5':
+      return 5;
+    case '6':
+      return 6;
+    case '7':
+      return 7;
+    case '8':
+      return 8;
+    case '9':
+      return 9;
+    case 'a':
+    case 'A':
+      return 10;
+    case 'b':
+    case 'B':
+      return 11;
+    case 'c':
+    case 'C':
+      return 12;
+    case 'd':
+    case 'D':
+      return 13;
+    case 'e':
+    case 'E':
+      return 14;
+    case 'f':
+    case 'F':
+      return 15;
+    default:
+      fprintf(stdout, "FAILED to get convert %c to decimal\n", c);
+  }
+}
+
