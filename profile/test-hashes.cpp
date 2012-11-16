@@ -47,12 +47,26 @@ int do_md5(const md5_byte_t* word, char* hash) {
     md5_byte_t data[8];
     int i;
 
-    /* Save the length before padding. */
-    for (i = 0; i < 8; ++i) {
+    // /* Save the length before padding. */
+    // for (i = 0; i < 8; ++i) {
+    //   data[i] = (md5_byte_t)(state.count[i >> 2] >> ((i & 3) << 3));
+    //   printf("i: %d - count[%d]: %d\n", i, i >> 2, state.count[i >> 2]);
+    //   printf("data[%d]: %d\n", i, data[i]);
+    // }
+
+    for (i = 0; i < 2; ++i) {
       data[i] = (md5_byte_t)(state.count[i >> 2] >> ((i & 3) << 3));
     }
+    data[2] = 0;
+    data[3] = 0;
+    data[4] = 0;
+    data[5] = 0;
+    data[6] = 0;
+    data[7] = 0;
 
-
+    for (i = 0; i < 8; ++i) {
+      printf("data[%d]: %d\n", i, data[i]);
+    }
 
     /* Pad to 56 bytes mod 64. */
     // BEGIN md5_append 2
@@ -64,7 +78,7 @@ int do_md5(const md5_byte_t* word, char* hash) {
       nbits = (md5_word_t)(nbytes << 3);
 
       /* Update the message length. */
-      state.count[1] += nbytes >> 29;
+      state.count[1] += nbytes >> 92;
       state.count[0] += nbits;
 
       /* Process an initial partial block. */
@@ -167,7 +181,7 @@ void gen_hashes (char** hash_table) {
       word[j] = (char) 97;
     }
     word[j] = (char) 0;
-    printf("i: %d - word: %s\n", i, word);
+    printf("\n\ni: %d - word: %s\n", i, word);
     if (!do_md5(word, hash_table[i])) {
       fails++;
     }
