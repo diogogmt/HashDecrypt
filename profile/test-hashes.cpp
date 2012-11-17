@@ -142,63 +142,30 @@ int do_md5(const md5_byte_t* word, char* hash) {
   /* data are properly aligned */
   X = (const md5_word_t *)buf;
 
-  #define ROTATE_LEFT(x, n) (((x) << (n)) | ((x) >> (32 - (n))))
 
   /* Round 1. */
   /* Let [abcd k s i] denote the operation
      a = b + ((a + F(b,c,d) + X[k] + T[i]) <<< s).
   */
-  #define F(x, y, z) (((x) & (y)) | (~(x) & (z)))
-  #define SET(a, b, c, d, k, s, Ti)\
-    t = a + F(b,c,d) + X[k] + Ti;\
-    a = ROTATE_LEFT(t, s) + b
-
   /* Do the following 16 operations. */
-
-
-
-  // SET(a, b, c, d,  k,   s,  Ti)\
+  // Set 1
   // SET(a, b, c, d,  0,  7,   T1);
   t = a + ((b & c) | (~b & d)) + X[0] + T1;
   a = ((t << 7) | (t >> (32 - 7))) + b;
-
-
-  // a -> d
-  // b -> a
-  // c -> b
-  // d -> c
-  // SET(a, b, c, d,  k,   s,   Ti)\
   // SET(d, a, b, c,  1,   12,  T2);
   t = d + ((a & b) | (~a & c)) + X[1] + T2;
   d = ((t << 12) | (t >> (32 - 12))) + a;
-
-
-  // a -> c
-  // b -> d
-  // c -> a
-  // d -> b
-  // SET(a, b, c, d,  k,   s,   Ti)\
   // SET(c, d, a, b,  2,  17,   T3);
   t = c + ((d & a) | (~d & b)) + X[2] + T3;
   c = ((t << 17) | (t >> (32 - 17))) + d;
-
-
-  // a -> b
-  // b -> c
-  // c -> d
-  // d -> a
-  // SET(a, b, c, d,  k,   s,   Ti)\
   // SET(b, c, d, a,  3,   22,  T4);
   t = b + ((c & d) | (~c & a)) + X[3] + T4;
   b = ((t << 22) | (t >> (32 - 22))) + c;
-
 
   // Set 2
   // SET(a, b, c, d,  4,  7,  T5);
   t = a + ((b & c) | (~b & d)) + X[4] + T5;
   a = ((t << 7) | (t >> (32 - 7))) + b;
-
-
   // SET(d, a, b, c,  5, 12,  T6);
   t = d + ((a & b) | (~a & c)) + X[5] + T6;
   d = ((t << 12) | (t >> (32 - 12))) + a;
@@ -208,7 +175,6 @@ int do_md5(const md5_byte_t* word, char* hash) {
   // SET(b, c, d, a,  7, 22,  T8);
   t = b + ((c & d) | (~c & a)) + X[7] + T8;
   b = ((t << 22) | (t >> (32 - 22))) + c;
-
 
   // Set 3
   // SET(a, b, c, d,  8,  7,  T9);
@@ -224,8 +190,6 @@ int do_md5(const md5_byte_t* word, char* hash) {
   t = b + ((c & d) | (~c & a)) + X[11] + T12;
   b = ((t << 22) | (t >> (32 - 22))) + c;
 
-
-
   // Set 4
   // SET(a, b, c, d, 12,  7, T13);
   t = a + ((b & c) | (~b & d)) + X[12] + T13;
@@ -240,49 +204,23 @@ int do_md5(const md5_byte_t* word, char* hash) {
   t = b + ((c & d) | (~c & a)) + X[15] + T16;
   b = ((t << 22) | (t >> (32 - 22))) + c;
 
-  #undef SET
+
 
   /* Round 2. */
   /* Let [abcd k s i] denote the operation
      a = b + ((a + G(b,c,d) + X[k] + T[i]) <<< s).
   */
-  #define G(x, y, z) (((x) & (z)) | ((y) & ~(z)))
-  #define SET(a, b, c, d, k, s, Ti)\
-    t = a + G(b,c,d) + X[k] + Ti;\
-    a = ROTATE_LEFT(t, s) + b
-
   /* Do the following 16 operations. */
   // Set 1
   // SET(a, b, c, d,  1,  5, T17);
   t = a + ((b & d) | (c & ~d)) + X[1] + T17;
   a = ((t << 5) | (t >> (32 - 5))) + b;
-
-  // a -> d
-  // b -> a
-  // c -> b
-  // d -> c
-  // SET(a, b, c, d,  k,  s, Ti)\
   // SET(d, a, b, c,  6,  9, T18);
   t = d + ((a & c) | (b & ~c)) + X[6] + T18;
   d = ((t << 9) | (t >> (32 - 9))) + a;
-
-
-
-  // a -> c
-  // b -> d
-  // c -> a
-  // d -> b
-  // SET(a, b, c, d,  k,   s,   Ti)\
   // SET(c, d, a, b, 11,  14,  T19);
   t = c + ((d & b) | (a & ~b)) + X[11] + T19;
   c = ((t << 14) | (t >> (32 - 14))) + d;
-
-
-  // a -> b
-  // b -> c
-  // c -> d
-  // d -> a
-  // SET(a, b, c, d,  k,   s,   Ti)\
   // SET(b, c, d, a,  0,  20,  T20);
   t = b + ((c & a) | (d & ~a)) + X[0] + T20;
   b = ((t << 20) | (t >> (32 - 20))) + c;
@@ -301,7 +239,6 @@ int do_md5(const md5_byte_t* word, char* hash) {
   t = b + ((c & a) | (d & ~a)) + X[4] + T24;
   b = ((t << 20) | (t >> (32 - 20))) + c;
 
-
   // Set 3
   // SET(a, b, c, d,  9,  5, T25);
   t = a + ((b & d) | (c & ~d)) + X[9] + T25;
@@ -316,7 +253,6 @@ int do_md5(const md5_byte_t* word, char* hash) {
   t = b + ((c & a) | (d & ~a)) + X[8] + T28;
   b = ((t << 20) | (t >> (32 - 20))) + c;
 
-
   // Set 4
   // SET(a, b, c, d, 13,  5, T29);
   t = a + ((b & d) | (c & ~d)) + X[13] + T29;
@@ -330,48 +266,25 @@ int do_md5(const md5_byte_t* word, char* hash) {
   // SET(b, c, d, a, 12, 20, T32);
   t = b + ((c & a) | (d & ~a)) + X[12] + T32;
   b = ((t << 20) | (t >> (32 - 20))) + c;
-  #undef SET
+
+
+
 
   /* Round 3. */
   /* Let [abcd k s t] denote the operation
      a = b + ((a + H(b,c,d) + X[k] + T[i]) <<< s).
   */
-  #define H(x, y, z) ((x) ^ (y) ^ (z))
-  #define SET(a, b, c, d, k, s, Ti)\
-    t = a + H(b,c,d) + X[k] + Ti;\
-    a = ROTATE_LEFT(t, s) + b
-
   /* Do the following 16 operations. */
   // Set 1
   // SET(a, b, c, d,  5,  4, T33);
   t = a + (b ^ c ^ d) + X[5] + T33;
   a = ((t << 4) | (t >> (32 - 4))) + b;
-
-
-  // a -> d
-  // b -> a
-  // c -> b
-  // d -> c
-  // SET(a, b, c, d,  k,  s, Ti)\
   // SET(d, a, b, c,  8, 11, T34);
   t = d + (a ^ b ^ c) + X[8] + T34;
   d = ((t << 11) | (t >> (32 - 11))) + a;
-
-  // a -> c
-  // b -> d
-  // c -> a
-  // d -> b
-  // SET(a, b, c, d,  k,   s,   Ti)\
   // SET(c, d, a, b, 11, 16, T35);
   t = c + (d ^ a ^ b) + X[11] + T35;
   c = ((t << 16) | (t >> (32 - 16))) + d;
-
-
-  // a -> b
-  // b -> c
-  // c -> d
-  // d -> a
-  // SET(a, b, c, d,  k,   s,   Ti)\
   // SET(b, c, d, a, 14, 23, T36);
   t = b + (c ^ d ^ a) + X[14] + T36;
   b = ((t << 23) | (t >> (32 - 23))) + c;
@@ -417,51 +330,25 @@ int do_md5(const md5_byte_t* word, char* hash) {
   // SET(b, c, d, a,  2, 23, T48);
   t = b + (c ^ d ^ a) + X[2] + T48;
   b = ((t << 23) | (t >> (32 - 23))) + c;
-  #undef SET
+
+
+
 
   /* Round 4. */
   /* Let [abcd k s t] denote the operation
      a = b + ((a + I(b,c,d) + X[k] + T[i]) <<< s).
   */
-  #define I(x, y, z) ((y) ^ ((x) | ~(z)))
-
-  #define SET(a, b, c, d, k, s, Ti)\
-    t = a + I(b,c,d) + X[k] + Ti;\
-    a = ROTATE_LEFT(t, s) + b
-
-
   /* Do the following 16 operations. */
   // Set 1
   // SET(a, b, c, d,  0,  6, T49);
   t = a + (c ^ (b | ~d)) + X[0] + T49;
   a = ((t << 6) | (t >> (32 - 6))) + b;
-
-
-  // a -> d
-  // b -> a
-  // c -> b
-  // d -> c
-  // SET(a, b, c, d,  k,  s, Ti)\
   // SET(d, a, b, c,  7, 10, T50);
   t = d + (b ^ (a | ~c)) + X[7] + T50;
   d = ((t << 10) | (t >> (32 - 10))) + a;
-
-  
-  // a -> c
-  // b -> d
-  // c -> a
-  // d -> b
-  // SET(a, b, c, d,  k,   s,   Ti)\
   // SET(c, d, a, b, 14, 15, T51);
   t = c + (a ^ (d | ~b)) + X[14] + T51;
   c = ((t << 15) | (t >> (32 - 15))) + d;
-
-
-  // a -> b
-  // b -> c
-  // c -> d
-  // d -> a
-  // SET(a, b, c, d,  k,   s,   Ti)\
   // SET(b, c, d, a,  5, 21, T52);
   t = b + (d ^ (c | ~a)) + X[5] + T52;
   b = ((t << 21) | (t >> (32 - 21))) + c;
@@ -507,13 +394,12 @@ int do_md5(const md5_byte_t* word, char* hash) {
   // SET(b, c, d, a,  9, 21, T64);
   t = b + (d ^ (c | ~a)) + X[9] + T64;
   b = ((t << 21) | (t >> (32 - 21))) + c;
-  #undef SET
+
 
   /* Then perform the following additions. (That is increment each
      of the four registers by the value it had before this block
      was started.)
   */
-
   a += 0x67452301;
   b += T_MASK ^ 0x10325476;
   c += T_MASK ^ 0x67452301;
