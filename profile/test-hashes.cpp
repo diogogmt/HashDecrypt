@@ -107,17 +107,18 @@ int do_md5(const md5_byte_t* word, char* hash) {
     data_1 = 1;
   }
 
-  // memcpy(buf, word, strlen((char*)word));
-  for (it = 0; it < strlen((char*)word); it++) {
-    buf[it] = word[it];
-  }
+  memcpy(buf, word, strlen((char*)word));
+  // for (it = 0; it < strlen((char*)word); it++) {
+  //   buf[it] = word[it];
+  // }
   //
 
-  // memset(buf + strlen((char*)word), 0x80, 1);
-  it = strlen((char*)word);
-  buf[it] = 0x80;
+  memset(buf + strlen((char*)word), 0x80, 1);
+  // it = strlen((char*)word);
+  // buf[it] = 0x80;
   //
 
+  // This memset is causing a segmentation fault when string with more than 55 bytes are hashed
   // memset(buf + strlen((char*)word) + 1, 0, 55 - strlen((char*) word));
   for (it = it + 1; it < 56; it++) {
     buf[it] = 0;
@@ -126,10 +127,10 @@ int do_md5(const md5_byte_t* word, char* hash) {
 
   buf[56] = data_0;
   buf[57] = data_1;
-  // memset(buf + 58, 0, 6);
-  for (it = 58; it < 64; it++) {
-    buf[it] = 0;
-  }
+  memset(buf + 58, 0, 6);
+  // for (it = 58; it < 64; it++) {
+  //   buf[it] = 0;
+  // }
   //
 
   /*
@@ -153,22 +154,102 @@ int do_md5(const md5_byte_t* word, char* hash) {
     a = ROTATE_LEFT(t, s) + b
 
   /* Do the following 16 operations. */
-  SET(a, b, c, d,  0,  7,  T1);
-  SET(d, a, b, c,  1, 12,  T2);
-  SET(c, d, a, b,  2, 17,  T3);
-  SET(b, c, d, a,  3, 22,  T4);
-  SET(a, b, c, d,  4,  7,  T5);
-  SET(d, a, b, c,  5, 12,  T6);
-  SET(c, d, a, b,  6, 17,  T7);
-  SET(b, c, d, a,  7, 22,  T8);
-  SET(a, b, c, d,  8,  7,  T9);
-  SET(d, a, b, c,  9, 12, T10);
-  SET(c, d, a, b, 10, 17, T11);
-  SET(b, c, d, a, 11, 22, T12);
-  SET(a, b, c, d, 12,  7, T13);
-  SET(d, a, b, c, 13, 12, T14);
-  SET(c, d, a, b, 14, 17, T15);
-  SET(b, c, d, a, 15, 22, T16);
+
+
+
+  // SET(a, b, c, d,  k,   s,  Ti)\
+  // SET(a, b, c, d,  0,  7,   T1);
+  t = a + ((b & c) | (~b & d)) + X[0] + T1;
+  a = ((t << 7) | (t >> (32 - 7))) + b;
+
+
+  // a -> d
+  // b -> a
+  // c -> b
+  // d -> c
+  // SET(a, b, c, d,  k,   s,   Ti)\
+  // SET(d, a, b, c,  1,   12,  T2);
+  t = d + ((a & b) | (~a & c)) + X[1] + T2;
+  d = ((t << 12) | (t >> (32 - 12))) + a;
+
+
+  // a -> c
+  // b -> d
+  // c -> a
+  // d -> b
+  // SET(a, b, c, d,  k,   s,   Ti)\
+  // SET(c, d, a, b,  2,  17,   T3);
+  t = c + ((d & a) | (~d & b)) + X[2] + T3;
+  c = ((t << 17) | (t >> (32 - 17))) + d;
+
+
+  // a -> b
+  // b -> c
+  // c -> d
+  // d -> a
+  // SET(a, b, c, d,  k,   s,   Ti)\
+  // SET(b, c, d, a,  3,   22,  T4);
+  t = b + ((c & d) | (~c & a)) + X[3] + T4;
+  b = ((t << 22) | (t >> (32 - 22))) + c;
+
+
+  // Set 2
+  // SET(a, b, c, d,  4,  7,  T5);
+  t = a + ((b & c) | (~b & d)) + X[4] + T5;
+  a = ((t << 7) | (t >> (32 - 7))) + b;
+
+
+  // SET(d, a, b, c,  5, 12,  T6);
+  t = d + ((a & b) | (~a & c)) + X[5] + T6;
+  d = ((t << 12) | (t >> (32 - 12))) + a;
+
+
+  // SET(c, d, a, b,  6, 17,  T7);
+  t = c + ((d & a) | (~d & b)) + X[6] + T7;
+  c = ((t << 17) | (t >> (32 - 17))) + d;
+
+
+  // SET(b, c, d, a,  7, 22,  T8);
+  t = b + ((c & d) | (~c & a)) + X[7] + T8;
+  b = ((t << 22) | (t >> (32 - 22))) + c;
+
+
+  // Set 3
+  // SET(a, b, c, d,  8,  7,  T9);
+  t = a + ((b & c) | (~b & d)) + X[8] + T9;
+  a = ((t << 7) | (t >> (32 - 7))) + b;
+
+  // SET(d, a, b, c,  9, 12, T10);
+  t = d + ((a & b) | (~a & c)) + X[9] + T10;
+  d = ((t << 12) | (t >> (32 - 12))) + a;
+
+  // SET(c, d, a, b, 10, 17, T11);
+  t = c + ((d & a) | (~d & b)) + X[10] + T11;
+  c = ((t << 17) | (t >> (32 - 17))) + d;
+
+  // SET(b, c, d, a, 11, 22, T12);
+  t = b + ((c & d) | (~c & a)) + X[11] + T12;
+  b = ((t << 22) | (t >> (32 - 22))) + c;
+
+
+
+  // Set 4
+  // SET(a, b, c, d, 12,  7, T13);
+  t = a + ((b & c) | (~b & d)) + X[12] + T13;
+  a = ((t << 7) | (t >> (32 - 7))) + b;
+
+  // SET(d, a, b, c, 13, 12, T14);
+  t = d + ((a & b) | (~a & c)) + X[13] + T14;
+  d = ((t << 12) | (t >> (32 - 12))) + a;
+
+  // SET(c, d, a, b, 14, 17, T15);
+  t = c + ((d & a) | (~d & b)) + X[14] + T15;
+  c = ((t << 17) | (t >> (32 - 17))) + d;
+
+  // SET(b, c, d, a, 15, 22, T16);
+  t = b + ((c & d) | (~c & a)) + X[15] + T16;
+  b = ((t << 22) | (t >> (32 - 22))) + c;
+
   #undef SET
 
   /* Round 2. */
