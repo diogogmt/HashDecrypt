@@ -342,22 +342,81 @@ int do_md5(const md5_byte_t* word, char* hash) {
     a = ROTATE_LEFT(t, s) + b
 
   /* Do the following 16 operations. */
-  SET(a, b, c, d,  5,  4, T33);
-  SET(d, a, b, c,  8, 11, T34);
-  SET(c, d, a, b, 11, 16, T35);
-  SET(b, c, d, a, 14, 23, T36);
-  SET(a, b, c, d,  1,  4, T37);
-  SET(d, a, b, c,  4, 11, T38);
-  SET(c, d, a, b,  7, 16, T39);
-  SET(b, c, d, a, 10, 23, T40);
-  SET(a, b, c, d, 13,  4, T41);
-  SET(d, a, b, c,  0, 11, T42);
-  SET(c, d, a, b,  3, 16, T43);
-  SET(b, c, d, a,  6, 23, T44);
-  SET(a, b, c, d,  9,  4, T45);
-  SET(d, a, b, c, 12, 11, T46);
-  SET(c, d, a, b, 15, 16, T47);
-  SET(b, c, d, a,  2, 23, T48);
+  // Set 1
+  // SET(a, b, c, d,  5,  4, T33);
+  t = a + (b ^ c ^ d) + X[5] + T33;
+  a = ((t << 4) | (t >> (32 - 4))) + b;
+
+
+  // a -> d
+  // b -> a
+  // c -> b
+  // d -> c
+  // SET(a, b, c, d,  k,  s, Ti)\
+  // SET(d, a, b, c,  8, 11, T34);
+  t = d + (a ^ b ^ c) + X[8] + T34;
+  d = ((t << 11) | (t >> (32 - 11))) + a;
+
+  // a -> c
+  // b -> d
+  // c -> a
+  // d -> b
+  // SET(a, b, c, d,  k,   s,   Ti)\
+  // SET(c, d, a, b, 11, 16, T35);
+  t = c + (d ^ a ^ b) + X[11] + T35;
+  c = ((t << 16) | (t >> (32 - 16))) + d;
+
+
+  // a -> b
+  // b -> c
+  // c -> d
+  // d -> a
+  // SET(a, b, c, d,  k,   s,   Ti)\
+  // SET(b, c, d, a, 14, 23, T36);
+  t = b + (c ^ d ^ a) + X[14] + T36;
+  b = ((t << 23) | (t >> (32 - 23))) + c;
+
+  // Set 2
+  // SET(a, b, c, d,  1,  4, T37);
+  t = a + (b ^ c ^ d) + X[1] + T37;
+  a = ((t << 4) | (t >> (32 - 4))) + b;
+  // SET(d, a, b, c,  4, 11, T38);
+  t = d + (a ^ b ^ c) + X[4] + T38;
+  d = ((t << 11) | (t >> (32 - 11))) + a;
+  // SET(c, d, a, b,  7, 16, T39);
+  t = c + (d ^ a ^ b) + X[7] + T39;
+  c = ((t << 16) | (t >> (32 - 16))) + d;
+  // SET(b, c, d, a, 10, 23, T40);
+  t = b + (c ^ d ^ a) + X[10] + T40;
+  b = ((t << 23) | (t >> (32 - 23))) + c;
+
+  // Set 3
+  // SET(a, b, c, d, 13,  4, T41);
+  t = a + (b ^ c ^ d) + X[13] + T41;
+  a = ((t << 4) | (t >> (32 - 4))) + b;
+  // SET(d, a, b, c,  0, 11, T42);
+  t = d + (a ^ b ^ c) + X[0] + T42;
+  d = ((t << 11) | (t >> (32 - 11))) + a;
+  // SET(c, d, a, b,  3, 16, T43);
+  t = c + (d ^ a ^ b) + X[3] + T43;
+  c = ((t << 16) | (t >> (32 - 16))) + d;
+  // SET(b, c, d, a,  6, 23, T44);
+  t = b + (c ^ d ^ a) + X[6] + T44;
+  b = ((t << 23) | (t >> (32 - 23))) + c;
+
+  // Set 4
+  // SET(a, b, c, d,  9,  4, T45);
+  t = a + (b ^ c ^ d) + X[9] + T45;
+  a = ((t << 4) | (t >> (32 - 4))) + b;
+  // SET(d, a, b, c, 12, 11, T46);
+  t = d + (a ^ b ^ c) + X[12] + T46;
+  d = ((t << 11) | (t >> (32 - 11))) + a;
+  // SET(c, d, a, b, 15, 16, T47);
+  t = c + (d ^ a ^ b) + X[15] + T47;
+  c = ((t << 16) | (t >> (32 - 16))) + d;
+  // SET(b, c, d, a,  2, 23, T48);
+  t = b + (c ^ d ^ a) + X[2] + T48;
+  b = ((t << 23) | (t >> (32 - 23))) + c;
   #undef SET
 
   /* Round 4. */
