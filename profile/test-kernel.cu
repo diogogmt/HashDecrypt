@@ -83,25 +83,24 @@ int hex_to_decimal (char c);
 
 
 #define STR_SIZE 4
+// If the string has 4 chars, it has a size of 32 bits
+// X is a unsigned int pointer, it points to 32 bit chuncks of data
+// X[0] will be the whole 4 byte string
+// the byte right after the string has the value 0x80, which was translating to 128 since the first nibble is 0 and the second is 8
+// a byte with the second nibble as 8 is the decimal 128 --> 1000 0000
+// the formula for X_14 is STR_SIZE << 3 as long the string has less than 32 bytes
+// after that the formula is (STR_SIZE - 32) << 3 and X_15 will be 1
+// We'll be focusing on string less than 32 bytes for now
+#define X_1 128
+// #define X_14 (STR_SIZE << 3)
+#define X_14 32
+#define ZERO 0
 __global__ void do_md5(md5_byte_t* hash_to_break, md5_byte_t* hash_word) {
-  
-  // cuPrintf("haha\n");
-
-  char it = 0;
-  char broke = 0;
-
-  __shared__ md5_byte_t cached_hash_word[STR_SIZE];
 
   __shared__ md5_byte_t cached_hash[16];
-  for (it = 0; it < 16; it++) {
+  for (char it = 0; it < 16; it++) {
     cached_hash[it] = hash_to_break[it];
   }
-
-  md5_byte_t buf[64];
-  // __shared__ md5_byte_t buf[64];
-  md5_byte_t digest[16]; 
-
-  md5_word_t t;
 
   /* Define storage for little-endian or both types of CPUs. */
   const md5_word_t *X; 
@@ -111,9 +110,7 @@ __global__ void do_md5(md5_byte_t* hash_to_break, md5_byte_t* hash_word) {
   md5_word_t c;
   md5_word_t d;
 
-  md5_byte_t data_0;
-  md5_byte_t data_1;
- 
+  md5_word_t t;
 
   char word[4];
   word[0] = (char) threadIdx.x + 32;
@@ -130,226 +127,285 @@ __global__ void do_md5(md5_byte_t* hash_to_break, md5_byte_t* hash_word) {
       for (i_3 = 32; i_3 < 127; i_3++) {
         word[3] = (char) i_3;
 
-        // Thread divergence
-        // Use a loop instead          
-        if (STR_SIZE < 32) {
-          data_0 = STR_SIZE << 3;
-          data_1 = 0;
-        } else {
-          data_0 = (STR_SIZE - 32) << 3;
-          data_1 = 1;
-        }
-
-        // memcpy(buf, word, strlen((char*)word));
-        for (it = 0; it < STR_SIZE; it++) {
-          buf[it] = word[it];
-        }
-        //
-
-        // memset(buf + strlen((char*)word), 0x80, 1);
-        // it = strlen((char*)word);
-        buf[STR_SIZE] = 0x80;
-        //
-
-        // memset(buf + strlen((char*)word) + 1, 0, 55 - strlen((char*) word));
-        for (it = it + 1; it < 56; it++) {
-          buf[it] = 0;
-        }
-        //
-
-        buf[56] = data_0;
-        buf[57] = data_1;
-        // memset(buf + 58, 0, 6);
-        for (it = 58; it < 64; it++) {
-          buf[it] = 0;
-        }
-        //
-
-
+        X = (const md5_word_t *)word;
         a = 0x67452301;
         b = /*0xefcdab89*/ T_MASK ^ 0x10325476;
         c = /*0x98badcfe*/ T_MASK ^ 0x67452301;
         d = 0x10325476;
-        /*
-         * Determine dynamically whether this is a big-endian or
-         * little-endian machine, since we can use a more efficient
-         * algorithm on the latter.
-         */
-        
-        /* data are properly aligned */
-        X = (const md5_word_t *)buf;
-
-        #define ROTATE_LEFT(x, n) (((x) << (n)) | ((x) >> (32 - (n))))
-
         /* Round 1. */
         /* Let [abcd k s i] denote the operation
            a = b + ((a + F(b,c,d) + X[k] + T[i]) <<< s).
         */
-        #define F(x, y, z) (((x) & (y)) | (~(x) & (z)))
-        #define SET(a, b, c, d, k, s, Ti)\
-          t = a + F(b,c,d) + X[k] + Ti;\
-          a = ROTATE_LEFT(t, s) + b
-
         /* Do the following 16 operations. */
-        SET(a, b, c, d,  0,  7,  T1);
-        SET(d, a, b, c,  1, 12,  T2);
-        SET(c, d, a, b,  2, 17,  T3);
-        SET(b, c, d, a,  3, 22,  T4);
-        SET(a, b, c, d,  4,  7,  T5);
-        SET(d, a, b, c,  5, 12,  T6);
-        SET(c, d, a, b,  6, 17,  T7);
-        SET(b, c, d, a,  7, 22,  T8);
-        SET(a, b, c, d,  8,  7,  T9);
-        SET(d, a, b, c,  9, 12, T10);
-        SET(c, d, a, b, 10, 17, T11);
-        SET(b, c, d, a, 11, 22, T12);
-        SET(a, b, c, d, 12,  7, T13);
-        SET(d, a, b, c, 13, 12, T14);
-        SET(c, d, a, b, 14, 17, T15);
-        SET(b, c, d, a, 15, 22, T16);
-        #undef SET
+        // Set 1
+        t = a + ((b & c) | (~b & d)) + X[0] + T1;
+        a = ((t << 7) | (t >> (32 - 7))) + b;
+
+        t = d + ((a & b) | (~a & c)) + X_1 + T2;
+        d = ((t << 12) | (t >> (32 - 12))) + a;
+
+        t = c + ((d & a) | (~d & b)) + ZERO + T3;
+        c = ((t << 17) | (t >> (32 - 17))) + d;
+
+        t = b + ((c & d) | (~c & a)) + ZERO + T4;
+        b = ((t << 22) | (t >> (32 - 22))) + c;
+
+        // Set 2
+        t = a + ((b & c) | (~b & d)) + ZERO + T5;
+        a = ((t << 7) | (t >> (32 - 7))) + b;
+
+        t = d + ((a & b) | (~a & c)) + ZERO + T6;
+        d = ((t << 12) | (t >> (32 - 12))) + a;
+
+        t = c + ((d & a) | (~d & b)) + ZERO + T7;
+        c = ((t << 17) | (t >> (32 - 17))) + d;
+
+        t = b + ((c & d) | (~c & a)) + ZERO + T8;
+        b = ((t << 22) | (t >> (32 - 22))) + c;
+
+        // Set 3
+        t = a + ((b & c) | (~b & d)) + ZERO + T9;
+        a = ((t << 7) | (t >> (32 - 7))) + b;
+
+        t = d + ((a & b) | (~a & c)) + ZERO + T10;
+        d = ((t << 12) | (t >> (32 - 12))) + a;
+
+        t = c + ((d & a) | (~d & b)) + ZERO + T11;
+        c = ((t << 17) | (t >> (32 - 17))) + d;
+
+        t = b + ((c & d) | (~c & a)) + ZERO + T12;
+        b = ((t << 22) | (t >> (32 - 22))) + c;
+
+        // Set 4
+        t = a + ((b & c) | (~b & d)) + ZERO + T13;
+        a = ((t << 7) | (t >> (32 - 7))) + b;
+
+        t = d + ((a & b) | (~a & c)) + ZERO + T14;
+        d = ((t << 12) | (t >> (32 - 12))) + a;
+
+        t = c + ((d & a) | (~d & b)) + X_14 + T15;
+        c = ((t << 17) | (t >> (32 - 17))) + d;
+
+        t = b + ((c & d) | (~c & a)) + ZERO + T16;
+        b = ((t << 22) | (t >> (32 - 22))) + c;
+
+
 
         /* Round 2. */
         /* Let [abcd k s i] denote the operation
            a = b + ((a + G(b,c,d) + X[k] + T[i]) <<< s).
         */
-        #define G(x, y, z) (((x) & (z)) | ((y) & ~(z)))
-        #define SET(a, b, c, d, k, s, Ti)\
-          t = a + G(b,c,d) + X[k] + Ti;\
-          a = ROTATE_LEFT(t, s) + b
-
         /* Do the following 16 operations. */
-        SET(a, b, c, d,  1,  5, T17);
-        SET(d, a, b, c,  6,  9, T18);
-        SET(c, d, a, b, 11, 14, T19);
-        SET(b, c, d, a,  0, 20, T20);
-        SET(a, b, c, d,  5,  5, T21);
-        SET(d, a, b, c, 10,  9, T22);
-        SET(c, d, a, b, 15, 14, T23);
-        SET(b, c, d, a,  4, 20, T24);
-        SET(a, b, c, d,  9,  5, T25);
-        SET(d, a, b, c, 14,  9, T26);
-        SET(c, d, a, b,  3, 14, T27);
-        SET(b, c, d, a,  8, 20, T28);
-        SET(a, b, c, d, 13,  5, T29);
-        SET(d, a, b, c,  2,  9, T30);
-        SET(c, d, a, b,  7, 14, T31);
-        SET(b, c, d, a, 12, 20, T32);
-        #undef SET
+        // Set 1
+        t = a + ((b & d) | (c & ~d)) + X_1 + T17;
+        a = ((t << 5) | (t >> (32 - 5))) + b;
+
+        t = d + ((a & c) | (b & ~c)) + ZERO + T18;
+        d = ((t << 9) | (t >> (32 - 9))) + a;
+
+        t = c + ((d & b) | (a & ~b)) + ZERO + T19;
+        c = ((t << 14) | (t >> (32 - 14))) + d;
+
+        t = b + ((c & a) | (d & ~a)) + X[0] + T20;
+        b = ((t << 20) | (t >> (32 - 20))) + c;
+
+        // Set 2
+        t = a + ((b & d) | (c & ~d)) + ZERO + T21;
+        a = ((t << 5) | (t >> (32 - 5))) + b;
+
+        t = d + ((a & c) | (b & ~c)) + ZERO + T22;
+        d = ((t << 9) | (t >> (32 - 9))) + a;
+
+        t = c + ((d & b) | (a & ~b)) + ZERO + T23;
+        c = ((t << 14) | (t >> (32 - 14))) + d;
+
+        t = b + ((c & a) | (d & ~a)) + ZERO + T24;
+        b = ((t << 20) | (t >> (32 - 20))) + c;
+
+        // Set 3
+        t = a + ((b & d) | (c & ~d)) + ZERO + T25;
+        a = ((t << 5) | (t >> (32 - 5))) + b;
+
+        t = d + ((a & c) | (b & ~c)) + X_14 + T26;
+        d = ((t << 9) | (t >> (32 - 9))) + a;
+
+        t = c + ((d & b) | (a & ~b)) + ZERO + T27;
+        c = ((t << 14) | (t >> (32 - 14))) + d;
+
+        t = b + ((c & a) | (d & ~a)) + ZERO + T28;
+        b = ((t << 20) | (t >> (32 - 20))) + c;
+
+        // Set 4
+        t = a + ((b & d) | (c & ~d)) + ZERO + T29;
+        a = ((t << 5) | (t >> (32 - 5))) + b;
+
+        t = d + ((a & c) | (b & ~c)) + ZERO + T30;
+        d = ((t << 9) | (t >> (32 - 9))) + a;
+
+        t = c + ((d & b) | (a & ~b)) + ZERO + T31;
+        c = ((t << 14) | (t >> (32 - 14))) + d;
+
+        t = b + ((c & a) | (d & ~a)) + ZERO + T32;
+        b = ((t << 20) | (t >> (32 - 20))) + c;
+
+
 
 
         /* Round 3. */
         /* Let [abcd k s t] denote the operation
            a = b + ((a + H(b,c,d) + X[k] + T[i]) <<< s).
         */
-        #define H(x, y, z) ((x) ^ (y) ^ (z))
-        #define SET(a, b, c, d, k, s, Ti)\
-          t = a + H(b,c,d) + X[k] + Ti;\
-          a = ROTATE_LEFT(t, s) + b
-
         /* Do the following 16 operations. */
-        SET(a, b, c, d,  5,  4, T33);
-        SET(d, a, b, c,  8, 11, T34);
-        SET(c, d, a, b, 11, 16, T35);
-        SET(b, c, d, a, 14, 23, T36);
-        SET(a, b, c, d,  1,  4, T37);
-        SET(d, a, b, c,  4, 11, T38);
-        SET(c, d, a, b,  7, 16, T39);
-        SET(b, c, d, a, 10, 23, T40);
-        SET(a, b, c, d, 13,  4, T41);
-        SET(d, a, b, c,  0, 11, T42);
-        SET(c, d, a, b,  3, 16, T43);
-        SET(b, c, d, a,  6, 23, T44);
-        SET(a, b, c, d,  9,  4, T45);
-        SET(d, a, b, c, 12, 11, T46);
-        SET(c, d, a, b, 15, 16, T47);
-        SET(b, c, d, a,  2, 23, T48);
-        #undef SET
+        // Set 1
+        t = a + (b ^ c ^ d) + ZERO + T33;
+        a = ((t << 4) | (t >> (32 - 4))) + b;
+
+        t = d + (a ^ b ^ c) + ZERO + T34;
+        d = ((t << 11) | (t >> (32 - 11))) + a;
+
+        t = c + (d ^ a ^ b) + ZERO + T35;
+        c = ((t << 16) | (t >> (32 - 16))) + d;
+
+        t = b + (c ^ d ^ a) + X_14 + T36;
+        b = ((t << 23) | (t >> (32 - 23))) + c;
+
+        // Set 2
+        t = a + (b ^ c ^ d) + X_1 + T37;
+        a = ((t << 4) | (t >> (32 - 4))) + b;
+
+        t = d + (a ^ b ^ c) + ZERO + T38;
+        d = ((t << 11) | (t >> (32 - 11))) + a;
+
+        t = c + (d ^ a ^ b) + ZERO + T39;
+        c = ((t << 16) | (t >> (32 - 16))) + d;
+
+        t = b + (c ^ d ^ a) + ZERO + T40;
+        b = ((t << 23) | (t >> (32 - 23))) + c;
+
+        // Set 3
+        t = a + (b ^ c ^ d) + ZERO + T41;
+        a = ((t << 4) | (t >> (32 - 4))) + b;
+
+        t = d + (a ^ b ^ c) + X[0] + T42;
+        d = ((t << 11) | (t >> (32 - 11))) + a;
+
+        t = c + (d ^ a ^ b) + ZERO + T43;
+        c = ((t << 16) | (t >> (32 - 16))) + d;
+
+        t = b + (c ^ d ^ a) + ZERO + T44;
+        b = ((t << 23) | (t >> (32 - 23))) + c;
+
+        // Set 4
+        t = a + (b ^ c ^ d) + ZERO + T45;
+        a = ((t << 4) | (t >> (32 - 4))) + b;
+
+        t = d + (a ^ b ^ c) + ZERO + T46;
+        d = ((t << 11) | (t >> (32 - 11))) + a;
+
+        t = c + (d ^ a ^ b) + ZERO + T47;
+        c = ((t << 16) | (t >> (32 - 16))) + d;
+
+        t = b + (c ^ d ^ a) + ZERO + T48;
+        b = ((t << 23) | (t >> (32 - 23))) + c;
+
+
+
 
         /* Round 4. */
         /* Let [abcd k s t] denote the operation
            a = b + ((a + I(b,c,d) + X[k] + T[i]) <<< s).
         */
-        #define I(x, y, z) ((y) ^ ((x) | ~(z)))
-
-        #define SET(a, b, c, d, k, s, Ti)\
-          t = a + I(b,c,d) + X[k] + Ti;\
-          a = ROTATE_LEFT(t, s) + b
-
         /* Do the following 16 operations. */
-        SET(a, b, c, d,  0,  6, T49);
-        SET(d, a, b, c,  7, 10, T50);
-        SET(c, d, a, b, 14, 15, T51);
-        SET(b, c, d, a,  5, 21, T52);
-        SET(a, b, c, d, 12,  6, T53);
-        SET(d, a, b, c,  3, 10, T54);
-        SET(c, d, a, b, 10, 15, T55);
-        SET(b, c, d, a,  1, 21, T56);
-        SET(a, b, c, d,  8,  6, T57);
-        SET(d, a, b, c, 15, 10, T58);
-        SET(c, d, a, b,  6, 15, T59);
-        SET(b, c, d, a, 13, 21, T60);
-        SET(a, b, c, d,  4,  6, T61);
-        SET(d, a, b, c, 11, 10, T62);
-        SET(c, d, a, b,  2, 15, T63);
-        SET(b, c, d, a,  9, 21, T64);
-        #undef SET
+        // Set 1
+        t = a + (c ^ (b | ~d)) + X[0] + T49;
+        a = ((t << 6) | (t >> (32 - 6))) + b;
+
+        t = d + (b ^ (a | ~c)) + ZERO + T50;
+        d = ((t << 10) | (t >> (32 - 10))) + a;
+
+        t = c + (a ^ (d | ~b)) + X_14 + T51;
+        c = ((t << 15) | (t >> (32 - 15))) + d;
+
+        t = b + (d ^ (c | ~a)) + ZERO + T52;
+        b = ((t << 21) | (t >> (32 - 21))) + c;
+
+        // Set 2
+        t = a + (c ^ (b | ~d)) + ZERO + T53;
+        a = ((t << 6) | (t >> (32 - 6))) + b;
+
+        t = d + (b ^ (a | ~c)) + ZERO + T54;
+        d = ((t << 10) | (t >> (32 - 10))) + a;
+
+        t = c + (a ^ (d | ~b)) + ZERO + T55;
+        c = ((t << 15) | (t >> (32 - 15))) + d;
+
+        t = b + (d ^ (c | ~a)) + X_1 + T56;
+        b = ((t << 21) | (t >> (32 - 21))) + c;
+
+        // Set 3
+        t = a + (c ^ (b | ~d)) + ZERO + T57;
+        a = ((t << 6) | (t >> (32 - 6))) + b;
+
+        t = d + (b ^ (a | ~c)) + ZERO + T58;
+        d = ((t << 10) | (t >> (32 - 10))) + a;
+
+        t = c + (a ^ (d | ~b)) + ZERO + T59;
+        c = ((t << 15) | (t >> (32 - 15))) + d;
+
+        t = b + (d ^ (c | ~a)) + ZERO + T60;
+        b = ((t << 21) | (t >> (32 - 21))) + c;
+
+        // Set 4
+        t = a + (c ^ (b | ~d)) + ZERO + T61;
+        a = ((t << 6) | (t >> (32 - 6))) + b;
+
+        t = d + (b ^ (a | ~c)) + ZERO + T62;
+        d = ((t << 10) | (t >> (32 - 10))) + a;
+
+        t = c + (a ^ (d | ~b)) + ZERO + T63;
+        c = ((t << 15) | (t >> (32 - 15))) + d;
+
+        t = b + (d ^ (c | ~a)) + ZERO + T64;
+        b = ((t << 21) | (t >> (32 - 21))) + c;
+
 
         /* Then perform the following additions. (That is increment each
            of the four registers by the value it had before this block
            was started.)
         */
-
         a += 0x67452301;
         b += T_MASK ^ 0x10325476;
         c += T_MASK ^ 0x67452301;
         d += 0x10325476;
         
+        if (cached_hash[0]   == (md5_byte_t)(a >> 0)   &&
+            cached_hash[1]   == (md5_byte_t)(a >> 8)   &&
+            cached_hash[2]   == (md5_byte_t)(a >> 16)  &&
+            cached_hash[3]   == (md5_byte_t)(a >> 24)  &&
 
-        digest[0] = (md5_byte_t)(a >> 0);
-        digest[1] = (md5_byte_t)(a >> 8);
-        digest[2] = (md5_byte_t)(a >> 16);
-        digest[3] = (md5_byte_t)(a >> 24);
+            cached_hash[4]   == (md5_byte_t)(b >> 0)   &&
+            cached_hash[5]   == (md5_byte_t)(b >> 8)   &&
+            cached_hash[6]   == (md5_byte_t)(b >> 16)  &&
+            cached_hash[7]   == (md5_byte_t)(b >> 24)  &&
 
-        digest[4] = (md5_byte_t)(b >> 0);
-        digest[5] = (md5_byte_t)(b >> 8);
-        digest[6] = (md5_byte_t)(b >> 16);
-        digest[7] = (md5_byte_t)(b >> 24);
+            cached_hash[8]   == (md5_byte_t)(c >> 0)   &&
+            cached_hash[9]   == (md5_byte_t)(c >> 8)   &&
+            cached_hash[10]  == (md5_byte_t)(c >> 16)  &&
+            cached_hash[11]  == (md5_byte_t)(c >> 24)  &&
 
-        digest[8]  = (md5_byte_t)(c >> 0);
-        digest[9]  = (md5_byte_t)(c >> 8);
-        digest[10] = (md5_byte_t)(c >> 16);
-        digest[11] = (md5_byte_t)(c >> 24);
-
-        digest[12] = (md5_byte_t)(d >> 0);
-        digest[13] = (md5_byte_t)(d >> 8);
-        digest[14] = (md5_byte_t)(d >> 16);
-        digest[15] = (md5_byte_t)(d >> 24);
-        // digest[i] = (md5_byte_t)(pms->abcd[i >> 2] >> ((i & 3) << 3));
-
-        for (it = 0; it < 16; it++) {
-          if (digest[it] != cached_hash[it]) {
-            break;
-          }
+            cached_hash[12]  == (md5_byte_t)(d >> 0)   &&
+            cached_hash[13]  == (md5_byte_t)(d >> 8)   &&
+            cached_hash[14]  == (md5_byte_t)(d >> 16)  &&
+            cached_hash[15]  == (md5_byte_t)(d >> 24)
+          ) {
+          hash_word[0] = word[0];
+          hash_word[1] = word[1];
+          hash_word[2] = word[2];
+          hash_word[3] = word[3];
         }
-
-        if (it == 16) {
-          broke = 1;
-          for (it = 0; it < STR_SIZE; it++) {
-            cached_hash_word[it] = word[it];
-          }
-        }
-        
       } // END Loop 3
     } // END Loop 2
-  } // END Loop 1
-
-  if (broke) {
-    cuPrintf("broke: %d\n", broke);
-    for (it = 0; it < STR_SIZE; it++) {
-      hash_word[it] = cached_hash_word[it];
-    }
-  }
+  } // END Loop 2
 }
 
 

@@ -120,7 +120,7 @@ int do_md5(const md5_byte_t* word, char* hash) {
 
   // This memset is causing a segmentation fault when string with more than 55 bytes are hashed
   // memset(buf + strlen((char*)word) + 1, 0, 55 - strlen((char*) word));
-  for (it = it + 1; it < 56; it++) {
+  for (it = strlen((char*)word) + 1; it < 56; it++) {
     buf[it] = 0;
   }
   //
