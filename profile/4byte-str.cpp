@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <ctime>
 
-int do_md5 (md5_byte_t* word, md5_byte_t* hash);
+int do_md5 (md5_word_t word, md5_byte_t* hash);
 
 
 
@@ -96,11 +96,8 @@ int hex_to_decimal (char c);
 // #define X_14 (STR_SIZE << 3)
 #define X_14 32
 #define ZERO 0
-int do_md5(md5_byte_t* word, md5_byte_t* hash) {
+int do_md5(md5_word_t word, md5_byte_t* hash) {
   md5_word_t t;
-
-  /* Define storage for little-endian or both types of CPUs. */
-  const md5_word_t *X = (const md5_word_t *)word;
 
   md5_word_t a = 0x67452301;
   md5_word_t b = /*0xefcdab89*/ T_MASK ^ 0x10325476;
@@ -113,7 +110,7 @@ int do_md5(md5_byte_t* word, md5_byte_t* hash) {
   */
   /* Do the following 16 operations. */
   // Set 1
-  t = a + ((b & c) | (~b & d)) + X[0] + T1;
+  t = a + ((b & c) | (~b & d)) + word + T1;
   a = ((t << 7) | (t >> (32 - 7))) + b;
 
   t = d + ((a & b) | (~a & c)) + X_1 + T2;
@@ -181,7 +178,7 @@ int do_md5(md5_byte_t* word, md5_byte_t* hash) {
   t = c + ((d & b) | (a & ~b)) + ZERO + T19;
   c = ((t << 14) | (t >> (32 - 14))) + d;
 
-  t = b + ((c & a) | (d & ~a)) + X[0] + T20;
+  t = b + ((c & a) | (d & ~a)) + word + T20;
   b = ((t << 20) | (t >> (32 - 20))) + c;
 
   // Set 2
@@ -261,7 +258,7 @@ int do_md5(md5_byte_t* word, md5_byte_t* hash) {
   t = a + (b ^ c ^ d) + ZERO + T41;
   a = ((t << 4) | (t >> (32 - 4))) + b;
 
-  t = d + (a ^ b ^ c) + X[0] + T42;
+  t = d + (a ^ b ^ c) + word + T42;
   d = ((t << 11) | (t >> (32 - 11))) + a;
 
   t = c + (d ^ a ^ b) + ZERO + T43;
@@ -292,7 +289,7 @@ int do_md5(md5_byte_t* word, md5_byte_t* hash) {
   */
   /* Do the following 16 operations. */
   // Set 1
-  t = a + (c ^ (b | ~d)) + X[0] + T49;
+  t = a + (c ^ (b | ~d)) + word + T49;
   a = ((t << 6) | (t >> (32 - 6))) + b;
 
   t = d + (b ^ (a | ~c)) + ZERO + T50;
@@ -421,24 +418,18 @@ int main (int argc, char *argv[]) {
 void gen_hashes (md5_byte_t *hash) {
   printf("gen_hashes\n");
 
-  md5_byte_t word[4];
-  word[0] = (char) 32;
-  word[1] = (char) 32;
-  word[2] = (char) 32;
-  word[3] = (char) 32;
-  int i_0, i_1, i_2, i_3;
+  short i_0, i_1, i_2, i_3;
+
+  md5_word_t word;
 
  for (i_0 = 32; i_0 < 127; i_0++) {
-    word[0] = (char) i_0;
     for (i_1 = 32; i_1 < 127; i_1++) {
-      word[1] = (char) i_1;
       for (i_2 = 32; i_2 < 127; i_2++) {
-        word[2] = (char) i_2;
         for (i_3 = 32; i_3 < 127; i_3++) {
-          word[3] = (char) i_3;
+          word = i_0 | (i_1 << 8) | (i_2 << 16) | (i_3 << 24);
           if (do_md5(word, hash)) {
             printf("Broke hash!\n");
-            printf("word: |%c%c%c%c|\n", word[0], word[1], word[2], word[3]);
+            printf("word: |%c%c%c%c|\n", (char) i_0, (char) i_1, (char) i_2, (char) i_3);
             return;
           }
         } // END Loop 3
