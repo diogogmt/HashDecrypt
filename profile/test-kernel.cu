@@ -102,9 +102,6 @@ __global__ void do_md5(md5_byte_t* hash_to_break, md5_byte_t* hash_word) {
     cached_hash[it] = hash_to_break[it];
   }
 
-  /* Define storage for little-endian or both types of CPUs. */
-  const md5_word_t *X; 
-
   md5_word_t a;
   md5_word_t b;
   md5_word_t c;
@@ -112,22 +109,17 @@ __global__ void do_md5(md5_byte_t* hash_to_break, md5_byte_t* hash_word) {
 
   md5_word_t t;
 
-  char word[4];
-  word[0] = (char) threadIdx.x + 32;
-  word[1] = (char) 32;
-  word[2] = (char) 32;
-  word[3] = (char) 32;
+  md5_word_t word;
 
-  int i_1, i_2, i_3;
+  cuPrintf("word: %u\n", threadIdx.x | 0x00F);
+
+  char i_1, i_2, i_3;
 
   for (i_1 = 32; i_1 < 127; i_1++) {
-    word[1] = (char) i_1;
     for (i_2 = 32; i_2 < 127; i_2++) {
-      word[2] = (char) i_2;
       for (i_3 = 32; i_3 < 127; i_3++) {
-        word[3] = (char) i_3;
+        word = (threadIdx.x + 32) | (i_1 << 8) | (i_2 << 16) | (i_3 << 24);
 
-        X = (const md5_word_t *)word;
         a = 0x67452301;
         b = /*0xefcdab89*/ T_MASK ^ 0x10325476;
         c = /*0x98badcfe*/ T_MASK ^ 0x67452301;
@@ -138,7 +130,7 @@ __global__ void do_md5(md5_byte_t* hash_to_break, md5_byte_t* hash_word) {
         */
         /* Do the following 16 operations. */
         // Set 1
-        t = a + ((b & c) | (~b & d)) + X[0] + T1;
+        t = a + ((b & c) | (~b & d)) + word + T1;
         a = ((t << 7) | (t >> (32 - 7))) + b;
 
         t = d + ((a & b) | (~a & c)) + X_1 + T2;
@@ -206,7 +198,7 @@ __global__ void do_md5(md5_byte_t* hash_to_break, md5_byte_t* hash_word) {
         t = c + ((d & b) | (a & ~b)) + ZERO + T19;
         c = ((t << 14) | (t >> (32 - 14))) + d;
 
-        t = b + ((c & a) | (d & ~a)) + X[0] + T20;
+        t = b + ((c & a) | (d & ~a)) + word + T20;
         b = ((t << 20) | (t >> (32 - 20))) + c;
 
         // Set 2
@@ -286,7 +278,7 @@ __global__ void do_md5(md5_byte_t* hash_to_break, md5_byte_t* hash_word) {
         t = a + (b ^ c ^ d) + ZERO + T41;
         a = ((t << 4) | (t >> (32 - 4))) + b;
 
-        t = d + (a ^ b ^ c) + X[0] + T42;
+        t = d + (a ^ b ^ c) + word + T42;
         d = ((t << 11) | (t >> (32 - 11))) + a;
 
         t = c + (d ^ a ^ b) + ZERO + T43;
@@ -317,7 +309,7 @@ __global__ void do_md5(md5_byte_t* hash_to_break, md5_byte_t* hash_word) {
         */
         /* Do the following 16 operations. */
         // Set 1
-        t = a + (c ^ (b | ~d)) + X[0] + T49;
+        t = a + (c ^ (b | ~d)) + word + T49;
         a = ((t << 6) | (t >> (32 - 6))) + b;
 
         t = d + (b ^ (a | ~c)) + ZERO + T50;
@@ -398,10 +390,15 @@ __global__ void do_md5(md5_byte_t* hash_to_break, md5_byte_t* hash_word) {
             cached_hash[14]  == (md5_byte_t)(d >> 16)  &&
             cached_hash[15]  == (md5_byte_t)(d >> 24)
           ) {
-          hash_word[0] = word[0];
-          hash_word[1] = word[1];
-          hash_word[2] = word[2];
-          hash_word[3] = word[3];
+          cuPrintf("found.\n");
+          hash_word[0] = word & 0xff;
+          hash_word[1] = i_1;
+          hash_word[2] = i_2;
+          hash_word[3] = i_3;
+          // hash_word[0] = word[0];
+          // hash_word[1] = word[1];
+          // hash_word[2] = word[2];
+          // hash_word[3] = word[3];
         }
       } // END Loop 3
     } // END Loop 2
@@ -441,28 +438,57 @@ int main (int argc, char *argv[]) {
   // we only need to issue a memcmp insetad of converting the bytes to a string and doing a strcmp
   break_down_hash(h_hash, hash_str);
 
+  cudaError_t error;
 
   // Declare device hash
   md5_byte_t* d_hash;
-  cudaMalloc((void**)&d_hash, sizeof(md5_byte_t) * 16);
-  cudaMemcpy(d_hash, h_hash, sizeof(md5_byte_t) * 16, cudaMemcpyHostToDevice);
+  error = cudaMalloc((void**)&d_hash, sizeof(md5_byte_t) * 16);
+  if (error != cudaSuccess) {
+    printf("%s:%d error: %d - %s\n", __FILE__, __LINE__, error, cudaGetErrorString(error));
+  }
+
+  error = cudaMemcpy(d_hash, h_hash, sizeof(md5_byte_t) * 16, cudaMemcpyHostToDevice);
+  if (error != cudaSuccess) {
+    printf("%s:%d error: %d - %s\n", __FILE__, __LINE__, error, cudaGetErrorString(error));
+  }
 
   // Declare device hash
   md5_byte_t* d_word;
-  cudaMalloc((void**)&d_word, sizeof(md5_byte_t) * 4);
+  error = cudaMalloc((void**)&d_word, sizeof(md5_byte_t) * 4);
+  if (error != cudaSuccess) {
+    printf("%s:%d error: %d - %s\n", __FILE__, __LINE__, error, cudaGetErrorString(error));
+  }
 
   cudaPrintfInit();
 
   do_md5<<<1,94>>>(d_hash, d_word);
 
+  // synchronize the device and the host
+  cudaDeviceSynchronize();
+  error = cudaGetLastError();
+  if (error != cudaSuccess) {
+    printf("%s:%d error: %d - %s\n", __FILE__, __LINE__, error, cudaGetErrorString(error));
+  }
+
   cudaPrintfDisplay(stdout, true);
   cudaPrintfEnd();
   md5_byte_t h_word[4];
-  cudaMemcpy(h_word, d_word, sizeof(md5_byte_t) * 4, cudaMemcpyDeviceToHost);
+  error = cudaMemcpy(h_word, d_word, sizeof(md5_byte_t) * 4, cudaMemcpyDeviceToHost);
+  if (error != cudaSuccess) {
+    printf("%s:%d error: %d - %s\n", __FILE__, __LINE__, error, cudaGetErrorString(error));
+  }
+
   printf("|%c%c%c%c|\n", h_word[0], h_word[1], h_word[2], h_word[3]);
 
-  cudaFree(d_hash);
-  cudaFree(d_word);
+  error = cudaFree(d_hash);
+  if (error != cudaSuccess) {
+    printf("%s:%d error: %d - %s\n", __FILE__, __LINE__, error, cudaGetErrorString(error));
+  }
+
+  error = cudaFree(d_word);
+  if (error != cudaSuccess) {
+    printf("%s:%d error: %d - %s\n", __FILE__, __LINE__, error, cudaGetErrorString(error));
+  }
 
   printf("finished!\n");
 
