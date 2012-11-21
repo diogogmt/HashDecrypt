@@ -109,17 +109,33 @@ __global__ void do_md5(md5_byte_t* hash_to_break, md5_byte_t* hash_word) {
 
   md5_word_t t;
 
-  md5_word_t word;
-
-  cuPrintf("word: %u\n", threadIdx.x | 0x00F);
-
+  char word[4];
+  word[0] = (char) threadIdx.x + 32;
+  
   char i_1, i_2, i_3;
 
-  for (i_1 = 32; i_1 < 127; i_1++) {
-    for (i_2 = 32; i_2 < 127; i_2++) {
-      for (i_3 = 32; i_3 < 127; i_3++) {
-        word = (threadIdx.x + 32) | (i_1 << 8) | (i_2 << 16) | (i_3 << 24);
+  // 2 Blocks of 94 threads
+  // char begin = 32 + ((blockIdx.x + 0) * 47);
+  // char end = 79 + ((blockIdx.x + 0) * 47);
 
+  // 4 Blocks of 92 threads
+  // char begin = 32 + ((blockIdx.x + 0) * 23);
+  // char end = 55 + ((blockIdx.x + 0) * 23);
+
+  // 8 Blocks of 88 threads
+  char begin = 32 + ((blockIdx.x + 0) * 11);
+  char end = 43 + ((blockIdx.x + 0) * 11);
+
+  const md5_word_t *X; 
+
+  for (i_1 = begin; i_1 <= end; i_1++) {
+    word[1] = (char) i_1;
+    for (i_2 = begin; i_2 <= end; i_2++) {
+      word[2] = (char) i_2;
+      for (i_3 = begin; i_3 <= end; i_3++) {
+        word[3] = (char) i_3;
+
+        X = (const md5_word_t *)word;
         a = 0x67452301;
         b = /*0xefcdab89*/ T_MASK ^ 0x10325476;
         c = /*0x98badcfe*/ T_MASK ^ 0x67452301;
@@ -130,7 +146,7 @@ __global__ void do_md5(md5_byte_t* hash_to_break, md5_byte_t* hash_word) {
         */
         /* Do the following 16 operations. */
         // Set 1
-        t = a + ((b & c) | (~b & d)) + word + T1;
+        t = a + ((b & c) | (~b & d)) + X[0] + T1;
         a = ((t << 7) | (t >> (32 - 7))) + b;
 
         t = d + ((a & b) | (~a & c)) + X_1 + T2;
@@ -198,7 +214,7 @@ __global__ void do_md5(md5_byte_t* hash_to_break, md5_byte_t* hash_word) {
         t = c + ((d & b) | (a & ~b)) + ZERO + T19;
         c = ((t << 14) | (t >> (32 - 14))) + d;
 
-        t = b + ((c & a) | (d & ~a)) + word + T20;
+        t = b + ((c & a) | (d & ~a)) + X[0] + T20;
         b = ((t << 20) | (t >> (32 - 20))) + c;
 
         // Set 2
@@ -278,7 +294,7 @@ __global__ void do_md5(md5_byte_t* hash_to_break, md5_byte_t* hash_word) {
         t = a + (b ^ c ^ d) + ZERO + T41;
         a = ((t << 4) | (t >> (32 - 4))) + b;
 
-        t = d + (a ^ b ^ c) + word + T42;
+        t = d + (a ^ b ^ c) + X[0] + T42;
         d = ((t << 11) | (t >> (32 - 11))) + a;
 
         t = c + (d ^ a ^ b) + ZERO + T43;
@@ -309,7 +325,7 @@ __global__ void do_md5(md5_byte_t* hash_to_break, md5_byte_t* hash_word) {
         */
         /* Do the following 16 operations. */
         // Set 1
-        t = a + (c ^ (b | ~d)) + word + T49;
+        t = a + (c ^ (b | ~d)) + X[0] + T49;
         a = ((t << 6) | (t >> (32 - 6))) + b;
 
         t = d + (b ^ (a | ~c)) + ZERO + T50;
@@ -390,15 +406,11 @@ __global__ void do_md5(md5_byte_t* hash_to_break, md5_byte_t* hash_word) {
             cached_hash[14]  == (md5_byte_t)(d >> 16)  &&
             cached_hash[15]  == (md5_byte_t)(d >> 24)
           ) {
-          cuPrintf("found.\n");
-          hash_word[0] = word & 0xff;
-          hash_word[1] = i_1;
-          hash_word[2] = i_2;
-          hash_word[3] = i_3;
-          // hash_word[0] = word[0];
-          // hash_word[1] = word[1];
-          // hash_word[2] = word[2];
-          // hash_word[3] = word[3];
+          // cuPrintf("found.\n");
+          hash_word[0] = word[0];
+          hash_word[1] = word[1];
+          hash_word[2] = word[2];
+          hash_word[3] = word[3];
         }
       } // END Loop 3
     } // END Loop 2
@@ -461,7 +473,7 @@ int main (int argc, char *argv[]) {
 
   cudaPrintfInit();
 
-  do_md5<<<1,94>>>(d_hash, d_word);
+  do_md5<<<4,94>>>(d_hash, d_word);
 
   // synchronize the device and the host
   cudaDeviceSynchronize();
