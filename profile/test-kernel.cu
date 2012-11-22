@@ -115,33 +115,39 @@ __global__ void do_md5(md5_byte_t* hash_to_break, md5_byte_t* hash_word) {
   char i_1, i_2, i_3;
 
 
+
   // 1 Block of 94 threads
-  // char begin = 32;
-  // char end = 126;
+  char begin_1 = 32 + (10 * threadIdx.y);
+  char end_1 = 42 + (10 * threadIdx.y);
+  char begin_2 = 32 + (10 * blockIdx.x);
+  char end_2 = 42 + (10 * blockIdx.x);
 
   // 2 Blocks of 94 threads
-  char begin_1 = 32 + (blockIdx.x * 47);
-  char end_1 = 79 + (blockIdx.x * 47);
+  // char begin_1 = 32 + (blockIdx.x * 47);
+  // char end_1 = 79 + (blockIdx.x * 47);
 
+  // char begin_2 = 32;
+  // char end_2 = 126;
 
-  char begin_2;
-  char end_2;
-
-  if (threadIdx.x < 47) {
-    begin_2 = 32;
-    end_2 = 79;
-  } else {
-    begin_2 = 79;
-    end_2 = 126;
-  }
+  // if (threadIdx.x < 47) {
+  //   begin_2 = 32;
+  //   end_2 = 79;
+  // } else {
+  //   begin_2 = 79;
+  //   end_2 = 126;
+  // }
 
   // 4 Blocks of 92 threads
-  // char begin = 32 + ((blockIdx.x + 0) * 23);
-  // char end = 55 + ((blockIdx.x + 0) * 23);
+  // char begin_1 = 32 + ((blockIdx.x + 0) * 23);
+  // char end_1 = 55 + ((blockIdx.x + 0) * 23);
+  // char begin_2 = 32;
+  // char end_2 = 126;
 
   // 8 Blocks of 88 threads
-  // char begin = 32 + ((blockIdx.x + 0) * 11);
-  // char end = 43 + ((blockIdx.x + 0) * 11);
+  // char begin_1 = 32 + ((blockIdx.x + 0) * 11);
+  // char end_1 = 43 + ((blockIdx.x + 0) * 11);
+  // char begin_2 = 32;
+  // char end_2 = 126;
 
   // 16 Blocks of 80 threads
   // char begin = 32 + ((blockIdx.x + 0) * 5);
@@ -150,24 +156,27 @@ __global__ void do_md5(md5_byte_t* hash_to_break, md5_byte_t* hash_word) {
   // cuPrintf("begin_1: %d - end_1: %d - begin_2: %d - end_2: %d - word[0]: %d\n",
   //   begin_1, end_1, begin_1, end_1, word[0]);
 
-  cuPrintf("tX: %d - tY: %d - tZ: %d\n",
-    threadIdx.x, threadIdx.y, threadIdx.z);
+  // cuPrintf("tX: %d - tY: %d - tZ: %d\n",
+  //   threadIdx.x, threadIdx.y, threadIdx.z);
 
-  cuPrintf("bX: %d - bY: %d - bZ: %d | bDX: %d - bDY: %d - bDZ: %d\n",
-    blockIdx.x, blockIdx.y, blockIdx.z,
-    blockDim.x, blockDim.y, blockDim.z);
+  // cuPrintf("bX: %d - bY: %d - bZ: %d | bDX: %d - bDY: %d - bDZ: %d\n",
+  //   blockIdx.x, blockIdx.y, blockIdx.z,
+  //   blockDim.x, blockDim.y, blockDim.z);
 
-  cuPrintf("gDX: %d - gDY: %d - gDZ: %d\n\n",
-    gridDim.x, gridDim.y, gridDim.z);
+  // cuPrintf("gDX: %d - gDY: %d - gDZ: %d\n\n",
+  //   gridDim.x, gridDim.y, gridDim.z);
 
   const md5_word_t *X; 
 
-  for (i_1 = begin_1; i_1 <= end_1; i_1++) {
+  // unsigned long long counter = 0;
+  for (i_1 = begin_1; i_1 < end_1; i_1++) {
     word[1] = (char) i_1;
-    for (i_2 = begin_2; i_2 <= end_2; i_2++) {
+    for (i_2 = begin_2; i_2 < end_2; i_2++) {
       word[2] = (char) i_2;
-      for (i_3 = 32; i_3 <= 126; i_3++) {
+      for (i_3 = 32; i_3 < 126; i_3++) {
         word[3] = (char) i_3;
+
+        // counter++;
 
         X = (const md5_word_t *)word;
         a = 0x67452301;
@@ -440,7 +449,9 @@ __global__ void do_md5(md5_byte_t* hash_to_break, md5_byte_t* hash_word) {
             cached_hash[14]  == (md5_byte_t)(d >> 16)  &&
             cached_hash[15]  == (md5_byte_t)(d >> 24)
           ) {
-          cuPrintf("found.\n");
+          cuPrintf("\n**************************found*****************\n\n");
+          // cuPrintf("counter: %lu - word[0]: %d - range1: %d- %d - range2: %d-%d\n",
+          //   counter, word[0], begin_1, end_1, begin_2, end_2);
           hash_word[0] = word[0];
           hash_word[1] = word[1];
           hash_word[2] = word[2];
@@ -449,6 +460,9 @@ __global__ void do_md5(md5_byte_t* hash_to_break, md5_byte_t* hash_word) {
       } // END Loop 3
     } // END Loop 2
   } // END Loop 2
+  
+  // cuPrintf("counter: %lu - word[0]: %d - b1: %d - e1: %d - b2: %d - e2: %d\n",
+  //   counter, word[0], begin_1, end_1, begin_2, end_2);
 }
 
 
@@ -507,8 +521,13 @@ int main (int argc, char *argv[]) {
 
   cudaPrintfInit();
 
+  dim3 dimBlock(94, 10, 1);
+  do_md5<<<10, dimBlock>>>(d_hash, d_word);
+
   // do_md5<<<1, 94>>>(d_hash, d_word);
-  do_md5<<<2, 94>>>(d_hash, d_word);
+  // do_md5<<<2, 94>>>(d_hash, d_word);  
+  // do_md5<<<4, 94>>>(d_hash, d_word);
+  // do_md5<<<8, 94>>>(d_hash, d_word);
   // do_md5<<<4, 23>>>(d_hash, d_word);
   // do_md5<<<8, 88>>>(d_hash, d_word);
   // do_md5<<<16, 80>>>(d_hash, d_word);
